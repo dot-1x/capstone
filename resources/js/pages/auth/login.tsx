@@ -14,6 +14,7 @@ type LoginForm = {
     email: string;
     password: string;
     remember: boolean;
+    phone: string;
 };
 
 interface LoginProps {
@@ -25,6 +26,7 @@ export default function Login({ status, canResetPassword }: LoginProps) {
     const { data, setData, post, processing, errors, reset } = useForm<Required<LoginForm>>({
         email: '',
         password: '',
+        phone: '',
         remember: false,
     });
 

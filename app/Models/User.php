@@ -6,6 +6,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class User extends Authenticatable
 {
@@ -21,6 +23,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'phone',
+        'role'
     ];
 
     /**
@@ -44,5 +48,27 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    /**
+     * Custom login method to authenticate user using phone number and password.
+     *
+     * @param string $phone
+     * @param string $password
+     * @return bool
+     */
+    public static function loginWithPhone(string $phone, string $password): bool
+    {
+        // Attempt to locate the user by phone number.
+        $user = self::where('phone', $phone)->first();
+
+        // Check if user exists and the password is correct.
+        if ($user && Hash::check($password, $user->password)) {
+            // Log the user in using Laravel's Auth facade.
+            Auth::login($user);
+            return true;
+        }
+
+        return false;
     }
 }
