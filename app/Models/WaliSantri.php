@@ -1,10 +1,16 @@
 <?php
 
 namespace App\Models;
+use Parental\HasParent;
 
-use Illuminate\Database\Eloquent\Model;
-
-class WaliSantri extends Model
+class WaliSantri extends User
 {
-    //
+    use HasParent;
+    
+    protected $fillable = ['alamat', 'jenis_kelamin'];
+
+    public function anak()
+    {
+        return $this->hasMany(Santri::class, 'ortu_id');
+    }
 }
