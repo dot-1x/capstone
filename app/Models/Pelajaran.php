@@ -2,10 +2,15 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class Pelajaran extends Model
 {
+    use HasFactory;
+    
     protected $fillable = ['nama_pelajaran', 'semester', 'pengampu_id'];
 
     public function pengampu() // Ustadz who teaches
@@ -16,5 +21,26 @@ class Pelajaran extends Model
     public function nilai()
     {
         return $this->hasMany(Nilai::class);
+    }
+    public static function paginateWithSearch(
+        Request $request,
+        array $searchable = [],
+        array $relations = []
+    ): LengthAwarePaginator {
+        $page = $request->query('page', 1);
+        $limit = $request->query('limit', 10);
+        $search = $request->query('search', '');
+        $query = static::query()->with($relations);
+        if ($search && !empty($searchable)) {
+            $query->where(function($q) use ($search, $searchable) {
+                foreach ($searchable as $field) {
+                    $q->orWhere($field, 'like', "%{$search}%");
+                }
+            });
+        }
+        
+        $result = $query->paginate($limit, ['*'], 'page', $page);
+        abort_if($result->isEmpty(), 404, 'No records found');
+        return $result;
     }
 }

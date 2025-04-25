@@ -20,7 +20,6 @@ return new class extends Migration
             $table->enum('santri_role', ['regular', 'pengurus'])->nullable();
             $table->unsignedBigInteger('ortu_id')->nullable();    // wali
             $table->unsignedBigInteger('ustadz_id')->nullable();  // pembimbing
-            $table->string('type')->nullable();
             
             // Foreign keys for relationships
             $table->foreign('ortu_id')->references('id')->on('users')->nullOnDelete();

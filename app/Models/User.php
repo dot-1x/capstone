@@ -5,7 +5,9 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Http\Request;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Parental\HasChildren;
@@ -27,6 +29,12 @@ class User extends Authenticatable
         'phone',
         'role',
         'type'
+    ];
+    protected $childColumn = 'role';
+    protected $childTypes = [
+        'ustadz' => Ustadz::class,
+        'santri' => Santri::class,
+        'walisantri' => WaliSantri::class
     ];
 
     /**
@@ -72,5 +80,27 @@ class User extends Authenticatable
         }
 
         return false;
+    }
+
+    public static function paginateWithSearch(
+        Request $request,
+        array $searchable = ['name'],
+        array $relations = []
+    ): LengthAwarePaginator {
+        $page = $request->query('page', 1);
+        $limit = $request->query('limit', 10);
+        $search = $request->query('search', '');
+        $query = static::query()->with($relations);
+        if ($search && !empty($searchable)) {
+            $query->where(function($q) use ($search, $searchable) {
+                foreach ($searchable as $field) {
+                    $q->orWhere($field, 'like', "%{$search}%");
+                }
+            });
+        }
+        
+        $result = $query->paginate($limit, ['*'], 'page', $page);
+        abort_if($result->isEmpty(), 404, 'No records found');
+        return $result;
     }
 }

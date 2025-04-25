@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -15,21 +16,47 @@ class UserFactory extends Factory
      * The current password being used by the factory.
      */
     protected static ?string $password;
-
+    protected $model = User::class;
+    private static $counter = 0;
     /**
      * Define the model's default state.
      *
      * @return array<string, mixed>
      */
-    public function definition(): array
+    public function definition()
     {
+        $roles = ['santri', 'ustadz', 'walisantri'];
+        // $role = $roles[array_rand($roles)]
         return [
-            'name' => fake()->name(),
-            'email' => fake()->unique()->safeEmail(),
-            'email_verified_at' => now(),
-            'password' => static::$password ??= Hash::make('password'),
-            'remember_token' => Str::random(10),
+            'name' => $this->faker->name,
+            'email' => $this->faker->unique()->safeEmail,
+            'password' => bcrypt('password'), // default password
+            'role' => $roles[array_rand($roles)],
+            'alamat' => $this->faker->address,
+            'phone' => $this->faker->phoneNumber,
         ];
+    }
+
+    public function santri()
+    {
+        $angkatan = rand(2021, 2025);
+        return $this->state(fn () => [
+            'role' => 'santri',
+            'santri_role' => 'regular',
+            'nis' => $angkatan . '_' . self::$counter++,
+            'angkatan' => $angkatan,
+            'jenis_kelamin' => $this->faker->randomElement(['laki', 'perempuan']),
+        ]);
+    }
+
+    public function ustadz()
+    {
+        return $this->state(fn () => ['role' => 'ustadz']);
+    }
+
+    public function walisantri()
+    {
+        return $this->state(fn () => ['role' => 'walisantri']);
     }
 
     /**
