@@ -30,10 +30,10 @@ Route::get('/admin/data/walisantri', function(Request $request) {
         'prop' => WaliSantri::paginateWithSearch($request)
     ]);
 })->name('get-walisantri');
-Route::post('/admin/data/walisantri', function(Request $request) {
+Route::post('/admin/data/walisantri', function() {
     return response()->redirectTo(route('get-walisantri'));
 })->name('add-walisantri');
-Route::patch('/admin/data/walisantri/{walisantri}', function(Request $request) {
+Route::patch('/admin/data/walisantri/{walisantri}', function() {
     return response()->redirectTo(route('get-walisantri'));
 })->name('update-walisantri');
 Route::delete('/admin/data/walisantri/{walisantri}', function(WaliSantri $walisantri) {
@@ -46,13 +46,19 @@ Route::get('/admin/data/ustadz', function(Request $request) {
         'prop' => Ustadz::paginateWithSearch($request)
     ]);
 })->name('get-ustadz');
-Route::post('/admin/data/ustadz', function(Request $request) {
+Route::get('/admin/data/{ustadz}/pelajaran', function(Ustadz $ustadz) {
+    $pelajaran = Pelajaran::where('pengampu_id', $ustadz->id)->with('nilai')->get();
+    return Inertia::render('tester', [
+        'prop' => $pelajaran
+    ]);
+})->name('get-ustadz');
+Route::post('/admin/data/ustadz', function() {
     return response()->redirectTo(route('get-ustadz'));
 })->name('add-ustadz');
-Route::patch('/admin/data/ustadz/{ustadz}', function(Request $request) {
+Route::patch('/admin/data/ustadz/{ustadz}', function() {
     return response()->redirectTo(route('get-ustadz'));
 })->name('update-ustadz');
-Route::delete('/admin/data/ustadz/{ustadz}', function(ustadz $ustadz) {
+Route::delete('/admin/data/ustadz/{ustadz}', function(Ustadz $ustadz) {
     $ustadz->delete();
     return response()->redirectTo(route('get-ustadz'));
 })->name('delete-ustadz');
