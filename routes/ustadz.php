@@ -17,10 +17,14 @@ Route::get('/ustadz/santri-didik', function(Request $request){
     ]);
 })->name('ustadz-santri-didik');
 Route::get('/ustadz/pelajaran', function(Request $request){
+    $semester = $request->query('semester', null);
     $ustadz = Ustadz::inRandomOrder()->first();
-    $pelajaran = Pelajaran::where('pengampu_id', $ustadz->id)->with('nilai')->get();
+    $pelajaran = Pelajaran::where('pengampu_id', $ustadz->id)->with('nilai');
+    if ($semester){
+        $pelajaran->where('semester', $semester);
+    }
     return Inertia::render('tester', [
-        'prop' => $pelajaran
+        'prop' => $pelajaran->get()
     ]);
 })->name('ustadz-pelajaran');
 Route::get('/ustadz/izin', function(Request $request){

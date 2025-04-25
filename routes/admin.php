@@ -47,11 +47,17 @@ Route::get('/admin/data/ustadz', function(Request $request) {
     ]);
 })->name('get-ustadz');
 Route::get('/admin/data/{ustadz}/pelajaran', function(Ustadz $ustadz) {
-    $pelajaran = Pelajaran::where('pengampu_id', $ustadz->id)->with('nilai')->get();
+    $pelajaran = Pelajaran::where('pengampu_id', $ustadz->id)->get();
     return Inertia::render('tester', [
         'prop' => $pelajaran
     ]);
-})->name('get-ustadz');
+})->name('admin-ustadz-pelajaran');
+Route::get('/admin/data/{ustadz}/santri-didik', function(Ustadz $ustadz) {
+    $santri = Santri::where('ustadz_id', $ustadz->id)->get();
+    return Inertia::render('tester', [
+        'prop' => $santri
+    ]);
+})->name('admin-ustadz-santri-didik');
 Route::post('/admin/data/ustadz', function() {
     return response()->redirectTo(route('get-ustadz'));
 })->name('add-ustadz');
@@ -81,7 +87,7 @@ Route::delete('/admin/data/izin/{izin}', function(Pelajaran $izin) {
 
 Route::get('/admin/data/pelajaran', function(Request $request) {
     return Inertia::render('tester', [
-        'prop' => Pelajaran::paginateWithSearch($request)
+        'prop' => Pelajaran::paginateWithSearch($request, ['nama_pelajaran'], ['nilai', 'pengampu'])
     ]);
 })->name('get-pelajaran');
 Route::post('/admin/data/pelajaran', function(Request $request) {
