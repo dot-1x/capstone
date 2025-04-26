@@ -4,14 +4,19 @@ import { Link, usePage } from '@inertiajs/react';
 
 export function NavMain({ items = [] }: { items: NavItem[] }) {
     const page = usePage();
+
+    // ambil URL tanpa query string
+    const currentPath = page.url.split('?')[0];
+
     return (
         <SidebarGroup className="px-2 py-0">
             <SidebarGroupLabel>Menu</SidebarGroupLabel>
             <SidebarMenu>
                 {items.map((item) => (
                     <SidebarMenuItem key={item.title}>
-                        <SidebarMenuButton  
-                            asChild isActive={item.href === page.url}
+                        <SidebarMenuButton
+                            asChild
+                            isActive={item.href === currentPath}
                             tooltip={{ children: item.title }}
                         >
                             <Link href={item.href} prefetch>
