@@ -17,27 +17,27 @@ const mainNavItems: NavItem[] = [
     // admin
     {
         title: 'Data Santri',
-        href: '/admin/santri ',
+        href: '/admin/santri',
         icon: Users2,
     },
     {
         title: 'Data Ustadz',
-        href: '/admin/ustadz ',
+        href: '/admin/ustadz',
         icon: GraduationCap,
     },
     {
         title: 'Data Wali Santri',
-        href: '/admin/santri ',
+        href: '/admin/walisantri',
         icon: HeartHandshake,
     },
     {
         title: 'Data Pelajaran',
-        href: '/admin/pelajaran ',
+        href: '/admin/pelajaran',
         icon: BookOpenTextIcon,
     },
     {
         title: 'Laporan Izin Santri',
-        href: '/admin/laporan ',
+        href: '/admin/laporan',
         icon: FileText,
     },
 
@@ -54,7 +54,7 @@ const mainNavItems: NavItem[] = [
     },
     {
         title: 'Laporan Izin Santri',
-        href: '/ustadz/izin ',
+        href: '/ustadz/izin',
         icon: FileText,
     },
 

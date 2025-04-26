@@ -13,7 +13,7 @@ class SantriManagerController extends Controller
      */
     public function index(Request $request)
     {
-        return Inertia::render('tester', [
+        return Inertia::render('admin/santri', [
             'prop' => Santri::paginateWithSearch($request, ['name'], ['ortu'])
         ]);
     }
