@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('/admin')
     ->name('admin.')
-    ->middleware(['auth', EnsureUserHasRole::class.':admin'])
+    ->middleware(['auth'])
     ->group(
     function(){
         Route::resource('santri', SantriManagerController::class)
