@@ -7,7 +7,7 @@ import { Link } from '@inertiajs/react';
 import {  BookOpenTextIcon, FileText, GraduationCap, HeartHandshake, LayoutGrid, Users2 } from 'lucide-react';
 import AppLogo from './app-logo';
 
-const mainNavItems: NavItem[] = [
+export const mainNavItems: NavItem[] = [
     {
         title: 'Dashboard',
         href: '/dashboard',
