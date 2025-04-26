@@ -1,0 +1,12 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+
+class UstadzController extends Controller
+{
+    public function view(){
+        
+    }
+}
