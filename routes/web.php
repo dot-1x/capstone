@@ -1,15 +1,10 @@
 <?php
 
-use App\Http\Controllers\SantriManagerController;
-use App\Http\Controllers\WaliSantriManagerController;
-use App\Http\Middleware\EnsureIsAdmin;
-use App\Http\Middleware\EnsureUserHasRole;
 use App\Models\Izin;
 use App\Models\Pelajaran;
 use App\Models\Santri;
 use App\Models\Ustadz;
 use App\Models\WaliSantri;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -22,17 +17,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return Inertia::render('dashboard');
     })->name('dashboard');
 });
-Route::prefix('/admin')
-    ->name('admin.')
-    ->middleware(['auth', EnsureUserHasRole::class.':walisantri'])
-    ->group(
-    function(){
-        Route::resource('santri', SantriManagerController::class)
-        ->only(['index', 'store', 'update', 'destroy']);
-        Route::resource('walisantri', WaliSantriManagerController::class)
-        ->only(['index', 'store', 'update', 'destroy']);
-    }
-);
 Route::prefix('/data')
     ->name('detail.')
     ->middleware(['auth'])
@@ -68,6 +52,6 @@ Route::prefix('/data')
 
 require __DIR__.'/settings.php';
 require __DIR__.'/auth.php';
-// require __DIR__.'/admin.php';
+require __DIR__.'/admin.php';
 require __DIR__.'/ustadz.php';
 require __DIR__.'/walisantri.php';
