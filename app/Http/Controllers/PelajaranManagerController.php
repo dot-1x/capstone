@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Pelajaran;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 class PelajaranManagerController extends Controller

@@ -2,9 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\WaliSantri;
 use Illuminate\Http\Request;
 
-class WaliSantriController extends Controller
+class WalisantriController extends Controller
 {
-    //
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
+        //
+    }
 }
