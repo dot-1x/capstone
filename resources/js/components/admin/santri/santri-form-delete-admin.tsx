@@ -24,7 +24,7 @@ export default function SantriFormDeleteAdmin({ open, onOpenChange }: SantriForm
 
     return (
         <Dialog open={open} onOpenChange={onOpenChange}>
-            <DialogContent className="h-screen overflow-y-auto sm:max-w-2xl">
+            <DialogContent className="max-h-screen overflow-y-auto sm:max-w-2xl">
                 <DialogHeader className="text-center">
                     <DialogTitle className="mx-auto max-w-lg text-center text-xl font-bold">
                         Apakah Anda yakin ingin menghapus data santri "{studentData.namaLengkap}"?

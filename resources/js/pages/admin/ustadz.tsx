@@ -18,7 +18,7 @@ export default function Page({ prop }: { prop: AdminUstadzResponse }) {
     console.log(prop);
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="Data Santri" />
+            <Head title="Data Ustadz" />
             <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
                 <div className="flex items-start justify-between">
                     <Heading
