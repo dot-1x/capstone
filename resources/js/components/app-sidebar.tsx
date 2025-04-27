@@ -37,7 +37,7 @@ export const mainNavItems: NavItem[] = [
     },
     {
         title: 'Laporan Izin Santri',
-        href: '/admin/laporan',
+        href: '/admin/izin',
         icon: FileText,
     },
 
