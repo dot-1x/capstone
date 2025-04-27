@@ -11,21 +11,21 @@ import { id } from 'date-fns/locale';
 import { CalendarIcon } from 'lucide-react';
 import { useState } from 'react';
 
-type SantriFormEditAdminProps = {
+type UstadzFormEditAdminProps = {
     open: boolean;
     onOpenChange: (open: boolean) => void;
 };
 
-export default function SantriFormEditAdmin({ open, onOpenChange }: SantriFormEditAdminProps) {
+export default function UstadzFormEditAdmin({ open, onOpenChange }: UstadzFormEditAdminProps) {
     const [date, setDate] = useState<Date | undefined>(undefined);
 
     return (
         <Dialog open={open} onOpenChange={onOpenChange}>
             <DialogContent className="max-h-screen overflow-y-auto sm:max-w-[625px]">
                 <DialogHeader>
-                    <DialogTitle>Edit Data Santri</DialogTitle>
+                    <DialogTitle>Edit Data Ustadz</DialogTitle>
                     <DialogDescription>
-                        Perbarui informasi santri sesuai data terbaru. Pastikan semua kolom terisi dengan benar untuk keperluan administrasi dan
+                        Perbarui informasi ustadz sesuai data terbaru. Pastikan semua kolom terisi dengan benar untuk keperluan administrasi dan
                         akademik.
                     </DialogDescription>
                 </DialogHeader>

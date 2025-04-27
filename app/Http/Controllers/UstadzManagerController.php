@@ -12,7 +12,7 @@ class UstadzManagerController extends Controller
 {
     public function index(Request $request)
     {
-        return Inertia::render('tester', [
+        return Inertia::render('admin/ustadz', [
             'prop' => Ustadz::paginateWithSearch($request)
         ]);
     }

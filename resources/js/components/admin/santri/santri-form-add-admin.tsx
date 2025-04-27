@@ -21,7 +21,7 @@ export default function SantriFormAddAdmin() {
                     <Plus /> Tambah Santri
                 </Button>
             </DialogTrigger>
-            <DialogContent className="h-screen overflow-y-auto sm:max-w-[625px]">
+            <DialogContent className="max-h-screen overflow-y-auto sm:max-w-[625px]">
                 <DialogHeader>
                     <DialogTitle>Tambah Data Santri Baru</DialogTitle>
                     <DialogDescription>

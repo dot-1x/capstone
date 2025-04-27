@@ -2,12 +2,12 @@ import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { AlertCircle } from 'lucide-react';
 
-type SantriFormDeleteAdminProps = {
+type UstadzFormDeleteAdminProps = {
     open: boolean;
     onOpenChange: (open: boolean) => void;
 };
 
-export default function SantriFormDeleteAdmin({ open, onOpenChange }: SantriFormDeleteAdminProps) {
+export default function UstadzFormDeleteAdmin({ open, onOpenChange }: UstadzFormDeleteAdminProps) {
     const studentData = {
         nis: '2023001',
         nik: '1234567890123456',
@@ -27,10 +27,10 @@ export default function SantriFormDeleteAdmin({ open, onOpenChange }: SantriForm
             <DialogContent className="h-screen overflow-y-auto sm:max-w-2xl">
                 <DialogHeader className="text-center">
                     <DialogTitle className="mx-auto max-w-lg text-center text-xl font-bold">
-                        Apakah Anda yakin ingin menghapus data santri "{studentData.namaLengkap}"?
+                        Apakah Anda yakin ingin menghapus data ustadz "{studentData.namaLengkap}"?
                     </DialogTitle>
                     <DialogDescription className="text-center">
-                        Tindakan ini akan menghapus semua data yang terkait dengan santri tersebut.
+                        Tindakan ini akan menghapus semua data yang terkait dengan ustadz tersebut.
                     </DialogDescription>
                 </DialogHeader>
 

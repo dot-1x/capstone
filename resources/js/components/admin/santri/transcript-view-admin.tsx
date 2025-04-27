@@ -4,7 +4,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { FileTextIcon, Printer } from 'lucide-react';
 import { useState } from 'react';
 
-export default function TranscriptView() {
+export default function TranscriptViewAdmin() {
     const [semester, setSemester] = useState('Ganjil');
 
     const studentData = {
@@ -28,8 +28,8 @@ export default function TranscriptView() {
                     <FileTextIcon /> Lihat
                 </Button>
             </DialogTrigger>
-            <DialogContent className="h-screen overflow-y-auto sm:max-w-[625px]">
-                <DialogHeader className='border-b'>
+            <DialogContent className="max-h-screen overflow-y-auto sm:max-w-[625px]">
+                <DialogHeader className='border-b pb-4'>
                     <DialogTitle className="text-center">Transkip Nilai Santri</DialogTitle>
                     <DialogDescription className="mx-auto max-w-sm text-center">
                         Ringkasan hasil belajar santri selama mengikuti program pendidikan di Pondok Pesantren.

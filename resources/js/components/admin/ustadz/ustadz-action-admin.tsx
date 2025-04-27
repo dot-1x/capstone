@@ -13,11 +13,11 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import SantriFormEditAdmin from './santri-form-edit-admin';
-import SantriFormDeleteAdmin from './santri-form-delete-admin';
+import UstadzFormEditAdmin from './ustadz-form-edit-admin';
+import UstadzFormDeleteAdmin from './ustadz-form-delete-admin';
 
 
-export const SantriActionAdmin: React.FC = () => {
+export const UstadzActionAdmin: React.FC = () => {
 
     const [editDialogOpen, setEditDialogOpen] = useState(false);
     const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
@@ -37,16 +37,16 @@ export const SantriActionAdmin: React.FC = () => {
                     <DropdownMenuSeparator />
 
                     <DropdownMenuItem onClick={() => setEditDialogOpen(true)}>
-                        <PenBox className="mr-1 h-4 w-4" /> Edit Santri
+                        <PenBox className="mr-1 h-4 w-4" /> Edit Ustadz
                     </DropdownMenuItem>
                     <DropdownMenuItem onClick={() => setDeleteDialogOpen(true)}>
-                        <Trash2 className="mr-1 h-4 w-4" /> Hapus Santri
+                        <Trash2 className="mr-1 h-4 w-4" /> Hapus Ustadz
                     </DropdownMenuItem>
                 </DropdownMenuContent>
             </DropdownMenu>
 
-            <SantriFormEditAdmin open={editDialogOpen} onOpenChange={setEditDialogOpen} />
-            <SantriFormDeleteAdmin open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen} />
+            <UstadzFormEditAdmin open={editDialogOpen} onOpenChange={setEditDialogOpen} />
+            <UstadzFormDeleteAdmin open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen} />
         </>
     );
 };

@@ -3,22 +3,22 @@
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { AdminSantriPaginationResponse } from '@/types/admin/santri';
+import { AdminUstadzResponse } from '@/types/admin/ustadz';
 import { router, usePage } from '@inertiajs/react';
 import { useState } from 'react';
-import { SantriActionAdmin } from './santri-action-admin';
-import TranscriptViewAdmin from './transcript-view-admin';
-import SantriViewAdmin from './santri-view-admin';
+import LessonViewUstadzAdmin from './lesson-view-ustadz-admin';
+import SantriViewUstadzAdmin from './santri-view-ustadz-admin';
+import { UstadzActionAdmin } from './ustadz-action-admin';
 
 type Props = {
-    santriData: AdminSantriPaginationResponse;
+    santriData: AdminUstadzResponse;
     filters: {
         search: string;
         page: number;
     };
 };
 
-export default function DataTableSantriAdmin({ santriData, filters }: Props) {
+export default function DataTableUstadzAdmin({ santriData, filters }: Props) {
     const { url } = usePage();
     const [searchInput, setSearchInput] = useState(filters.search || '');
 
@@ -54,11 +54,10 @@ export default function DataTableSantriAdmin({ santriData, filters }: Props) {
                     <TableHeader>
                         <TableRow className="bg-muted">
                             <TableHead>No</TableHead>
-                            <TableHead>NIS</TableHead>
-                            <TableHead>Nama</TableHead>
-                            <TableHead>Email</TableHead>
-                            <TableHead>Transkip Nilai</TableHead>
-                            <TableHead></TableHead>
+                            <TableHead>Nama Lengkap</TableHead>
+                            <TableHead>Jumlah Santri Didik</TableHead>
+                            <TableHead>List Pelajaran</TableHead>
+                            <TableHead>List Santri Didik</TableHead>
                             <TableHead></TableHead>
                             {/* <TableHead>Alamat</TableHead> */}
                             {/* <TableHead>Jenis Kelamin</TableHead>
@@ -72,18 +71,23 @@ export default function DataTableSantriAdmin({ santriData, filters }: Props) {
                             santriData.data.map((santri, index) => (
                                 <TableRow key={santri.id}>
                                     <TableCell>{(santriData.current_page - 1) * santriData.per_page + index + 1}</TableCell>
-                                    <TableCell>{santri.nis}</TableCell>
                                     <TableCell>{santri.name}</TableCell>
-                                    <TableCell>{santri.email}</TableCell>
+                                    <TableCell>32</TableCell>
                                     <TableCell>
-                                        <TranscriptViewAdmin />
+                                        <LessonViewUstadzAdmin />
                                     </TableCell>
                                     <TableCell>
-                                        <SantriViewAdmin />
+                                        <SantriViewUstadzAdmin />
+                                    </TableCell>
+                                    <TableCell>
+                                        <UstadzActionAdmin />
+                                    </TableCell>
+                                    {/* <TableCell>
+                                        <SantriView />
                                     </TableCell>
                                     <TableCell>
                                         <SantriActionAdmin />
-                                    </TableCell>
+                                    </TableCell> */}
                                     {/* <TableCell>{santri.alamat}</TableCell> */}
                                     {/* <TableCell>{santri.jenis_kelamin}</TableCell>
                                     <TableCell>{santri.phone}</TableCell>
