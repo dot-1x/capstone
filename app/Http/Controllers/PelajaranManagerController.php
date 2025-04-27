@@ -19,18 +19,18 @@ class PelajaranManagerController extends Controller
     public function store(Request $request)
     {
         // Add pelajaran logic here
-        return redirect()->route('pelajaran-manager.index');
+        return redirect()->route('admin.pelajaran.index');
     }
 
     public function update(Request $request, Pelajaran $pelajaran)
     {
         // Update pelajaran logic here
-        return redirect()->route('pelajaran-manager.index');
+        return redirect()->route('admin.pelajaran.index');
     }
 
     public function destroy(Pelajaran $pelajaran)
     {
         $pelajaran->delete();
-        return redirect()->route('pelajaran-manager.index');
+        return redirect()->route('admin.pelajaran.index');
     }
 }
