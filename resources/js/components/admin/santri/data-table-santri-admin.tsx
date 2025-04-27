@@ -6,6 +6,8 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { AdminSantriPaginationResponse } from '@/types/admin/santri';
 import { router, usePage } from '@inertiajs/react';
 import { useState } from 'react';
+import { SantriActionAdmin } from './santri-action-admin';
+import TranscriptView from './transcript-view';
 
 type Props = {
     santriData: AdminSantriPaginationResponse;
@@ -49,12 +51,14 @@ export default function DataTableSantriAdmin({ santriData, filters }: Props) {
             <div className="w-full overflow-x-auto rounded-lg border">
                 <Table className="min-w-[900px]">
                     <TableHeader>
-                        <TableRow>
+                        <TableRow className="bg-muted">
                             <TableHead>No</TableHead>
                             <TableHead>NIS</TableHead>
                             <TableHead>Nama</TableHead>
                             <TableHead>Email</TableHead>
-                            <TableHead>Alamat</TableHead>
+                            <TableHead>Transkip Nilai</TableHead>
+                            <TableHead></TableHead>
+                            {/* <TableHead>Alamat</TableHead> */}
                             {/* <TableHead>Jenis Kelamin</TableHead>
                             <TableHead>Nomor HP</TableHead>
                             <TableHead>Role</TableHead>
@@ -69,7 +73,11 @@ export default function DataTableSantriAdmin({ santriData, filters }: Props) {
                                     <TableCell>{santri.nis}</TableCell>
                                     <TableCell>{santri.name}</TableCell>
                                     <TableCell>{santri.email}</TableCell>
-                                    <TableCell>{santri.alamat}</TableCell>
+                                    <TableCell><TranscriptView/></TableCell>
+                                    <TableCell>
+                                        <SantriActionAdmin />
+                                    </TableCell>
+                                    {/* <TableCell>{santri.alamat}</TableCell> */}
                                     {/* <TableCell>{santri.jenis_kelamin}</TableCell>
                                     <TableCell>{santri.phone}</TableCell>
                                     <TableCell>{santri.santri_role}</TableCell>

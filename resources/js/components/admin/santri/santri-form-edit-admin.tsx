@@ -1,35 +1,38 @@
 import { Button } from '@/components/ui/button';
 import { Calendar } from '@/components/ui/calendar';
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Textarea } from '@/components/ui/textarea';
 import { cn } from '@/lib/utils';
 import { format } from 'date-fns';
 import { id } from 'date-fns/locale';
-import { CalendarIcon, Plus} from 'lucide-react';
+import { CalendarIcon } from 'lucide-react';
 import { useState } from 'react';
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
-import { Textarea } from '@/components/ui/textarea';
 
-export default function SantriFormAddAdmin() {
+type SantriFormEditAdminProps = {
+    open: boolean;
+    onOpenChange: (open: boolean) => void;
+};
+
+export default function ({ open, onOpenChange }: SantriFormEditAdminProps) {
     const [date, setDate] = useState<Date | undefined>(undefined);
 
     return (
-        <Dialog>
-            <DialogTrigger asChild>
-                <Button variant="default">
-                    <Plus /> Tambah Santri
-                </Button>
-            </DialogTrigger>
+        <Dialog open={open} onOpenChange={onOpenChange}>
             <DialogContent className="h-screen overflow-y-auto sm:max-w-[625px]">
                 <DialogHeader>
-                    <DialogTitle>Tambah Data Santri Baru</DialogTitle>
+                    <DialogTitle>Edit Data Santri</DialogTitle>
                     <DialogDescription>
-                        Silakan isi formulir di bawah ini untuk menambahkan santri baru ke dalam sistem pondok pesantren. Pastikan seluruh data diisi
-                        dengan benar dan lengkap untuk keperluan administrasi dan pendataan.
+                        Perbarui informasi santri sesuai data terbaru. Pastikan semua kolom terisi dengan benar untuk keperluan administrasi dan
+                        akademik.
                     </DialogDescription>
                 </DialogHeader>
+
+                {/* Form */}
                 <div className="space-y-6 border-t py-4">
+                    {/* NIS & NIK */}
                     <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                         <div className="flex flex-col space-y-2">
                             <label htmlFor="nis" className="font-medium">
@@ -46,6 +49,7 @@ export default function SantriFormAddAdmin() {
                         </div>
                     </div>
 
+                    {/* Nama & Jenis Kelamin */}
                     <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                         <div className="flex flex-col space-y-2">
                             <label htmlFor="nama" className="font-medium">
@@ -70,6 +74,7 @@ export default function SantriFormAddAdmin() {
                         </div>
                     </div>
 
+                    {/* Tempat Lahir & Tanggal Lahir */}
                     <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                         <div className="flex flex-col space-y-2">
                             <label htmlFor="tempatLahir" className="font-medium">
@@ -96,6 +101,7 @@ export default function SantriFormAddAdmin() {
                         </div>
                     </div>
 
+                    {/* Alamat */}
                     <div className="flex flex-col space-y-2">
                         <label htmlFor="alamat" className="font-medium">
                             Alamat
@@ -103,6 +109,7 @@ export default function SantriFormAddAdmin() {
                         <Textarea id="alamat" placeholder="Masukan alamat lengkap" rows={3} />
                     </div>
 
+                    {/* Angkatan & Peran */}
                     <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                         <div className="flex flex-col space-y-2">
                             <label htmlFor="angkatan" className="font-medium">
@@ -128,6 +135,7 @@ export default function SantriFormAddAdmin() {
                         </div>
                     </div>
 
+                    {/* Ustadz & Wali */}
                     <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                         <div className="flex flex-col space-y-2">
                             <label htmlFor="ustadz" className="font-medium">
