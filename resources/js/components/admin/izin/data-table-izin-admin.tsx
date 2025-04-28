@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import formatDate from '@/lib/format-date';
-import { AdminIzinPulangResponse } from '@/types/admin/izin';
+import { IzinPulang } from '@/types/admin/izin';
 import { router, usePage } from '@inertiajs/react';
 import { Printer } from 'lucide-react';
 import { useState } from 'react';
@@ -12,7 +12,7 @@ import { IzinActionAdmin } from './izin-action-admin';
 
 
 type Props = {
-    santriData: AdminIzinPulangResponse;
+    santriData: IzinPulang[];
     filters: {
         search: string;
         page: number;
@@ -70,8 +70,8 @@ export default function DataTableIzinAdmin({ santriData, filters }: Props) {
                         </TableRow>
                     </TableHeader>
                     <TableBody>
-                        {santriData.data.length > 0 ? (
-                            santriData.data.map((data) => (
+                        {santriData.length > 0 ? (
+                            santriData.map((data) => (
                                 <TableRow key={data.id}>
                                     <TableCell>{data.target_santri.name}</TableCell>
                                     <TableCell>{data.target_santri.name}</TableCell>
@@ -80,7 +80,7 @@ export default function DataTableIzinAdmin({ santriData, filters }: Props) {
                                     <TableCell>{formatDate(data.tanggal_kembali)}</TableCell>
                                     <TableCell>
                                         <div
-                                            className={`w-full rounded px-3 py-1 text-center text-sm font-bold ${
+                                            className={`w-full  rounded px-3 py-1.5 text-center text-xs font-bold ${
                                                 data.status === 'accepted'
                                                     ? 'border border-green-500 bg-green-50 text-green-500'
                                                     : data.status === 'rejected'

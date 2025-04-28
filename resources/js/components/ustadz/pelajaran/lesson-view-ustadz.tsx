@@ -150,7 +150,6 @@ export default function LessonViewUstadz() {
                                                 <Button
                                                     variant="default"
                                                     size="sm"
-                                                    className="bg-green-600 hover:bg-green-700"
                                                     onClick={() => (editingIndex === index ? handleSaveValue(index) : handleEditValue(index))}
                                                     disabled={
                                                         editingIndex !== index || (editingIndex === index && editedValue === student.nilai.toString())

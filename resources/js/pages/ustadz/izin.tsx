@@ -1,10 +1,9 @@
 import DataTableIzinAdmin from '@/components/admin/izin/data-table-izin-admin';
-import IzinFormAddAdmin from '@/components/admin/izin/izzin-form-add-admin';
 import { Heading } from '@/components/ui/heading';
 import { Separator } from '@/components/ui/separator';
 import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
-import { AdminIzinPulangResponse } from '@/types/admin/izin';
+import {  IzinPulang } from '@/types/admin/izin';
 import { Head } from '@inertiajs/react';
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -14,7 +13,8 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
 ];
 
-export default function Page({ prop }: { prop: AdminIzinPulangResponse }) {
+export default function Page({ prop }: { prop: IzinPulang[] }) {
+   
     console.log(prop);
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
@@ -25,11 +25,9 @@ export default function Page({ prop }: { prop: AdminIzinPulangResponse }) {
                         title="Data Permohonan Izin Santri"
                         description="Berisi informasi izin santri yang diajukan oleh orang tua atau wali, termasuk alasan, durasi, dan status izin."
                     />
-
-                    <IzinFormAddAdmin />
                 </div>
                 <Separator />
-                <DataTableIzinAdmin santriData={prop.data} filters={{ search: '', page: 1 }} />
+                <DataTableIzinAdmin santriData={prop} filters={{ search: '', page: 1 }} />
             </div>
         </AppLayout>
     );

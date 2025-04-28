@@ -29,7 +29,7 @@ Route::get('/ustadz/pelajaran', function(Request $request){
 })->name('ustadz-pelajaran');
 Route::get('/ustadz/izin', function(Request $request){
     $izin = Izin::all()->load('targetSantri', 'createdBy');
-    return Inertia::render('tester', [
+    return Inertia::render('ustadz/izin', [
         'prop' => $izin
     ]);
 })->name('ustadz-izin');
