@@ -13,7 +13,7 @@ use Inertia\Inertia;
 Route::get('/wali/anak', function(){
     $wali = WaliSantri::inRandomOrder()->first();
     $santri = Santri::where('ortu_id', $wali->id)->with('ustadz')->get();
-    return Inertia::render('tester', [
+    return Inertia::render('walisantri/anak', [
         'prop' => $santri
     ]);
 })->name('walisantri-anak');
