@@ -1,34 +1,33 @@
 import { Heading } from '@/components/ui/heading';
 import { Separator } from '@/components/ui/separator';
-import DataTableSantriUstadz from '@/components/ustadz/santri/data-table-santri-ustadz';
+import DataTablePelajaranUstadz from '@/components/ustadz/pelajaran/data-table-pelajaran-ustadz';
 import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
-import { UstadzSantri } from '@/types/ustadz/santri';
+import { UstadzPelajaranList } from '@/types/ustadz/pelajaran';
 import { Head } from '@inertiajs/react';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
-        title: 'Data Santri yang Diasuh',
-        href: '/ustadz/santri-didik',
+        title: 'Data Pelajaran',
+        href: '/ustadz/pelajaran',
     },
 ];
 
 
-export default function Page({ prop }: { prop: UstadzSantri }) {
+export default function Page({ prop }: { prop: UstadzPelajaranList }) {
     console.log(prop);
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="Data Santri yang Diasuh" />
+            <Head title="Data Pelajaran" />
             <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
                 <div className="flex items-start justify-between">
                     <Heading
-                        title="Data Santri yang Diasuh"
-                        description="Menampilkan daftar santri yang berada dalam bimbingan atau pengawasan ustadz. "
+                        title="Daftar Mata Pelajaran yang Diampu"
+                        description="Informasi lengkap mengenai mata pelajaran yang diajarkan oleh seorang ustadz. "
                     />
-
                 </div>
                 <Separator />
-                <DataTableSantriUstadz santriData={prop} filters={{ search: '', page: 1 }} />
+                <DataTablePelajaranUstadz santriData={prop} filters={{ search: '', page: 1 }} />
             </div>
         </AppLayout>
     );

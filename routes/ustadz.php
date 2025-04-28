@@ -23,7 +23,7 @@ Route::get('/ustadz/pelajaran', function(Request $request){
     if ($semester){
         $pelajaran->where('semester', $semester);
     }
-    return Inertia::render('tester', [
+    return Inertia::render('ustadz/pelajaran', [
         'prop' => $pelajaran->get()
     ]);
 })->name('ustadz-pelajaran');
