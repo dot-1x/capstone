@@ -27,7 +27,7 @@ export const UstadzActionAdmin: React.FC = () => {
         <>
             <DropdownMenu modal={false}>
                 <DropdownMenuTrigger asChild>
-                    <Button variant="ghost" size={'icon'} className="h-8 w-8 p-0">
+                    <Button variant="ghost" size={'icon'} className="h-8 w-8 p-0 border">
                         <span className="sr-only">Open menu</span>
                         <EllipsisVertical className="h-4 w-4" />
                     </Button>

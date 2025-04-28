@@ -92,7 +92,7 @@ export default function SantriFormDeleteAdmin({ open, onOpenChange }: SantriForm
                     <span>Data yang dihapus tidak dapat dikembalikan.</span>
                 </div>
 
-                <DialogFooter>
+                <DialogFooter className="mt-4 flex w-full justify-end space-x-2">
                     <Button variant="outline" onClick={() => onOpenChange(false)}>
                         Batal
                     </Button>

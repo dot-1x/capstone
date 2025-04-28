@@ -89,7 +89,7 @@ export default function DataTablePelajaranUstadz({ santriData, filters }: Props)
                         ) : (
                             <TableRow>
                                 <TableCell colSpan={9} className="text-center">
-                                    No santri found.
+                                    No data found.
                                 </TableCell>
                             </TableRow>
                         )}

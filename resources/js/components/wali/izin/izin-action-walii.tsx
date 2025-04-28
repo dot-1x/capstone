@@ -2,7 +2,7 @@
 
 import type React from 'react';
 
-import {  Ban, Check, EllipsisVertical, Trash2 } from 'lucide-react';
+import {  EllipsisVertical, Trash2 } from 'lucide-react';
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import {
@@ -13,10 +13,10 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import IzinFormDeleteAdmin from './izin-form-delete-admin';
+import IzinFormDeleteAdmin from './izin-form-delete-wali';
 
 
-export const IzinActionAdmin: React.FC = () => {
+export const IzinActionWali: React.FC = () => {
 
     const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
  
@@ -34,12 +34,6 @@ export const IzinActionAdmin: React.FC = () => {
                     <DropdownMenuLabel>Aksi</DropdownMenuLabel>
                     <DropdownMenuSeparator />
 
-                    <DropdownMenuItem>
-                        <Check className="mr-1 h-4 w-4" /> Beri Izin
-                    </DropdownMenuItem>
-                    <DropdownMenuItem>
-                        <Ban className="mr-1 h-4 w-4" /> Tolak Izin
-                    </DropdownMenuItem>
                     <DropdownMenuItem onClick={() => setDeleteDialogOpen(true)}>
                         <Trash2 className="mr-1 h-4 w-4" /> Hapus Izin
                     </DropdownMenuItem>

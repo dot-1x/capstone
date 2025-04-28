@@ -4,22 +4,22 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import formatDate from '@/lib/format-date';
-import { IzinPulang } from '@/types/admin/izin';
 import { router, usePage } from '@inertiajs/react';
 import { Printer } from 'lucide-react';
 import { useState } from 'react';
-import { IzinActionAdmin } from './izin-action-admin';
+import { IzinActionWali } from './izin-action-walii';
+import { WaliIzinPulang } from '@/types/walisantri/izin';
 
 
 type Props = {
-    santriData: IzinPulang[];
+    santriData: WaliIzinPulang[];
     filters: {
         search: string;
         page: number;
     };
 };
 
-export default function DataTableIzinAdmin({ santriData, filters }: Props) {
+export default function DataTableIzinWali({ santriData, filters }: Props) {
     const { url } = usePage();
     const [searchInput, setSearchInput] = useState(filters.search || '');
 
@@ -73,8 +73,8 @@ export default function DataTableIzinAdmin({ santriData, filters }: Props) {
                         {santriData.length > 0 ? (
                             santriData.map((data) => (
                                 <TableRow key={data.id}>
-                                    <TableCell>{data.target_santri.name}</TableCell>
-                                    <TableCell>{data.target_santri.name}</TableCell>
+                                    <TableCell>Ucup</TableCell>
+                                    <TableCell>Slamet</TableCell>
                                     <TableCell>{data.message}</TableCell>
                                     <TableCell>{formatDate(data.tanggal_pulang)}</TableCell>
                                     <TableCell>{formatDate(data.tanggal_kembali)}</TableCell>
@@ -101,7 +101,7 @@ export default function DataTableIzinAdmin({ santriData, filters }: Props) {
                                         </Button>
                                     </TableCell>
                                     <TableCell>
-                                       <IzinActionAdmin/>
+                                       <IzinActionWali/>
                                     </TableCell>
 
                                 </TableRow>

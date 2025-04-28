@@ -85,7 +85,7 @@ export default function DataTablePelajaranSantriAdmin({ santriData, filters }: P
                         ) : (
                             <TableRow>
                                 <TableCell colSpan={9} className="text-center">
-                                    No santri found.
+                                    No data found.
                                 </TableCell>
                             </TableRow>
                         )}

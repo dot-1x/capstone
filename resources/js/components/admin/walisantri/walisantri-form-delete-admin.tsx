@@ -62,7 +62,7 @@ export default function WalisantriFormDeleteAdmin({ open, onOpenChange }: Santri
                     <span>Data yang dihapus tidak dapat dikembalikan.</span>
                 </div>
 
-                <DialogFooter>
+                <DialogFooter className="mt-4 flex w-full justify-end space-x-2">
                     <Button variant="outline" onClick={() => onOpenChange(false)}>
                         Batal
                     </Button>
