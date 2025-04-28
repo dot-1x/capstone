@@ -12,7 +12,7 @@ use Inertia\Inertia;
 Route::get('/ustadz/santri-didik', function(Request $request){
     $ustadz = Ustadz::inRandomOrder()->first();
     $santri = Santri::query()->where('ustadz_id', $ustadz->id)->with('ortu')->get();
-    return Inertia::render('tester', [
+    return Inertia::render('ustadz/santri', [
         'prop' => $santri
     ]);
 })->name('ustadz-santri-didik');
