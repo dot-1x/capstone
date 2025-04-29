@@ -11,21 +11,21 @@ import { useState } from 'react';
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Textarea } from '@/components/ui/textarea';
 
-export default function SantriFormAddAdmin() {
+export default function UstadzFormAddAdmin() {
     const [date, setDate] = useState<Date | undefined>(undefined);
 
     return (
         <Dialog>
             <DialogTrigger asChild>
                 <Button variant="default">
-                    <Plus /> Tambah Santri
+                    <Plus /> Tambah Ustadz
                 </Button>
             </DialogTrigger>
             <DialogContent className="max-h-screen overflow-y-auto sm:max-w-[625px]">
                 <DialogHeader>
-                    <DialogTitle>Tambah Data Santri Baru</DialogTitle>
+                    <DialogTitle>Tambah Data Ustadz Baru</DialogTitle>
                     <DialogDescription>
-                        Silakan isi formulir di bawah ini untuk menambahkan santri baru ke dalam sistem pondok pesantren. Pastikan seluruh data diisi
+                        Silakan isi formulir di bawah ini untuk menambahkan Ustadz baru ke dalam sistem pondok pesantren. Pastikan seluruh data diisi
                         dengan benar dan lengkap untuk keperluan administrasi dan pendataan.
                     </DialogDescription>
                 </DialogHeader>

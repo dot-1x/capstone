@@ -3,22 +3,23 @@
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { AdminSantriPaginationResponse } from '@/types/admin/santri';
+import formatDate from '@/lib/format-date';
+import { IzinPulang } from '@/types/admin/izin';
 import { router, usePage } from '@inertiajs/react';
+import { Printer } from 'lucide-react';
 import { useState } from 'react';
-import { SantriActionAdmin } from './santri-action-admin';
-import TranscriptViewAdmin from './transcript-view-admin';
-import SantriViewAdmin from './santri-view-admin';
+import { IzinActionAdmin } from './izin-action-admin';
+
 
 type Props = {
-    santriData: AdminSantriPaginationResponse;
+    santriData: IzinPulang[];
     filters: {
         search: string;
         page: number;
     };
 };
 
-export default function DataTableSantriAdmin({ santriData, filters }: Props) {
+export default function DataTableIzinAdmin({ santriData, filters }: Props) {
     const { url } = usePage();
     const [searchInput, setSearchInput] = useState(filters.search || '');
 
@@ -27,11 +28,11 @@ export default function DataTableSantriAdmin({ santriData, filters }: Props) {
         router.get(url.split('?')[0], { search: searchInput, page: 1 }, { preserveState: true, replace: true });
     };
 
-    const handlePageChange = (pageUrl: string | null) => {
-        if (pageUrl) {
-            router.visit(pageUrl, { preserveState: true, replace: true });
-        }
-    };
+    // const handlePageChange = (pageUrl: string | null) => {
+    //     if (pageUrl) {
+    //         router.visit(pageUrl, { preserveState: true, replace: true });
+    //     }
+    // };
 
     return (
         <div className="flex flex-col gap-6 pt-2">
@@ -53,11 +54,12 @@ export default function DataTableSantriAdmin({ santriData, filters }: Props) {
                 <Table className="min-w-[900px]">
                     <TableHeader>
                         <TableRow className="bg-muted">
-                            <TableHead>No</TableHead>
-                            <TableHead>NIS</TableHead>
-                            <TableHead>Nama</TableHead>
-                            <TableHead>Email</TableHead>
-                            <TableHead>Transkip Nilai</TableHead>
+                            <TableHead>Nama Santri</TableHead>
+                            <TableHead>Pelapor (Wali)</TableHead>
+                            <TableHead>Alasan</TableHead>
+                            <TableHead>Tanggal Pulang</TableHead>
+                            <TableHead>Tanggal Kembali</TableHead>
+                            <TableHead>Status</TableHead>
                             <TableHead></TableHead>
                             <TableHead></TableHead>
                             {/* <TableHead>Alamat</TableHead> */}
@@ -68,27 +70,40 @@ export default function DataTableSantriAdmin({ santriData, filters }: Props) {
                         </TableRow>
                     </TableHeader>
                     <TableBody>
-                        {santriData.data.length > 0 ? (
-                            santriData.data.map((santri, index) => (
-                                <TableRow key={santri.id}>
-                                    <TableCell>{(santriData.current_page - 1) * santriData.per_page + index + 1}</TableCell>
-                                    <TableCell>{santri.nis}</TableCell>
-                                    <TableCell>{santri.name}</TableCell>
-                                    <TableCell>{santri.email}</TableCell>
+                        {santriData.length > 0 ? (
+                            santriData.map((data) => (
+                                <TableRow key={data.id}>
+                                    <TableCell>{data.target_santri.name}</TableCell>
+                                    <TableCell>{data.target_santri.name}</TableCell>
+                                    <TableCell>{data.message}</TableCell>
+                                    <TableCell>{formatDate(data.tanggal_pulang)}</TableCell>
+                                    <TableCell>{formatDate(data.tanggal_kembali)}</TableCell>
                                     <TableCell>
-                                        <TranscriptViewAdmin />
+                                        <div
+                                            className={`w-full  rounded px-3 py-1.5 text-center text-xs font-bold ${
+                                                data.status === 'accepted'
+                                                    ? 'border border-green-500 bg-green-50 text-green-500'
+                                                    : data.status === 'rejected'
+                                                      ? 'border border-red-500 bg-red-50 text-red-500'
+                                                      : 'border border-blue-500 bg-blue-50 text-blue-500'
+                                            }`}
+                                        >
+                                            {data.status === 'accepted'
+                                                ? 'Disetujui'
+                                                : data.status === 'rejected'
+                                                  ? 'Izin Tidak Diberikan'
+                                                  : 'Menunggu Persetujuan'}
+                                        </div>
                                     </TableCell>
                                     <TableCell>
-                                        <SantriViewAdmin />
+                                        <Button size={'sm'}>
+                                            <Printer /> Cetak{' '}
+                                        </Button>
                                     </TableCell>
                                     <TableCell>
-                                        <SantriActionAdmin />
+                                       <IzinActionAdmin/>
                                     </TableCell>
-                                    {/* <TableCell>{santri.alamat}</TableCell> */}
-                                    {/* <TableCell>{santri.jenis_kelamin}</TableCell>
-                                    <TableCell>{santri.phone}</TableCell>
-                                    <TableCell>{santri.santri_role}</TableCell>
-                                    <TableCell>{santri.ortu?.name || '-'}</TableCell> */}
+
                                 </TableRow>
                             ))
                         ) : (
@@ -103,7 +118,7 @@ export default function DataTableSantriAdmin({ santriData, filters }: Props) {
             </div>
 
             {/* Pagination */}
-            <div className="flex w-full flex-wrap items-center justify-center gap-2">
+            {/* <div className="flex w-full flex-wrap items-center justify-center gap-2">
                 {santriData.links.map((link, index) => (
                     <Button
                         key={index}
@@ -115,7 +130,7 @@ export default function DataTableSantriAdmin({ santriData, filters }: Props) {
                         className="min-w-8"
                     />
                 ))}
-            </div>
+            </div> */}
         </div>
     );
 }

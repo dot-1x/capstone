@@ -31,13 +31,13 @@ export const mainNavItems: NavItem[] = [
         icon: HeartHandshake,
     },
     {
-        title: 'Data Pelajaran',
+        title: 'Data Mata Pelajaran',
         href: '/admin/pelajaran',
         icon: BookOpenTextIcon,
     },
     {
         title: 'Laporan Izin Santri',
-        href: '/admin/laporan',
+        href: '/admin/izin',
         icon: FileText,
     },
 
@@ -48,7 +48,7 @@ export const mainNavItems: NavItem[] = [
         icon: Users2,
     },
     {
-        title: 'Data Pelajaran',
+        title: 'Data Mata Pelajaran',
         href: '/ustadz/pelajaran',
         icon: BookOpenTextIcon,
     },

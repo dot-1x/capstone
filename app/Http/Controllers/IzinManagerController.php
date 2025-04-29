@@ -10,7 +10,7 @@ class IzinManagerController extends Controller
 {
     public function index(Request $request)
     {
-        return Inertia::render('tester', [
+        return Inertia::render('admin/izin', [
             'prop' => Izin::paginateWithSearch($request)
         ]);
     }

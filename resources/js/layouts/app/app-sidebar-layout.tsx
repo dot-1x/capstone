@@ -8,7 +8,7 @@ import { type PropsWithChildren } from 'react';
 
 export default function AppSidebarLayout({ children, breadcrumbs = [] }: PropsWithChildren<{ breadcrumbs?: BreadcrumbItem[] }>) {
     return (
-         <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+         <ThemeProvider defaultTheme="system" storageKey="vite-ui-theme">
         <AppShell variant="sidebar">
             <AppSidebar />
             <AppContent variant="sidebar">

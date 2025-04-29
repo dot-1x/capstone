@@ -3,22 +3,22 @@
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { AdminSantriPaginationResponse } from '@/types/admin/santri';
+import { AdminWaliSantriResponse } from '@/types/admin/walisantri';
 import { router, usePage } from '@inertiajs/react';
 import { useState } from 'react';
-import { SantriActionAdmin } from './santri-action-admin';
-import TranscriptViewAdmin from './transcript-view-admin';
-import SantriViewAdmin from './santri-view-admin';
+import WalisantriViewAdmin from './walisantri-view-admin';
+import { WalisantriActionAdmin } from './walisantri-action-admin';
+
 
 type Props = {
-    santriData: AdminSantriPaginationResponse;
+    santriData: AdminWaliSantriResponse;
     filters: {
         search: string;
         page: number;
     };
 };
 
-export default function DataTableSantriAdmin({ santriData, filters }: Props) {
+export default function DataTableWalisantriAdmin({ santriData, filters }: Props) {
     const { url } = usePage();
     const [searchInput, setSearchInput] = useState(filters.search || '');
 
@@ -54,10 +54,9 @@ export default function DataTableSantriAdmin({ santriData, filters }: Props) {
                     <TableHeader>
                         <TableRow className="bg-muted">
                             <TableHead>No</TableHead>
-                            <TableHead>NIS</TableHead>
                             <TableHead>Nama</TableHead>
-                            <TableHead>Email</TableHead>
-                            <TableHead>Transkip Nilai</TableHead>
+                            <TableHead>Nomor Telpon</TableHead>
+                            <TableHead>Jumlah Anak</TableHead>
                             <TableHead></TableHead>
                             <TableHead></TableHead>
                             {/* <TableHead>Alamat</TableHead> */}
@@ -72,10 +71,16 @@ export default function DataTableSantriAdmin({ santriData, filters }: Props) {
                             santriData.data.map((santri, index) => (
                                 <TableRow key={santri.id}>
                                     <TableCell>{(santriData.current_page - 1) * santriData.per_page + index + 1}</TableCell>
-                                    <TableCell>{santri.nis}</TableCell>
                                     <TableCell>{santri.name}</TableCell>
-                                    <TableCell>{santri.email}</TableCell>
+                                    <TableCell>{santri.phone}</TableCell>
+                                    <TableCell>{2}</TableCell>
                                     <TableCell>
+                                        <WalisantriViewAdmin />
+                                    </TableCell>
+                                    <TableCell>
+                                        <WalisantriActionAdmin />
+                                    </TableCell>
+                                    {/* <TableCell>
                                         <TranscriptViewAdmin />
                                     </TableCell>
                                     <TableCell>
@@ -84,11 +89,7 @@ export default function DataTableSantriAdmin({ santriData, filters }: Props) {
                                     <TableCell>
                                         <SantriActionAdmin />
                                     </TableCell>
-                                    {/* <TableCell>{santri.alamat}</TableCell> */}
-                                    {/* <TableCell>{santri.jenis_kelamin}</TableCell>
-                                    <TableCell>{santri.phone}</TableCell>
-                                    <TableCell>{santri.santri_role}</TableCell>
-                                    <TableCell>{santri.ortu?.name || '-'}</TableCell> */}
+                                     */}
                                 </TableRow>
                             ))
                         ) : (

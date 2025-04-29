@@ -3,22 +3,20 @@
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { AdminSantriPaginationResponse } from '@/types/admin/santri';
 import { router, usePage } from '@inertiajs/react';
 import { useState } from 'react';
-import { SantriActionAdmin } from './santri-action-admin';
-import TranscriptViewAdmin from './transcript-view-admin';
-import SantriViewAdmin from './santri-view-admin';
+import LessonViewUstadz from './lesson-view-ustadz';
+import { UstadzPelajaranList } from '@/types/ustadz/pelajaran';
 
 type Props = {
-    santriData: AdminSantriPaginationResponse;
+    santriData: UstadzPelajaranList;
     filters: {
         search: string;
         page: number;
     };
 };
 
-export default function DataTableSantriAdmin({ santriData, filters }: Props) {
+export default function DataTablePelajaranUstadz({ santriData, filters }: Props) {
     const { url } = usePage();
     const [searchInput, setSearchInput] = useState(filters.search || '');
 
@@ -27,11 +25,11 @@ export default function DataTableSantriAdmin({ santriData, filters }: Props) {
         router.get(url.split('?')[0], { search: searchInput, page: 1 }, { preserveState: true, replace: true });
     };
 
-    const handlePageChange = (pageUrl: string | null) => {
-        if (pageUrl) {
-            router.visit(pageUrl, { preserveState: true, replace: true });
-        }
-    };
+    // const handlePageChange = (pageUrl: string | null) => {
+    //     if (pageUrl) {
+    //         router.visit(pageUrl, { preserveState: true, replace: true });
+    //     }
+    // };
 
     return (
         <div className="flex flex-col gap-6 pt-2">
@@ -53,12 +51,10 @@ export default function DataTableSantriAdmin({ santriData, filters }: Props) {
                 <Table className="min-w-[900px]">
                     <TableHeader>
                         <TableRow className="bg-muted">
-                            <TableHead>No</TableHead>
-                            <TableHead>NIS</TableHead>
-                            <TableHead>Nama</TableHead>
-                            <TableHead>Email</TableHead>
-                            <TableHead>Transkip Nilai</TableHead>
-                            <TableHead></TableHead>
+                            {/* <TableHead>No</TableHead> */}
+                            {/* <TableHead>Nama Lengkap</TableHead> */}
+                            <TableHead>Nama Mata Pelajaran</TableHead>
+                            <TableHead>Jumlah Santri Didik</TableHead>
                             <TableHead></TableHead>
                             {/* <TableHead>Alamat</TableHead> */}
                             {/* <TableHead>Jenis Kelamin</TableHead>
@@ -68,22 +64,21 @@ export default function DataTableSantriAdmin({ santriData, filters }: Props) {
                         </TableRow>
                     </TableHeader>
                     <TableBody>
-                        {santriData.data.length > 0 ? (
-                            santriData.data.map((santri, index) => (
+                        {santriData.length > 0 ? (
+                            santriData.map((santri) => (
                                 <TableRow key={santri.id}>
-                                    <TableCell>{(santriData.current_page - 1) * santriData.per_page + index + 1}</TableCell>
-                                    <TableCell>{santri.nis}</TableCell>
-                                    <TableCell>{santri.name}</TableCell>
-                                    <TableCell>{santri.email}</TableCell>
+                                    {/* <TableCell>{(santriData.current_page - 1) * santriData.per_page + index + 1}</TableCell> */}
+                                    <TableCell>{santri.nama_pelajaran}</TableCell>
+                                    <TableCell>32</TableCell>
                                     <TableCell>
-                                        <TranscriptViewAdmin />
+                                        <LessonViewUstadz />
                                     </TableCell>
-                                    <TableCell>
-                                        <SantriViewAdmin />
+                                    {/* <TableCell>
+                                        <SantriView />
                                     </TableCell>
                                     <TableCell>
                                         <SantriActionAdmin />
-                                    </TableCell>
+                                    </TableCell> */}
                                     {/* <TableCell>{santri.alamat}</TableCell> */}
                                     {/* <TableCell>{santri.jenis_kelamin}</TableCell>
                                     <TableCell>{santri.phone}</TableCell>
@@ -103,7 +98,7 @@ export default function DataTableSantriAdmin({ santriData, filters }: Props) {
             </div>
 
             {/* Pagination */}
-            <div className="flex w-full flex-wrap items-center justify-center gap-2">
+            {/* <div className="flex w-full flex-wrap items-center justify-center gap-2">
                 {santriData.links.map((link, index) => (
                     <Button
                         key={index}
@@ -115,7 +110,7 @@ export default function DataTableSantriAdmin({ santriData, filters }: Props) {
                         className="min-w-8"
                     />
                 ))}
-            </div>
+            </div> */}
         </div>
     );
 }
