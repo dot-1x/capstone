@@ -28,7 +28,7 @@ class User extends Authenticatable
         'password',
         'phone',
         'role',
-        'type'
+        'first_password'
     ];
     protected $childColumn = 'role';
     protected $childTypes = [
