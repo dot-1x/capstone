@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Santri;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Hash;
 use Inertia\Inertia;
-
+use illuminate\Support\Str;
 class SantriManagerController extends Controller
 {
     /**
@@ -23,6 +25,27 @@ class SantriManagerController extends Controller
      */
     public function store(Request $request)
     {
+        $validated = $request->validate([
+            'name'   => 'required|string|max:255',
+            'phone'  => 'required|string|max:20',
+            'email' => 'required|email',
+            'ustadz' => 'required|int',
+            'ortu' => 'required|int',
+        ]);
+        $password = Str::random(8);
+        Santri::create(
+            [
+                'name' => $validated['name'],
+                'phone' => $validated['phone'],
+                'email' => $validated['email'],
+                'role' => 'santri',
+                'password' => Hash::make($password),
+                'first_password' => $password,
+                'santri_role' => 'regular',
+                'ustadz_id' => $validated['ustadz'],
+                'ortu_id' => $validated['ortu']
+            ]
+        );
         return redirect(route('admin.santri.index'));
     }
 

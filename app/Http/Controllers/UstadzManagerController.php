@@ -6,7 +6,9 @@ use App\Models\Ustadz;
 use App\Models\Pelajaran;
 use App\Models\Santri;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Inertia\Inertia;
+use Illuminate\Support\Str;
 
 class UstadzManagerController extends Controller
 {
@@ -30,12 +32,27 @@ class UstadzManagerController extends Controller
         $santri = Santri::where('ustadz_id', $ustadz->id)->get();
         return Inertia::render('tester', [
             'prop' => $santri
-        ]);
+        ]); 
     }
 
     public function store(Request $request)
     {
-        // Add ustadz logic here
+        $validated = $request->validate([
+            'name'   => 'required|string|max:255',
+            'phone'  => 'required|string|max:20',
+            'email' => 'required|email',
+        ]);
+        $password = Str::random(8);
+        Ustadz::create(
+            [
+                'name' => $validated['name'],
+                'phone' => $validated['phone'],
+                'email' => $validated['email'],
+                'role' => 'ustadz',
+                'password' => Hash::make($password),
+                'first_password' => $password
+            ]
+        );
         return redirect()->route('admin.ustadz.index');
     }
 

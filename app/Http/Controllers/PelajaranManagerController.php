@@ -18,7 +18,14 @@ class PelajaranManagerController extends Controller
 
     public function store(Request $request)
     {
-        // Add pelajaran logic here
+        $validated = $request->validate(
+            [
+                'nama_pelajaran' => 'required|string|max:64',
+                'semester' => 'required|int',
+                'pengampu_id' => 'required|int',
+            ]
+        );
+        Pelajaran::create($validated);
         return redirect()->route('admin.pelajaran.index');
     }
 

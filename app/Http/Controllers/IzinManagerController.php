@@ -17,7 +17,16 @@ class IzinManagerController extends Controller
 
     public function store(Request $request)
     {
-        // Add izin logic here
+        $validated = $request->validate(
+            [
+                'message' => 'required|text',
+                'tanggal_pulang' => 'required|date',
+                'tanggal_kembali' => 'required|date',
+                'created_by' => 'required|int',
+                'target_santri_id' => 'required|int'
+            ]
+        );
+        Izin::create($validated);
         return redirect()->route('admin.izin.index');
     }
 
