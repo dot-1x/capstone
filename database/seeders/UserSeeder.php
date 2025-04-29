@@ -17,7 +17,7 @@ class UserSeeder extends Seeder
             'name' => 'admin',
             'email' => 'admin@localhost.com',
             'password' => bcrypt('password'), // default password
-            'role' => 'ustadz',
+            'role' => 'admin',
             'alamat' => 'address',
             'phone' => '+62087654321',
         ]);
