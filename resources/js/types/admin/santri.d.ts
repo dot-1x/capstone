@@ -11,6 +11,7 @@ export interface Santri {
     id: number;
     name: string;
     email: string;
+    nik: number;
     email_verified_at: string | null;
     created_at: string;
     updated_at: string;
@@ -21,6 +22,8 @@ export interface Santri {
     phone: string;
     role: string;
     santri_role: string;
+    tempat_lahir: string;
+    tanggal_lahir: Date;
     ortu_id: number;
     ortu: Ortu;
     ustadz_id: number;
