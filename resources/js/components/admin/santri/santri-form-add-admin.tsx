@@ -1,15 +1,15 @@
 import { Button } from '@/components/ui/button';
 import { Calendar } from '@/components/ui/calendar';
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Textarea } from '@/components/ui/textarea';
 import { cn } from '@/lib/utils';
 import { format } from 'date-fns';
 import { id } from 'date-fns/locale';
-import { CalendarIcon, Plus} from 'lucide-react';
+import { CalendarIcon, Plus } from 'lucide-react';
 import { useState } from 'react';
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
-import { Textarea } from '@/components/ui/textarea';
 
 export default function SantriFormAddAdmin() {
     const [date, setDate] = useState<Date | undefined>(undefined);
@@ -35,14 +35,14 @@ export default function SantriFormAddAdmin() {
                             <label htmlFor="nis" className="font-medium">
                                 NIS
                             </label>
-                            <Input id="nis" placeholder="Masukan NIS" />
+                            <Input name="nis" id="nis" placeholder="Masukan NIS" />
                         </div>
 
                         <div className="flex flex-col space-y-2">
                             <label htmlFor="nik" className="font-medium">
                                 NIK
                             </label>
-                            <Input id="nik" placeholder="Masukan NIK" />
+                            <Input name="nik" id="nik" placeholder="Masukan NIK" />
                         </div>
                     </div>
 

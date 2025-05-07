@@ -7,8 +7,8 @@ import { AdminSantriPaginationResponse } from '@/types/admin/santri';
 import { router, usePage } from '@inertiajs/react';
 import { useState } from 'react';
 import { SantriActionAdmin } from './santri-action-admin';
-import TranscriptViewAdmin from './transcript-view-admin';
 import SantriViewAdmin from './santri-view-admin';
+import TranscriptViewAdmin from './transcript-view-admin';
 
 type Props = {
     santriData: AdminSantriPaginationResponse;
@@ -56,7 +56,8 @@ export default function DataTableSantriAdmin({ santriData, filters }: Props) {
                             <TableHead>No</TableHead>
                             <TableHead>NIS</TableHead>
                             <TableHead>Nama</TableHead>
-                            <TableHead>Email</TableHead>
+                            <TableHead>Wali</TableHead>
+                            <TableHead>Jenis Kelamin</TableHead>
                             <TableHead>Transkip Nilai</TableHead>
                             <TableHead></TableHead>
                             <TableHead></TableHead>
@@ -74,7 +75,8 @@ export default function DataTableSantriAdmin({ santriData, filters }: Props) {
                                     <TableCell>{(santriData.current_page - 1) * santriData.per_page + index + 1}</TableCell>
                                     <TableCell>{santri.nis}</TableCell>
                                     <TableCell>{santri.name}</TableCell>
-                                    <TableCell>{santri.email}</TableCell>
+                                    <TableCell>{santri.ortu.name}</TableCell>
+                                    <TableCell>{santri.jenis_kelamin}</TableCell>
                                     <TableCell>
                                         <TranscriptViewAdmin />
                                     </TableCell>

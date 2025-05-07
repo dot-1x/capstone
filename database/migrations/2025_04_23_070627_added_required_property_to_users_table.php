@@ -15,8 +15,11 @@ return new class extends Migration
             $table->string('alamat')->nullable();
             // Santri-specific
             $table->string('nis')->unique()->nullable(); // format: angkatan_nodaftar
-            $table->integer('angkatan')->nullable();
-            $table->enum('jenis_kelamin', ['laki', 'perempuan'])->nullable();
+            $table->bigInteger('nik')->unique()->nullable();
+            $table->string('tempat_lahir')->nullable();
+            $table->timestamp('tanggal_lahir')->nullable();
+            $table->year('angkatan')->nullable();
+            $table->enum('jenis_kelamin', ['pria', 'wanita'])->nullable();
             $table->enum('santri_role', ['regular', 'pengurus'])->nullable();
             $table->unsignedBigInteger('ortu_id')->nullable();    // wali
             $table->unsignedBigInteger('ustadz_id')->nullable();  // pembimbing

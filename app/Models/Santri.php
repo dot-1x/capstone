@@ -8,7 +8,7 @@ class Santri extends User
     use HasParent;
 
     protected $fillable = [
-        'nis', 'name', 'alamat', 'angkatan', 'jenis_kelamin', 'santri_role', 'ustadz_id', 'ortu_id'
+        'nis', 'name', 'nik','alamat', 'angkatan', 'jenis_kelamin', 'santri_role', 'tempat_lahir', 'tanggal_lahir', 'ustadz_id', 'ortu_id'
     ];
 
     public function nilai()

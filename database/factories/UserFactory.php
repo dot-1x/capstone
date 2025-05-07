@@ -34,6 +34,7 @@ class UserFactory extends Factory
             'role' => $roles[array_rand($roles)],
             'alamat' => $this->faker->address,
             'phone' => $this->faker->phoneNumber,
+            'first_password' => 'password'
         ];
     }
 
@@ -45,7 +46,10 @@ class UserFactory extends Factory
             'santri_role' => 'regular',
             'nis' => $angkatan . '_' . self::$counter++,
             'angkatan' => $angkatan,
-            'jenis_kelamin' => $this->faker->randomElement(['laki', 'perempuan']),
+            'jenis_kelamin' => $this->faker->randomElement(['pria', 'wanita']),
+            'nik' => $this->faker->randomNumber(9),
+            'tempat_lahir' => $this->faker->city(),
+            'tanggal_lahir' => $this->faker->date()
         ]);
     }
 
