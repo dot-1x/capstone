@@ -11,7 +11,7 @@ class Pelajaran extends Model
 {
     use HasFactory;
     
-    protected $fillable = ['nama_pelajaran', 'semester', 'pengampu_id'];
+    protected $fillable = ['nama_pelajaran', 'semester', 'waktu', 'pengampu_id'];
 
     public function pengampu() // Ustadz who teaches
     {

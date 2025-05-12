@@ -20,6 +20,7 @@ class UserSeeder extends Seeder
             'role' => 'admin',
             'alamat' => 'address',
             'phone' => '+62087654321',
+            'username' => 'admin'
         ]);
         // Create 5 ustadz
         $ustadz = User::factory()->count(5)->ustadz()->create();

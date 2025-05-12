@@ -44,23 +44,24 @@ class UserFactory extends Factory
         return $this->state(fn () => [
             'role' => 'santri',
             'santri_role' => 'regular',
-            'nis' => $angkatan . '_' . self::$counter++,
+            'nis' => $angkatan . str_pad(self::$counter++, 5, '0', STR_PAD_LEFT),
             'angkatan' => $angkatan,
             'jenis_kelamin' => $this->faker->randomElement(['pria', 'wanita']),
             'nik' => $this->faker->randomNumber(9),
             'tempat_lahir' => $this->faker->city(),
-            'tanggal_lahir' => $this->faker->date()
+            'tanggal_lahir' => $this->faker->date(),
+            'username' => 'santri' . self::$counter
         ]);
     }
 
     public function ustadz()
     {
-        return $this->state(fn () => ['role' => 'ustadz']);
+        return $this->state(fn () => ['role' => 'ustadz', 'username' => 'ustadz' . self::$counter++]);
     }
 
     public function walisantri()
     {
-        return $this->state(fn () => ['role' => 'walisantri']);
+        return $this->state(fn () => ['role' => 'walisantri', 'username' => 'walisantri' . self::$counter++]);
     }
 
     /**

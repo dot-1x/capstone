@@ -21,6 +21,7 @@ class PelajaranFactory extends Factory
             'nama_pelajaran' => $this->faker->word . ' Studies',
             'semester' => rand(1, 6),
             'pengampu_id' => User::where('role', 'ustadz')->inRandomOrder()->first()->id ?? 1,
+            'waktu' => $this->faker->time()
         ];
     }
 }
