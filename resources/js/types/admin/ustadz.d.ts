@@ -1,3 +1,5 @@
+import { Gender } from './santri';
+
 export interface Ustadz {
     id: number;
     name: string;
@@ -37,3 +39,9 @@ export interface AdminUstadzResponse {
     to: number;
     total: number;
 }
+
+export type UstadzRequestType = {
+    name: string;
+    phone: string;
+    jenis_kelamin: Gender;
+};

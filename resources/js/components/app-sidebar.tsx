@@ -4,7 +4,7 @@ import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, Sid
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/react';
 // import { NavFooter } from '@/components/nav-footer';
-import {  BookOpenTextIcon, FileText, GraduationCap, HeartHandshake, LayoutGrid, Users2 } from 'lucide-react';
+import { BookOpenTextIcon, FileText, GraduationCap, HeartHandshake, LayoutGrid, Users2 } from 'lucide-react';
 import AppLogo from './app-logo';
 
 export const mainNavItems: NavItem[] = [
@@ -19,26 +19,31 @@ export const mainNavItems: NavItem[] = [
         title: 'Data Santri',
         href: '/admin/santri',
         icon: Users2,
+        role_access: ['admin'],
     },
     {
         title: 'Data Ustadz',
         href: '/admin/ustadz',
         icon: GraduationCap,
+        role_access: ['admin'],
     },
     {
         title: 'Data Wali Santri',
         href: '/admin/walisantri',
         icon: HeartHandshake,
+        role_access: ['admin'],
     },
     {
         title: 'Data Mata Pelajaran',
         href: '/admin/pelajaran',
         icon: BookOpenTextIcon,
+        role_access: ['admin'],
     },
     {
         title: 'Laporan Izin Santri',
         href: '/admin/izin',
         icon: FileText,
+        role_access: ['admin'],
     },
 
     // ustadz
@@ -46,16 +51,19 @@ export const mainNavItems: NavItem[] = [
         title: 'Data Santri Didik',
         href: '/ustadz/santri-didik',
         icon: Users2,
+        role_access: ['ustadz'],
     },
     {
         title: 'Data Mata Pelajaran',
         href: '/ustadz/pelajaran',
         icon: BookOpenTextIcon,
+        role_access: ['ustadz'],
     },
     {
         title: 'Laporan Izin Santri',
         href: '/ustadz/izin',
         icon: FileText,
+        role_access: ['ustadz'],
     },
 
     // wali santri
@@ -63,11 +71,13 @@ export const mainNavItems: NavItem[] = [
         title: 'Data Anak',
         href: '/wali/anak',
         icon: Users2,
+        role_access: ['walisantri'],
     },
     {
         title: 'Surat Izin Anak',
         href: '/wali/izin',
         icon: BookOpenTextIcon,
+        role_access: ['walisantri'],
     },
 ];
 

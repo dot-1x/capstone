@@ -1,3 +1,5 @@
+import { Gender } from './santri';
+
 export interface WaliSantri {
     id: number;
     name: string;
@@ -37,3 +39,10 @@ export interface AdminWaliSantriResponse {
     to: number;
     total: number;
 }
+
+export type WaliSantriRequestType = {
+    name: string;
+    phone: string;
+    jenis_kelamin: Gender;
+    alamat: string;
+};
