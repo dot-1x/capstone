@@ -9,7 +9,7 @@ Route::prefix('/ustadz')
     ->middleware(['auth'])
     ->group(
         function(){
-            Route::get('/santri', [UstadzController::class, 'santri'])->name('santri');
+            Route::get('/santri-didik', [UstadzController::class, 'santri'])->name('santri');
             Route::get('/pelajaran', [UstadzController::class, 'pelajaran'])->name('pelajaran');
             Route::get('/izin', [UstadzController::class, 'izin'])->name('izin');
             Route::resource('nilai', NilaiController::class)->only('update');

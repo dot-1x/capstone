@@ -16,6 +16,11 @@ class PelajaranManagerController extends Controller
         ]);
     }
 
+    public function api(Request $request)
+    {
+        return response()->json(Pelajaran::paginateWithSearch($request, ['nama_pelajaran'], ['nilai', 'pengampu']));
+    }
+
     public function store(Request $request)
     {
         $validated = $request->validate(

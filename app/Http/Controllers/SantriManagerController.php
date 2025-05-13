@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Santri\SantriStoreRequest;
 use App\Models\Santri;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Gate;
-use Illuminate\Support\Facades\Hash;
 use Inertia\Inertia;
 use illuminate\Support\Str;
 class SantriManagerController extends Controller
@@ -20,32 +19,24 @@ class SantriManagerController extends Controller
         ]);
     }
 
+    public function api(Request $request)
+    {
+        return response()->json(Santri::paginateWithSearch($request, ['name'], ['ortu']));
+    }
+
     /**
      * Show the form for creating a new resource.
      */
-    public function store(Request $request)
+    public function store(SantriStoreRequest $request)
     {
-        $validated = $request->validate([
-            'name'   => 'required|string|max:255',
-            'phone'  => 'required|string|max:20',
-            'email' => 'required|email',
-            'ustadz' => 'required|int',
-            'ortu' => 'required|int',
-        ]);
+        $validated = $request->validated();
         $password = Str::random(8);
-        Santri::create(
-            [
-                'name' => $validated['name'],
-                'phone' => $validated['phone'],
-                'email' => $validated['email'],
-                'role' => 'santri',
-                'password' => Hash::make($password),
-                'first_password' => $password,
-                'santri_role' => 'regular',
-                'ustadz_id' => $validated['ustadz'],
-                'ortu_id' => $validated['ortu']
-            ]
-        );
+        $validated['password'] = bcrypt($password);
+        $validated['first_password'] = $password;
+        $validated['nis'] = Santri::generateNis($validated['angkatan']);
+        $validated['username'] = $validated['nis'];
+        $validated['role'] = 'santri';
+        Santri::create($validated);
         return redirect(route('admin.santri.index'));
     }
 

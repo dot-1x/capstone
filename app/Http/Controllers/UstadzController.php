@@ -15,7 +15,7 @@ class UstadzController extends Controller
     {
         $ustadzId = Auth::id();
         $santri = Santri::where('ustadz_id', $ustadzId)->get();
-        return Inertia::render('tester', [
+        return Inertia::render('ustadz/santri', [
             'prop' => $santri
         ]);
     }
@@ -24,10 +24,10 @@ class UstadzController extends Controller
     {
         $semester = $request->query('semester');
         $ustadzId = Auth::id();
-        $query = Pelajaran::query()->where('ustadz_id', $ustadzId);
+        $query = Pelajaran::query()->where('pengampu_id', $ustadzId);
         if ($semester) $query->where('semester', $semester);
         $pelajaran = $query->get();
-        return Inertia::render('tester', [
+        return Inertia::render('ustadz/pelajaran', [
             'prop' => $pelajaran
         ]);
     }
@@ -41,7 +41,7 @@ class UstadzController extends Controller
             ->with(['createdBy', 'targetSantri', 'openedBy'])
             ->get();
 
-        return Inertia::render('tester', [
+        return Inertia::render('ustadz/izin', [
             'prop' => $izin
         ]);
     }

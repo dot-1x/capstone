@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Ustadz\UstadzStoreRequest;
 use App\Models\Ustadz;
 use App\Models\Pelajaran;
 use App\Models\Santri;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 use Inertia\Inertia;
 use Illuminate\Support\Str;
 
@@ -17,6 +17,11 @@ class UstadzManagerController extends Controller
         return Inertia::render('admin/ustadz', [
             'prop' => Ustadz::paginateWithSearch($request)
         ]);
+    }
+
+    public function api(Request $request)
+    {
+        return response()->json(Ustadz::paginateWithSearch($request));
     }
 
     public function showPelajaran(Ustadz $ustadz)
@@ -35,24 +40,15 @@ class UstadzManagerController extends Controller
         ]); 
     }
 
-    public function store(Request $request)
+    public function store(UstadzStoreRequest $request)
     {
-        $validated = $request->validate([
-            'name'   => 'required|string|max:255',
-            'phone'  => 'required|string|max:20',
-            'email' => 'required|email',
-        ]);
+        $validated = $request->validated();
         $password = Str::random(8);
-        Ustadz::create(
-            [
-                'name' => $validated['name'],
-                'phone' => $validated['phone'],
-                'email' => $validated['email'],
-                'role' => 'ustadz',
-                'password' => Hash::make($password),
-                'first_password' => $password
-            ]
-        );
+        $validated['password'] = bcrypt($password);
+        $validated['first_password'] = $password;
+        $validated['username'] = 'ustadz' . random_int(10000, 99999);
+        $validated['role'] = 'ustadz';
+        Ustadz::create($validated);
         return redirect()->route('admin.ustadz.index');
     }
 

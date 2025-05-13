@@ -7,6 +7,8 @@ class Ustadz extends User
 {
     use HasParent;
 
+    protected $fillable = ['jenis_kelamin'];
+
     public function pelajaran()
     {
         return $this->hasMany(Pelajaran::class, 'pengampu_id');

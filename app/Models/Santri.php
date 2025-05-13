@@ -25,4 +25,17 @@ class Santri extends User
     {
         return $this->belongsTo(WaliSantri::class, 'ortu_id');
     }
+
+    static function generateNis(int $angkatan){
+        $latestSantri = static::where('angkatan', $angkatan)
+        ->orderBy('nis', 'desc')
+        ->first();
+
+        $lastNumber = $latestSantri 
+            ? (int) substr($latestSantri->nis, -5) 
+            : 0;
+
+        $newNumber = str_pad($lastNumber + 1, 5, '0', STR_PAD_LEFT);
+        return $angkatan . $newNumber;
+    }
 }
