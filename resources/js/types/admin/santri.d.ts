@@ -50,3 +50,27 @@ export interface AdminSantriPaginationResponse {
     to: number;
     total: number;
 }
+
+// types/user.ts
+
+export type Gender = 'pria' | 'wanita';
+export type SantriRole = 'regular' | 'pengurus';
+
+export type SantriRequestType = {
+    email?: string | null;
+    phone?: string | null;
+    name: string;
+
+    // Santri-specific fields
+    nik: string; // string to handle large numbers safely
+    alamat: string;
+    tempat_lahir: string;
+    tanggal_lahir: string; // ISO date string
+    angkatan: number;
+    jenis_kelamin: Gender;
+    santri_role: SantriRole;
+    ustadz_id: number;
+    ortu_id: number;
+
+    // Note: nis is not included as it's auto-generated
+};

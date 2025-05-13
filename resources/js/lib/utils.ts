@@ -8,3 +8,8 @@ export function cn(...inputs: ClassValue[]) {
 export function isUsingNumber(input: string) {
     return;
 }
+
+export async function fetchApi<T>(url: string, init?: RequestInit): Promise<T> {
+    const data = await fetch(url, init);
+    return await data.json();
+}
