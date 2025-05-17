@@ -6,7 +6,7 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 import { cn, fetchApi } from '@/lib/utils';
-import { AdminGenericResponse } from '@/types/admin/response';
+import { APIPaginateResponse } from '@/types/admin/response';
 import { SantriRequestType } from '@/types/admin/santri';
 import { WaliSantri } from '@/types/admin/walisantri';
 import { Ustadz } from '@/types/walisantri/anak';
@@ -178,7 +178,7 @@ export default function SantriFormAddAdmin() {
                                 <Select onValueChange={(ev) => setData('ustadz_id', parseInt(ev))} required>
                                     <SelectTrigger
                                         onClick={(ev) => {
-                                            fetchApi<AdminGenericResponse<Ustadz>>('/api/ustadz').then((resp) => setDataUstadz(resp.data));
+                                            fetchApi<APIPaginateResponse<Ustadz>>('/api/ustadz').then((resp) => setDataUstadz(resp.data));
                                         }}
                                     >
                                         <SelectValue placeholder="Pilih" />
@@ -200,7 +200,7 @@ export default function SantriFormAddAdmin() {
                                 <Select onValueChange={(ev) => setData('ortu_id', parseInt(ev))}>
                                     <SelectTrigger
                                         onClick={(ev) => {
-                                            fetchApi<AdminGenericResponse<WaliSantri>>('/api/walisantri').then((resp) => setDataWali(resp.data));
+                                            fetchApi<APIPaginateResponse<WaliSantri>>('/api/walisantri').then((resp) => setDataWali(resp.data));
                                         }}
                                     >
                                         <SelectValue placeholder="Masukan nama orang tua" />

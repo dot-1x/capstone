@@ -1,9 +1,5 @@
 'use client';
 
-import type React from 'react';
-
-import {  EllipsisVertical,  PenBox, Trash2 } from 'lucide-react';
-import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import {
     DropdownMenu,
@@ -13,21 +9,20 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import SantriFormEditAdmin from './santri-form-edit-admin';
+import { EllipsisVertical, PenBox, Trash2 } from 'lucide-react';
+import { useState } from 'react';
 import SantriFormDeleteAdmin from './santri-form-delete-admin';
+import SantriFormEditAdmin from './santri-form-edit-admin';
 
-
-export const SantriActionAdmin: React.FC = () => {
-
+export function SantriActionAdmin({ id }: { id: number }) {
     const [editDialogOpen, setEditDialogOpen] = useState(false);
     const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
- 
 
     return (
         <>
             <DropdownMenu modal={false}>
                 <DropdownMenuTrigger asChild>
-                    <Button variant="ghost" size={'icon'} className="h-8 w-8 p-0 border">
+                    <Button variant="ghost" size={'icon'} className="h-8 w-8 border p-0">
                         <span className="sr-only">Open menu</span>
                         <EllipsisVertical className="h-4 w-4" />
                     </Button>
@@ -46,7 +41,7 @@ export const SantriActionAdmin: React.FC = () => {
             </DropdownMenu>
 
             <SantriFormEditAdmin open={editDialogOpen} onOpenChange={setEditDialogOpen} />
-            <SantriFormDeleteAdmin open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen} />
+            <SantriFormDeleteAdmin id={id} open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen} />
         </>
     );
-};
+}

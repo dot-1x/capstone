@@ -1,19 +1,21 @@
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { Link } from '@inertiajs/react';
 import { AlertCircle } from 'lucide-react';
 
 type SantriFormDeleteAdminProps = {
     open: boolean;
     onOpenChange: (open: boolean) => void;
+    id: number;
 };
 
-export default function WalisantriFormDeleteAdmin({ open, onOpenChange }: SantriFormDeleteAdminProps) {
-  const waliSantriData = {
-      namaLengkap: 'Ahmad Ridwan Hakim',
-      nomorTelpon: '0812 3456 7890',
-      jumlahAnak: 2,
-      anakList: ['Laila Mardhiyah', 'Akbar Syahputra'],
-  };
+export default function WalisantriFormDeleteAdmin({ open, onOpenChange, id }: SantriFormDeleteAdminProps) {
+    const waliSantriData = {
+        namaLengkap: 'Ahmad Ridwan Hakim',
+        nomorTelpon: '0812 3456 7890',
+        jumlahAnak: 2,
+        anakList: ['Laila Mardhiyah', 'Akbar Syahputra'],
+    };
 
     return (
         <Dialog open={open} onOpenChange={onOpenChange}>
@@ -66,8 +68,11 @@ export default function WalisantriFormDeleteAdmin({ open, onOpenChange }: Santri
                     <Button variant="outline" onClick={() => onOpenChange(false)}>
                         Batal
                     </Button>
-
-                    <Button variant="destructive">Hapus data</Button>
+                    <Button variant="destructive" asChild>
+                        <Link href={route('admin.walisantri.destroy', id)} method="delete">
+                            Hapus data
+                        </Link>
+                    </Button>
                 </DialogFooter>
             </DialogContent>
         </Dialog>

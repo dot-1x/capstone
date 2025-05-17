@@ -1,13 +1,15 @@
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { Link } from '@inertiajs/react';
 import { AlertCircle } from 'lucide-react';
 
 type PelajaranFormDeleteAdminProps = {
     open: boolean;
     onOpenChange: (open: boolean) => void;
+    id: number;
 };
 
-export default function PelajaranFormDeleteAdmin({ open, onOpenChange }: PelajaranFormDeleteAdminProps) {
+export default function PelajaranFormDeleteAdmin({ open, onOpenChange, id }: PelajaranFormDeleteAdminProps) {
     const pelajaranData = {
         id: 'PLJ002',
         nama: "Kitab Ta'limul Muta'allim",
@@ -60,8 +62,11 @@ export default function PelajaranFormDeleteAdmin({ open, onOpenChange }: Pelajar
                     <Button variant="outline" onClick={() => onOpenChange(false)}>
                         Batal
                     </Button>
-
-                    <Button variant="destructive">Hapus Data</Button>
+                    <Button variant="destructive" asChild>
+                        <Link href={route('admin.pelajaran.destroy', id)} method="delete">
+                            Hapus data
+                        </Link>
+                    </Button>
                 </DialogFooter>
             </DialogContent>
         </Dialog>

@@ -1,13 +1,15 @@
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { Link } from '@inertiajs/react';
 import { AlertCircle } from 'lucide-react';
 
 type UstadzFormDeleteAdminProps = {
     open: boolean;
     onOpenChange: (open: boolean) => void;
+    id: number;
 };
 
-export default function UstadzFormDeleteAdmin({ open, onOpenChange }: UstadzFormDeleteAdminProps) {
+export default function UstadzFormDeleteAdmin({ open, onOpenChange, id }: UstadzFormDeleteAdminProps) {
     const studentData = {
         nis: '2023001',
         nik: '1234567890123456',
@@ -96,8 +98,11 @@ export default function UstadzFormDeleteAdmin({ open, onOpenChange }: UstadzForm
                     <Button variant="outline" onClick={() => onOpenChange(false)}>
                         Batal
                     </Button>
-
-                    <Button variant="destructive">Hapus data</Button>
+                    <Button variant="destructive" asChild>
+                        <Link href={route('admin.ustadz.destroy', id)} method="delete">
+                            Hapus data
+                        </Link>
+                    </Button>
                 </DialogFooter>
             </DialogContent>
         </Dialog>

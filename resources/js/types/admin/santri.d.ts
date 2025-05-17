@@ -1,3 +1,5 @@
+import { Ustadz } from './ustadz';
+
 export interface Ortu {
     id: number;
     name: string;
@@ -27,6 +29,7 @@ export interface Santri {
     ortu_id: number;
     ortu: Ortu;
     ustadz_id: number;
+    ustadz: Ustadz;
 }
 
 export interface PaginationLink {

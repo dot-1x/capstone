@@ -78,13 +78,13 @@ export default function DataTableSantriAdmin({ santriData, filters }: Props) {
                                     <TableCell>{santri.ortu.name}</TableCell>
                                     <TableCell>{santri.jenis_kelamin}</TableCell>
                                     <TableCell>
-                                        <TranscriptViewAdmin />
+                                        <TranscriptViewAdmin id={santri.id} />
                                     </TableCell>
                                     <TableCell>
-                                        <SantriViewAdmin />
+                                        <SantriViewAdmin id={santri.id} />
                                     </TableCell>
                                     <TableCell>
-                                        <SantriActionAdmin />
+                                        <SantriActionAdmin id={santri.id} />
                                     </TableCell>
                                     {/* <TableCell>{santri.alamat}</TableCell> */}
                                     {/* <TableCell>{santri.jenis_kelamin}</TableCell>

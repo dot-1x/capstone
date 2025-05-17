@@ -1,13 +1,20 @@
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { fetchApi } from '@/lib/utils';
+import { Santri } from '@/types/admin/santri';
+import { Link } from '@inertiajs/react';
 import { AlertCircle } from 'lucide-react';
+import { useState } from 'react';
 
 type SantriFormDeleteAdminProps = {
     open: boolean;
     onOpenChange: (open: boolean) => void;
+    id: number;
 };
 
-export default function SantriFormDeleteAdmin({ open, onOpenChange }: SantriFormDeleteAdminProps) {
+export default function SantriFormDeleteAdmin({ id, open, onOpenChange }: SantriFormDeleteAdminProps) {
+    const [data, setData] = useState<Santri | undefined>(undefined);
+    console.log(data);
     const studentData = {
         nis: '2023001',
         nik: '1234567890123456',
@@ -24,7 +31,10 @@ export default function SantriFormDeleteAdmin({ open, onOpenChange }: SantriForm
 
     return (
         <Dialog open={open} onOpenChange={onOpenChange}>
-            <DialogContent className="max-h-screen overflow-y-auto sm:max-w-2xl">
+            <DialogContent
+                className="max-h-screen overflow-y-auto sm:max-w-2xl"
+                onOpenAutoFocus={(ev) => fetchApi<Santri>(route('detail.santri', id)).then((value) => setData(value))}
+            >
                 <DialogHeader className="text-center">
                     <DialogTitle className="mx-auto max-w-lg text-center text-xl font-bold">
                         Apakah Anda yakin ingin menghapus data santri "{studentData.namaLengkap}"?
@@ -37,23 +47,23 @@ export default function SantriFormDeleteAdmin({ open, onOpenChange }: SantriForm
                 <div className="grid grid-cols-2 gap-4 border-t py-4">
                     <div>
                         <p className="text-sm">NIS</p>
-                        <p className="font-medium">{studentData.nis}</p>
+                        <p className="font-medium">{data?.nis}</p>
                     </div>
                     <div>
                         <p className="text-sm">NIK</p>
-                        <p className="font-medium">{studentData.nik}</p>
+                        <p className="font-medium">{data?.nik}</p>
                     </div>
                     <div>
                         <p className="text-sm">Nama Lengkap</p>
-                        <p className="font-medium">{studentData.namaLengkap}</p>
+                        <p className="font-medium">{data?.name}</p>
                     </div>
                     <div>
                         <p className="text-sm">Wali Santri</p>
-                        <p className="font-medium">{studentData.waliSantri}</p>
+                        <p className="font-medium">{data?.ortu.name}</p>
                     </div>
                     <div className="col-span-2">
                         <p className="text-sm">Ustadz</p>
-                        <p className="font-medium">{studentData.ustadz}</p>
+                        <p className="font-medium">{data?.ustadz.name}</p>
                     </div>
                 </div>
 
@@ -96,8 +106,11 @@ export default function SantriFormDeleteAdmin({ open, onOpenChange }: SantriForm
                     <Button variant="outline" onClick={() => onOpenChange(false)}>
                         Batal
                     </Button>
-
-                    <Button variant="destructive">Hapus data</Button>
+                    <Button variant="destructive" asChild>
+                        <Link href={route('admin.santri.destroy', id)} method="delete">
+                            Hapus data
+                        </Link>
+                    </Button>
                 </DialogFooter>
             </DialogContent>
         </Dialog>

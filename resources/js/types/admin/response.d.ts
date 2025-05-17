@@ -1,4 +1,10 @@
-export interface AdminGenericResponse<T> {
+export interface PaginationLink {
+    url: string | null;
+    label: string;
+    active: boolean;
+}
+
+export interface APIPaginateResponse<T> {
     current_page: number;
     data: T[];
     first_page_url: string;
