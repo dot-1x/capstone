@@ -9,6 +9,7 @@ import { useState } from 'react';
 type PelajaranFormEditAdminProps = {
     open: boolean;
     onOpenChange: (open: boolean) => void;
+    id: number;
 };
 
 export default function PelajaranFormEditAdmin({ open, onOpenChange }: PelajaranFormEditAdminProps) {
@@ -37,7 +38,7 @@ export default function PelajaranFormEditAdmin({ open, onOpenChange }: Pelajaran
 
                 <form onSubmit={handleSubmit}>
                     <div className="space-y-4 py-4">
-                        <div className="space-y-2 flex flex-col">
+                        <div className="flex flex-col space-y-2">
                             <label htmlFor="nama-pelajaran" className="text-sm font-medium">
                                 Nama Mata Pelajaran
                             </label>
@@ -45,7 +46,7 @@ export default function PelajaranFormEditAdmin({ open, onOpenChange }: Pelajaran
                         </div>
 
                         <div className="grid grid-cols-2 gap-4">
-                            <div className="space-y-2 flex flex-col">
+                            <div className="flex flex-col space-y-2">
                                 <label htmlFor="pengampu" className="text-sm font-medium">
                                     Pengampu
                                 </label>
@@ -61,7 +62,7 @@ export default function PelajaranFormEditAdmin({ open, onOpenChange }: Pelajaran
                                 </Select>
                             </div>
 
-                            <div className="space-y-2 flex flex-col">
+                            <div className="flex flex-col space-y-2">
                                 <label htmlFor="semester" className="text-sm font-medium">
                                     Semester
                                 </label>
@@ -77,7 +78,7 @@ export default function PelajaranFormEditAdmin({ open, onOpenChange }: Pelajaran
                             </div>
                         </div>
 
-                        <div className="space-y-2 flex flex-col">
+                        <div className="flex flex-col space-y-2">
                             <label className="text-sm font-medium">Pilih Santri</label>
                             <div className="grid grid-cols-2 gap-4">
                                 <Select value={angkatan} onValueChange={setAngkatan}>
@@ -108,7 +109,7 @@ export default function PelajaranFormEditAdmin({ open, onOpenChange }: Pelajaran
                         <Button type="button" variant="outline" onClick={() => onOpenChange(false)}>
                             Batal
                         </Button>
-                        <Button type="submit" variant={"default"}>
+                        <Button type="submit" variant={'default'}>
                             Simpan Perubahan
                         </Button>
                     </DialogFooter>

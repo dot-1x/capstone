@@ -1,11 +1,17 @@
 import { Button } from '@/components/ui/button';
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import {  Plus} from 'lucide-react';
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { fetchApi } from '@/lib/utils';
+import { APIPaginateResponse } from '@/types/admin/response';
+import { Santri } from '@/types/admin/santri';
+import { Ustadz } from '@/types/walisantri/anak';
+import { Plus } from 'lucide-react';
+import { useState } from 'react';
 
 export default function PelajaranFormAddAdmin() {
-
+    const [dataUstadz, setDataUstadz] = useState<Ustadz[]>([]);
+    const [dataSantri, setDataSantri] = useState<Santri[]>([]);
     return (
         <Dialog>
             <DialogTrigger asChild>
@@ -23,7 +29,7 @@ export default function PelajaranFormAddAdmin() {
                 </DialogHeader>
                 <form>
                     <div className="space-y-4 py-4">
-                        <div className="space-y-2 flex flex-col">
+                        <div className="flex flex-col space-y-2">
                             <label htmlFor="nama-pelajaran" className="text-sm font-medium">
                                 Nama Mata Pelajaran
                             </label>
@@ -31,27 +37,33 @@ export default function PelajaranFormAddAdmin() {
                         </div>
 
                         <div className="grid grid-cols-2 gap-4">
-                            <div className="space-y-2 flex flex-col">
+                            <div className="flex flex-col space-y-2">
                                 <label htmlFor="pengampu" className="text-sm font-medium">
                                     Pengampu
                                 </label>
-                                <Select >
-                                    <SelectTrigger>
+                                <Select>
+                                    <SelectTrigger
+                                        onClick={(ev) =>
+                                            fetchApi<APIPaginateResponse<Ustadz>>('/api/ustadz').then((resp) => setDataUstadz(resp.data))
+                                        }
+                                    >
                                         <SelectValue placeholder="Pilih Pengampu" />
                                     </SelectTrigger>
                                     <SelectContent>
-                                        <SelectItem value="Ust. Ahmad Zaki Mubarak">Ust. Ahmad Zaki Mubarak</SelectItem>
-                                        <SelectItem value="Ust. Abdul Malik">Ust. Abdul Malik</SelectItem>
-                                        <SelectItem value="Ust. Muhammad Faisal">Ust. Muhammad Faisal</SelectItem>
+                                        {dataUstadz.map((v) => (
+                                            <SelectItem key={`${v.name}-${v.id}`} value={`${v.id}`}>
+                                                {v.name}
+                                            </SelectItem>
+                                        ))}
                                     </SelectContent>
                                 </Select>
                             </div>
 
-                            <div className="space-y-2 flex flex-col">
+                            <div className="flex flex-col space-y-2">
                                 <label htmlFor="semester" className="text-sm font-medium">
                                     Semester
                                 </label>
-                                <Select >
+                                <Select>
                                     <SelectTrigger>
                                         <SelectValue placeholder="Pilih Semester" />
                                     </SelectTrigger>
@@ -63,27 +75,31 @@ export default function PelajaranFormAddAdmin() {
                             </div>
                         </div>
 
-                        <div className="space-y-2 flex flex-col">
+                        <div className="flex flex-col space-y-2">
                             <label className="text-sm font-medium">Pilih Santri</label>
                             <div className="grid grid-cols-2 gap-4">
-                                <Select >
-                                    <SelectTrigger>
-                                        <SelectValue placeholder="Angkatan" />
-                                    </SelectTrigger>
-                                    <SelectContent>
-                                        <SelectItem value="2024">2024</SelectItem>
-                                        <SelectItem value="2023">2023</SelectItem>
-                                        <SelectItem value="2022">2022</SelectItem>
-                                    </SelectContent>
-                                </Select>
+                                <Input
+                                    id="angkatan-santri"
+                                    placeholder="Ketik Angkatan (cth: 2022)"
+                                    maxLength={4}
+                                    minLength={4}
+                                    type="number"
+                                    onChange={(ev) => {
+                                        if (ev.target.value.length != 4) return;
+                                        fetchApi<{ data: Santri[] }>(`/api/santri/${ev.target.value}`).then((resp) => setDataSantri(resp.data));
+                                    }}
+                                />
 
-                                <Select >
+                                <Select>
                                     <SelectTrigger>
                                         <SelectValue placeholder="Pilih" />
                                     </SelectTrigger>
                                     <SelectContent>
-                                        <SelectItem value="semua">Semua Santri</SelectItem>
-                                        <SelectItem value="pilihan">Santri Pilihan</SelectItem>
+                                        {dataSantri.map((v) => (
+                                            <SelectItem key={`${v.name}-${v.id}`} value={`${v.id}`}>
+                                                {v.name}
+                                            </SelectItem>
+                                        ))}
                                     </SelectContent>
                                 </Select>
                             </div>
@@ -91,7 +107,6 @@ export default function PelajaranFormAddAdmin() {
                     </div>
 
                     <DialogFooter>
-                        
                         <Button type="submit" variant={'default'}>
                             Simpan
                         </Button>

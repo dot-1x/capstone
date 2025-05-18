@@ -73,8 +73,10 @@ export default function DataTablePelajaranSantriAdmin({ santriData, filters }: P
                                     <TableCell>{santri.pengampu.name}</TableCell>
                                     <TableCell>{santri.semester}</TableCell>
                                     <TableCell>{santri.semester}</TableCell>
-                                    <TableCell><PelajaranActionAdmin/></TableCell>
-                                    
+                                    <TableCell>
+                                        <PelajaranActionAdmin id={santri.id} />
+                                    </TableCell>
+
                                     {/* <TableCell>{santri.alamat}</TableCell> */}
                                     {/* <TableCell>{santri.jenis_kelamin}</TableCell>
                                     <TableCell>{santri.phone}</TableCell>

@@ -1,9 +1,5 @@
 'use client';
 
-import type React from 'react';
-
-import {  EllipsisVertical,  PenBox, Trash2 } from 'lucide-react';
-import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import {
     DropdownMenu,
@@ -13,21 +9,20 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import { EllipsisVertical, PenBox, Trash2 } from 'lucide-react';
+import { useState } from 'react';
 import PelajaranFormDeleteAdmin from './pelajaran-form-delete-admin';
 import PelajaranFormEditAdmin from './pelajaran-form-edit-admin';
 
-
-export const PelajaranActionAdmin: React.FC = () => {
-
+export function PelajaranActionAdmin({ id }: { id: number }) {
     const [editDialogOpen, setEditDialogOpen] = useState(false);
     const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
- 
 
     return (
         <>
             <DropdownMenu modal={false}>
                 <DropdownMenuTrigger asChild>
-                    <Button variant="ghost" size={'icon'} className="h-8 w-8 p-0 border">
+                    <Button variant="ghost" size={'icon'} className="h-8 w-8 border p-0">
                         <span className="sr-only">Open menu</span>
                         <EllipsisVertical className="h-4 w-4" />
                     </Button>
@@ -45,8 +40,8 @@ export const PelajaranActionAdmin: React.FC = () => {
                 </DropdownMenuContent>
             </DropdownMenu>
 
-            <PelajaranFormEditAdmin open={editDialogOpen} onOpenChange={setEditDialogOpen} />
-            <PelajaranFormDeleteAdmin open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen} />
+            <PelajaranFormEditAdmin id={id} open={editDialogOpen} onOpenChange={setEditDialogOpen} />
+            <PelajaranFormDeleteAdmin id={id} open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen} />
         </>
     );
-};
+}

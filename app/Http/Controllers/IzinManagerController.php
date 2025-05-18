@@ -32,7 +32,7 @@ class IzinManagerController extends Controller
 
     public function update(Request $request, Izin $izin)
     {
-        // Update izin logic here
+
         return redirect()->route('admin.izin.index');
     }
 
