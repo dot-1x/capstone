@@ -14,21 +14,6 @@ type SantriFormDeleteAdminProps = {
 
 export default function SantriFormDeleteAdmin({ id, open, onOpenChange }: SantriFormDeleteAdminProps) {
     const [data, setData] = useState<Santri | undefined>(undefined);
-    console.log(data);
-    const studentData = {
-        nis: '2023001',
-        nik: '1234567890123456',
-        namaLengkap: 'Fathimah Zahra',
-        waliSantri: 'Nur Aini Fadillah',
-        ustadz: 'Ust. Ahmad Zaki Mubarak',
-        nilai: [
-            { mataPelajaran: "Tafsir Al-Qur'an", semester: 'Ganjil', nilai: 82 },
-            { mataPelajaran: "Kitab Ta'limul Muta'allim", semester: 'Ganjil', nilai: 82 },
-            { mataPelajaran: 'Hadis dan Mustholah', semester: 'Ganjil', nilai: 82 },
-            { mataPelajaran: 'Ilmu Nahwu (Jurumiyah)', semester: 'Ganjil', nilai: 82 },
-        ],
-    };
-
     return (
         <Dialog open={open} onOpenChange={onOpenChange}>
             <DialogContent
@@ -37,7 +22,7 @@ export default function SantriFormDeleteAdmin({ id, open, onOpenChange }: Santri
             >
                 <DialogHeader className="text-center">
                     <DialogTitle className="mx-auto max-w-lg text-center text-xl font-bold">
-                        Apakah Anda yakin ingin menghapus data santri "{studentData.namaLengkap}"?
+                        Apakah Anda yakin ingin menghapus data santri "{data?.name}"?
                     </DialogTitle>
                     <DialogDescription className="text-center">
                         Tindakan ini akan menghapus semua data yang terkait dengan santri tersebut.
@@ -67,7 +52,7 @@ export default function SantriFormDeleteAdmin({ id, open, onOpenChange }: Santri
                     </div>
                 </div>
 
-                <div className="py-2">
+                {/* <div className="py-2">
                     <p className="text-sm">Transkrip Nilai</p>
                     <div className="mt-2 overflow-hidden rounded-md border">
                         <table className="w-full">
@@ -79,9 +64,9 @@ export default function SantriFormDeleteAdmin({ id, open, onOpenChange }: Santri
                                 </tr>
                             </thead>
                             <tbody className="divide-y">
-                                {studentData.nilai.map((item, index) => (
+                                {data?.nilai?.map((item, index) => (
                                     <tr key={index}>
-                                        <td className="px-4 py-3 text-sm">{item.mataPelajaran}</td>
+                                        <td className="px-4 py-3 text-sm">{item.pelajaran_id}</td>
                                         <td className="px-4 py-3 text-sm">{item.semester}</td>
                                         <td className="px-4 py-3 text-right text-sm">{item.nilai}</td>
                                     </tr>
@@ -95,7 +80,7 @@ export default function SantriFormDeleteAdmin({ id, open, onOpenChange }: Santri
                             </tbody>
                         </table>
                     </div>
-                </div>
+                </div> */}
 
                 <div className="mt-2 flex items-center gap-2 text-sm">
                     <AlertCircle size={16} />

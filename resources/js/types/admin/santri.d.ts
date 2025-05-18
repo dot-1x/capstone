@@ -1,3 +1,4 @@
+import { Nilai } from '../ustadz/pelajaran';
 import { Ustadz } from './ustadz';
 
 export interface Ortu {
@@ -30,6 +31,7 @@ export interface Santri {
     ortu: Ortu;
     ustadz_id: number;
     ustadz: Ustadz;
+    nilai: Nilai[]?;
 }
 
 export interface PaginationLink {
