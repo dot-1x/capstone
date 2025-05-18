@@ -27,17 +27,13 @@ class UstadzManagerController extends Controller
     public function showPelajaran(Ustadz $ustadz)
     {
         $pelajaran = Pelajaran::where('pengampu_id', $ustadz->id)->get();
-        return Inertia::render('tester', [
-            'prop' => $pelajaran
-        ]);
+        return response()->json($pelajaran);
     }
 
     public function showSantriDidik(Ustadz $ustadz)
     {
         $santri = Santri::where('ustadz_id', $ustadz->id)->get();
-        return Inertia::render('tester', [
-            'prop' => $santri
-        ]); 
+        return response()->json($santri);
     }
 
     public function store(UstadzStoreRequest $request)

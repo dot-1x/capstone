@@ -7,6 +7,7 @@ use App\Models\Santri;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use illuminate\Support\Str;
+
 class SantriManagerController extends Controller
 {
     /**
@@ -22,6 +23,18 @@ class SantriManagerController extends Controller
     public function api(Request $request)
     {
         return response()->json(Santri::paginateWithSearch($request, ['name'], ['ortu']));
+    }
+
+    public function angkatan(Request $request, string $angkatan) {
+        $query = Santri::query()->where('angkatan', $angkatan)->with('ortu');
+        $result = $query->get();
+        return response()->json(
+            [
+                'code' => 404,
+                'message' => !$result->isEmpty() ? 'successfully getting santri angkatan ' . $angkatan : 'data not found',
+                'data' => $result,
+            ], !$result->isEmpty() ? 200 : 404
+        );
     }
 
     /**
@@ -40,10 +53,7 @@ class SantriManagerController extends Controller
         return redirect(route('admin.santri.index'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Santri $santri)
+    public function update(Santri $santri)
     {
         return redirect(route('admin.santri.index'));
     }

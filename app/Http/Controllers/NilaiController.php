@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Nilai;
+use App\Models\Pelajaran;
+use App\Models\Santri;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 
@@ -16,6 +18,15 @@ class NilaiController extends Controller
         
     }
 
+    public function santri(Santri $santri)
+    {
+        return response()->json($santri->load('nilai'));
+    }
+
+    public function pelajaran(Pelajaran $pelajaran)
+    {
+        return response()->json($pelajaran->load('nilai'));
+    }
     /**
      * Store a newly created resource in storage.
      */

@@ -24,7 +24,7 @@ Route::prefix('/admin')
         Route::get('/ustadz/{ustadz}/santri-didik', [UstadzManagerController::class, 'showSantriDidik'])
         ->name('ustadz.santri');
         Route::resource('izin', IzinManagerController::class)
-        ->only(['index', 'store', 'update', 'destroy']);
+        ->only(['index', 'destroy']);
         Route::resource('pelajaran', PelajaranManagerController::class)
         ->only(['index', 'store', 'update', 'destroy']);
     }
