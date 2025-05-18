@@ -15,12 +15,12 @@ class Nilai extends Model
 
     public function pelajaran()
     {
-        return $this->belongsTo(Pelajaran::class);
+        return $this->belongsTo(Pelajaran::class, 'pelajaran_id');
     }
 
     public function santri()
     {
-        return $this->belongsTo(Santri::class);
+        return $this->belongsTo(Santri::class, 'santri_id');
     }
     public static function paginateWithSearch(
         Request $request,

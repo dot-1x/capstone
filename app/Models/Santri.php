@@ -13,7 +13,7 @@ class Santri extends User
 
     public function nilai()
     {
-        return $this->hasMany(Nilai::class);
+        return $this->hasMany(Nilai::class, 'santri_id');
     }
 
     public function ustadz()

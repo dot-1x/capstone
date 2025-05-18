@@ -20,7 +20,7 @@ class Pelajaran extends Model
 
     public function nilai()
     {
-        return $this->hasMany(Nilai::class);
+        return $this->hasMany(Nilai::class, 'pelajaran_id');
     }
     public static function paginateWithSearch(
         Request $request,

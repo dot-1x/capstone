@@ -24,7 +24,7 @@ Route::prefix('/data')
     ->group(
         function(){
             Route::get('/santri/{santri}', function(Santri $santri) {
-                return response()->json($santri->load('ortu', 'ustadz'));
+                return response()->json($santri->load('ortu', 'ustadz', 'nilai'));
             })->name('santri');
             Route::get('/walisantri/{walisantri}', function(WaliSantri $walisantri) {
                 return Inertia::render('tester', [
