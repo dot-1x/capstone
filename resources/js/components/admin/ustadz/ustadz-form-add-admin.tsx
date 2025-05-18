@@ -12,7 +12,6 @@ export default function UstadzFormAddAdmin() {
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
         post(route('admin.ustadz.store'));
-        // console.log(data);
     };
     return (
         <Dialog>

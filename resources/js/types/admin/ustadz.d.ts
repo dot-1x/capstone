@@ -1,3 +1,5 @@
+import { Santri } from '../admin/santri';
+import { Pelajaran } from '../ustadz/pelajaran';
 import { Gender } from './santri';
 
 export interface Ustadz {
@@ -16,6 +18,8 @@ export interface Ustadz {
     santri_role: string | null;
     ortu_id: number | null;
     ustadz_id: number | null;
+    anak: Santri[] | null;
+    pelajaran: Pelajaran[] | null;
 }
 
 export interface PaginationLink {

@@ -15,13 +15,13 @@ class UstadzManagerController extends Controller
     public function index(Request $request)
     {
         return Inertia::render('admin/ustadz', [
-            'prop' => Ustadz::paginateWithSearch($request)
+            'prop' => Ustadz::paginateWithSearch($request, ['name'], ['anak', 'pelajaran'])
         ]);
     }
 
     public function api(Request $request)
     {
-        return response()->json(Ustadz::paginateWithSearch($request));
+        return response()->json(Ustadz::paginateWithSearch($request, ['name'], ['anak', 'pelajaran']));
     }
 
     public function showPelajaran(Ustadz $ustadz)

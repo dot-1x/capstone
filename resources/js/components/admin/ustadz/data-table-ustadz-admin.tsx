@@ -72,27 +72,16 @@ export default function DataTableUstadzAdmin({ santriData, filters }: Props) {
                                 <TableRow key={santri.id}>
                                     <TableCell>{(santriData.current_page - 1) * santriData.per_page + index + 1}</TableCell>
                                     <TableCell>{santri.name}</TableCell>
-                                    <TableCell>32</TableCell>
+                                    <TableCell>{santri.anak?.length}</TableCell>
                                     <TableCell>
-                                        <LessonViewUstadzAdmin />
+                                        <LessonViewUstadzAdmin id={santri.id} />
                                     </TableCell>
                                     <TableCell>
-                                        <SantriViewUstadzAdmin />
+                                        <SantriViewUstadzAdmin id={santri.id} />
                                     </TableCell>
                                     <TableCell>
-                                        <UstadzActionAdmin />
+                                        <UstadzActionAdmin id={santri.id} />
                                     </TableCell>
-                                    {/* <TableCell>
-                                        <SantriView />
-                                    </TableCell>
-                                    <TableCell>
-                                        <SantriActionAdmin />
-                                    </TableCell> */}
-                                    {/* <TableCell>{santri.alamat}</TableCell> */}
-                                    {/* <TableCell>{santri.jenis_kelamin}</TableCell>
-                                    <TableCell>{santri.phone}</TableCell>
-                                    <TableCell>{santri.santri_role}</TableCell>
-                                    <TableCell>{santri.ortu?.name || '-'}</TableCell> */}
                                 </TableRow>
                             ))
                         ) : (

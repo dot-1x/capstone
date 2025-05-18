@@ -1,24 +1,14 @@
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import {  BookOpen } from 'lucide-react';
+import { fetchApi } from '@/lib/utils';
+import { Ustadz } from '@/types/admin/ustadz';
+import { BookOpen } from 'lucide-react';
 import { useState } from 'react';
 
-
-export default function LessonViewUstadzAdmin() {
+export default function LessonViewUstadzAdmin({ id }: { id: number }) {
     const [semester, setSemester] = useState('Ganjil');
-
-    const studentData = {
-        name: 'Fathimah Zahra',
-        year: '2024',
-        grades: [
-            { subject: "Tafsir Al-Qur'an", semester: 'Ganjil'},
-            { subject: "Kitab Ta'limul Muta'allim", semester: 'Ganjil'},
-            { subject: 'Hadis dan Mustholah', semester: 'Ganjil'},
-            { subject: 'Ilmu Nahwu (Jurumiyah)', semester: 'Ganjil'},
-        ],
-    };
-
+    const [dataUstadz, setDataUstadz] = useState<Ustadz | undefined>();
 
     return (
         <Dialog>
@@ -27,7 +17,10 @@ export default function LessonViewUstadzAdmin() {
                     <BookOpen /> Lihat Pelajaran
                 </Button>
             </DialogTrigger>
-            <DialogContent className="max-h-screen overflow-y-auto sm:max-w-[625px]">
+            <DialogContent
+                className="max-h-screen overflow-y-auto sm:max-w-[625px]"
+                onOpenAutoFocus={(ev) => fetchApi<Ustadz>(route('detail.ustadz', id)).then((resp) => setDataUstadz(resp))}
+            >
                 <DialogHeader className="border-b pb-4">
                     <DialogTitle className="text-center">Daftar Mata Pelajaran yang Diampu</DialogTitle>
                     <DialogDescription className="mx-auto max-w-sm text-center">
@@ -40,10 +33,8 @@ export default function LessonViewUstadzAdmin() {
                         <div className="space-y-4">
                             <div className="space-y-1">
                                 <div className="text-sm">Nama Ustadz</div>
-                                <div className="font-semibold">{studentData.name}</div>
+                                <div className="font-semibold">{dataUstadz?.name}</div>
                             </div>
-
-                          
                         </div>
 
                         <div className="w-48">
@@ -68,19 +59,16 @@ export default function LessonViewUstadzAdmin() {
                                 </tr>
                             </thead>
                             <tbody>
-                                {studentData.grades.map((grade, index) => (
+                                {dataUstadz?.pelajaran?.map((grade, index) => (
                                     <tr key={index} className="border-t">
-                                        <td className="px-4 py-4">{grade.subject}</td>
+                                        <td className="px-4 py-4">{grade.nama_pelajaran}</td>
                                         <td className="px-4 py-4">{grade.semester}</td>
                                     </tr>
                                 ))}
-                              
                             </tbody>
                         </table>
                     </div>
                 </div>
-
-        
             </DialogContent>
         </Dialog>
     );

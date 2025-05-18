@@ -14,6 +14,7 @@ import { useState } from 'react';
 type UstadzFormEditAdminProps = {
     open: boolean;
     onOpenChange: (open: boolean) => void;
+    id: number;
 };
 
 export default function UstadzFormEditAdmin({ open, onOpenChange }: UstadzFormEditAdminProps) {

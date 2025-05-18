@@ -1,23 +1,15 @@
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import {   Users2 } from 'lucide-react';
+import { Input } from '@/components/ui/input';
+import { fetchApi } from '@/lib/utils';
+import { Santri } from '@/types/admin/santri';
+import { Ustadz } from '@/types/admin/ustadz';
+import { Users2 } from 'lucide-react';
 import { useState } from 'react';
 
-
-export default function SantriViewUstadzAdmin() {
-    const [angkatan, setAngkatan] = useState('2022');
-
-    const studentData = {
-        name: 'Fathimah Zahra',
-        grades: [
-            { nis:'434345', subject: "Tafsir Al-Qur'an", angkatan: '2022' },
-            { nis:'434345', subject: "Kitab Ta'limul Muta'allim", angkatan: '2023' },
-            { nis:'434345', subject: 'Hadis dan Mustholah', angkatan: '2023' },
-            { nis:'434345', subject: 'Ilmu Nahwu (Jurumiyah)', angkatan: '2023' },
-        ],
-    };
-
+export default function SantriViewUstadzAdmin({ id }: { id: number }) {
+    const [santri, setSantri] = useState<Santri[]>([]);
+    const [dataUstadz, setDataUstadz] = useState<Ustadz | undefined>();
 
     return (
         <Dialog>
@@ -26,7 +18,10 @@ export default function SantriViewUstadzAdmin() {
                     <Users2 /> Lihat Santri
                 </Button>
             </DialogTrigger>
-            <DialogContent className="max-h-screen overflow-y-auto sm:max-w-[625px]">
+            <DialogContent
+                className="max-h-screen overflow-y-auto sm:max-w-[625px]"
+                onOpenAutoFocus={(_) => fetchApi<Ustadz>(route('detail.ustadz', id)).then((resp) => setDataUstadz(resp))}
+            >
                 <DialogHeader className="border-b pb-4">
                     <DialogTitle className="text-center">Daftar Santri yang Diasuh</DialogTitle>
                     <DialogDescription className="mx-auto max-w-sm text-center">
@@ -39,20 +34,20 @@ export default function SantriViewUstadzAdmin() {
                         <div className="space-y-4">
                             <div className="space-y-1">
                                 <div className="text-sm">Nama Ustadz</div>
-                                <div className="font-semibold">{studentData.name}</div>
+                                <div className="font-semibold">{dataUstadz?.name}</div>
                             </div>
                         </div>
 
                         <div className="w-48">
-                            <Select value={angkatan} onValueChange={setAngkatan}>
-                                <SelectTrigger className="w-full">
-                                    <SelectValue placeholder="Pilih angkatan" />
-                                </SelectTrigger>
-                                <SelectContent>
-                                    <SelectItem value="2022">2022</SelectItem>
-                                    <SelectItem value="2023">2023</SelectItem>
-                                </SelectContent>
-                            </Select>
+                            <Input
+                                id="input-angkatan"
+                                minLength={4}
+                                maxLength={4}
+                                onChange={(ev) => {
+                                    if (ev.target.value.length != 4 || dataUstadz?.anak == undefined) return;
+                                    setSantri(dataUstadz.anak.filter((v) => v.angkatan === parseInt(ev.target.value)));
+                                }}
+                            />
                         </div>
                     </div>
 
@@ -66,11 +61,11 @@ export default function SantriViewUstadzAdmin() {
                                 </tr>
                             </thead>
                             <tbody>
-                                {studentData.grades.map((grade, index) => (
+                                {santri.map((santri, index) => (
                                     <tr key={index} className="border-t">
-                                        <td className="px-4 py-4">{grade.nis}</td>
-                                        <td className="px-4 py-4">{grade.subject}</td>
-                                        <td className="px-4 py-4">{grade.angkatan}</td>
+                                        <td className="px-4 py-4">{santri.nis}</td>
+                                        <td className="px-4 py-4">{santri.name}</td>
+                                        <td className="px-4 py-4">{santri.angkatan}</td>
                                     </tr>
                                 ))}
                             </tbody>

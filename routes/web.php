@@ -32,9 +32,7 @@ Route::prefix('/data')
                 ]);
             })->name('walisantri');
             Route::get('/ustadz/{ustadz}', function(Ustadz $ustadz) {
-                return Inertia::render('tester', [
-                    'prop' => $ustadz
-                ]);
+                return response()->json($ustadz->load('anak', 'pelajaran'));
             })->name('ustadz');
             Route::get('/izin/{izin}', function(Izin $izin) {
                 return Inertia::render('tester', [
