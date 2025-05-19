@@ -20,7 +20,7 @@ export default function SantriViewUstadzAdmin({ id }: { id: number }) {
             </DialogTrigger>
             <DialogContent
                 className="max-h-screen overflow-y-auto sm:max-w-[625px]"
-                onOpenAutoFocus={(_) => fetchApi<Ustadz>(route('detail.ustadz', id)).then((resp) => setDataUstadz(resp))}
+                onOpenAutoFocus={(_) => fetchApi<Ustadz>(route('api.detail.ustadz', id)).then((resp) => setDataUstadz(resp))}
             >
                 <DialogHeader className="border-b pb-4">
                     <DialogTitle className="text-center">Daftar Santri yang Diasuh</DialogTitle>

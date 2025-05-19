@@ -18,7 +18,7 @@ export default function SantriFormDeleteAdmin({ id, open, onOpenChange }: Santri
         <Dialog open={open} onOpenChange={onOpenChange}>
             <DialogContent
                 className="max-h-screen overflow-y-auto sm:max-w-2xl"
-                onOpenAutoFocus={(ev) => fetchApi<Santri>(route('detail.santri', id)).then((value) => setData(value))}
+                onOpenAutoFocus={(ev) => fetchApi<Santri>(route('api.detail.santri', id)).then((value) => setData(value))}
             >
                 <DialogHeader className="text-center">
                     <DialogTitle className="mx-auto max-w-lg text-center text-xl font-bold">

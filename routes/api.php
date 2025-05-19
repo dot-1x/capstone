@@ -5,8 +5,12 @@ use App\Http\Controllers\PelajaranManagerController;
 use App\Http\Controllers\SantriManagerController;
 use App\Http\Controllers\UstadzManagerController;
 use App\Http\Controllers\WaliSantriManagerController;
+use App\Models\Izin;
+use App\Models\Pelajaran;
+use App\Models\Santri;
+use App\Models\Ustadz;
+use App\Models\WaliSantri;
 use Illuminate\Support\Facades\Route;
-
 Route::prefix('/api')
     ->name('api.')
     ->middleware(['auth'])
@@ -24,5 +28,26 @@ Route::prefix('/api')
         ->name('pelajaran');
         Route::get('/nilai/santri/{santri}', [NilaiController::class, 'santri'])
         ->name('nilai.santri');
+        Route::prefix('/detail')
+            ->name('detail.')
+            ->group(
+            function(){
+                Route::get('/santri/{santri}', function(Santri $santri) {
+                    return response()->json($santri->load('ortu', 'ustadz', 'nilai'));
+                })->name('santri');
+                Route::get('/walisantri/{walisantri}', function(WaliSantri $walisantri) {
+                    return response()->json($walisantri->load(['anak']));
+                })->name('walisantri');
+                Route::get('/ustadz/{ustadz}', function(Ustadz $ustadz) {
+                    return response()->json($ustadz->load('anak', 'pelajaran'));
+                })->name('ustadz');
+                Route::get('/izin/{izin}', function(Izin $izin) {
+                    return response()->json($izin);
+                })->name('izin');
+                Route::get('/pelajaran/{pelajaran}', function(Pelajaran $pelajaran) {
+                    return response()->json($pelajaran->load(['pengampu', 'nilai']));
+                })->name('pelajaran');
+            }
+        );
     }
 );

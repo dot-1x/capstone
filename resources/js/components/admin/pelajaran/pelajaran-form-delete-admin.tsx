@@ -1,7 +1,10 @@
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { fetchApi } from '@/lib/utils';
+import { Pelajaran } from '@/types/pelajaran';
 import { Link } from '@inertiajs/react';
 import { AlertCircle } from 'lucide-react';
+import { useState } from 'react';
 
 type PelajaranFormDeleteAdminProps = {
     open: boolean;
@@ -10,19 +13,17 @@ type PelajaranFormDeleteAdminProps = {
 };
 
 export default function PelajaranFormDeleteAdmin({ open, onOpenChange, id }: PelajaranFormDeleteAdminProps) {
-    const pelajaranData = {
-        id: 'PLJ002',
-        nama: "Kitab Ta'limul Muta'allim",
-        pengampu: 'Ust. Ahmad Zaki Mubarak',
-        semester: 'Ganjil',
-    };
+    const [pelajaran, setPelajaran] = useState<Pelajaran | undefined>();
 
     return (
         <Dialog open={open} onOpenChange={onOpenChange}>
-            <DialogContent className="sm:max-w-xl">
+            <DialogContent
+                className="sm:max-w-xl"
+                onOpenAutoFocus={(ev) => fetchApi<Pelajaran>(route('api.detail.pelajaran', id)).then((resp) => setPelajaran(resp))}
+            >
                 <DialogHeader className="text-center">
                     <DialogTitle className="text-center text-xl font-bold">
-                        Apakah Anda yakin ingin menghapus mata pelajaran "{pelajaranData.nama}" dari sistem?
+                        Apakah Anda yakin ingin menghapus mata pelajaran "{pelajaran?.nama_pelajaran}" dari sistem?
                     </DialogTitle>
                     <DialogDescription className="text-center">
                         Tindakan ini akan menghapus semua data terkait seperti nilai santri dan pengampu untuk pelajaran ini.
@@ -32,23 +33,23 @@ export default function PelajaranFormDeleteAdmin({ open, onOpenChange, id }: Pel
                 <div className="space-y-4 py-4">
                     <div>
                         <p className="text-sm text-gray-500">ID Pelajaran</p>
-                        <p className="font-medium">{pelajaranData.id}</p>
+                        <p className="font-medium">{pelajaran?.id}</p>
                     </div>
 
                     <div>
                         <p className="text-sm text-gray-500">Nama Mata Pelajaran</p>
-                        <p className="font-medium">{pelajaranData.nama}</p>
+                        <p className="font-medium">{pelajaran?.nama_pelajaran}</p>
                     </div>
 
                     <div className="grid grid-cols-2 gap-4">
                         <div>
                             <p className="text-sm text-gray-500">Pengampu</p>
-                            <p className="font-medium">{pelajaranData.pengampu}</p>
+                            <p className="font-medium">{pelajaran?.pengampu?.name}</p>
                         </div>
 
                         <div>
                             <p className="text-sm text-gray-500">Semester</p>
-                            <p className="font-medium">{pelajaranData.semester}</p>
+                            <p className="font-medium">{pelajaran?.semester}</p>
                         </div>
                     </div>
                 </div>

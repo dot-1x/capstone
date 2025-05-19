@@ -6,9 +6,9 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 import { cn, fetchApi } from '@/lib/utils';
-import { APIPaginateResponse } from '@/types/admin/response';
 import { SantriRequestType } from '@/types/admin/santri';
 import { WaliSantri } from '@/types/admin/walisantri';
+import { APIPaginateResponse } from '@/types/response';
 import { Ustadz } from '@/types/walisantri/anak';
 import { useForm } from '@inertiajs/react';
 import { format } from 'date-fns';

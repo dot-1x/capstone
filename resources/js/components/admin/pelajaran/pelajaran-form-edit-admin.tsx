@@ -12,7 +12,7 @@ type PelajaranFormEditAdminProps = {
     id: number;
 };
 
-export default function PelajaranFormEditAdmin({ open, onOpenChange }: PelajaranFormEditAdminProps) {
+export default function PelajaranFormEditAdmin({ open, onOpenChange, id }: PelajaranFormEditAdminProps) {
     const [namaPelajaran, setNamaPelajaran] = useState("Kitab Ta'limul Muta'allim");
     const [pengampu, setPengampu] = useState('Ust. Ahmad Zaki Mubarak');
     const [semester, setSemester] = useState('Ganjil');

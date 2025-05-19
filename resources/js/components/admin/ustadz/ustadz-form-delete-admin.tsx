@@ -19,7 +19,7 @@ export default function UstadzFormDeleteAdmin({ open, onOpenChange, id }: Ustadz
         <Dialog open={open} onOpenChange={onOpenChange}>
             <DialogContent
                 className="h-screen overflow-y-auto sm:max-w-2xl"
-                onOpenAutoFocus={(ev) => fetchApi<Ustadz>(route('detail.ustadz', id)).then((resp) => setData(resp))}
+                onOpenAutoFocus={(ev) => fetchApi<Ustadz>(route('api.detail.ustadz', id)).then((resp) => setData(resp))}
             >
                 <DialogHeader className="text-center">
                     <DialogTitle className="mx-auto max-w-lg text-center text-xl font-bold">

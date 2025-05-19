@@ -18,34 +18,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return Inertia::render('dashboard');
     })->name('dashboard');
 });
-Route::prefix('/data')
-    ->name('detail.')
-    ->middleware(['auth'])
-    ->group(
-        function(){
-            Route::get('/santri/{santri}', function(Santri $santri) {
-                return response()->json($santri->load('ortu', 'ustadz', 'nilai'));
-            })->name('santri');
-            Route::get('/walisantri/{walisantri}', function(WaliSantri $walisantri) {
-                return Inertia::render('tester', [
-                    'prop' => $walisantri
-                ]);
-            })->name('walisantri');
-            Route::get('/ustadz/{ustadz}', function(Ustadz $ustadz) {
-                return response()->json($ustadz->load('anak', 'pelajaran'));
-            })->name('ustadz');
-            Route::get('/izin/{izin}', function(Izin $izin) {
-                return Inertia::render('tester', [
-                    'prop' => $izin
-                ]);
-            })->name('izin');
-            Route::get('/pelajaran/{pelajaran}', function(Pelajaran $pelajaran) {
-                return Inertia::render('tester', [
-                    'prop' => $pelajaran->load('nilai.santri')
-                ]);
-            })->name('pelajaran');
-        }
-    );
 
 require __DIR__.'/settings.php';
 require __DIR__.'/auth.php';

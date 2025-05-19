@@ -19,7 +19,7 @@ export default function LessonViewUstadzAdmin({ id }: { id: number }) {
             </DialogTrigger>
             <DialogContent
                 className="max-h-screen overflow-y-auto sm:max-w-[625px]"
-                onOpenAutoFocus={(ev) => fetchApi<Ustadz>(route('detail.ustadz', id)).then((resp) => setDataUstadz(resp))}
+                onOpenAutoFocus={(ev) => fetchApi<Ustadz>(route('api.detail.ustadz', id)).then((resp) => setDataUstadz(resp))}
             >
                 <DialogHeader className="border-b pb-4">
                     <DialogTitle className="text-center">Daftar Mata Pelajaran yang Diampu</DialogTitle>
