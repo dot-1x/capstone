@@ -10,7 +10,6 @@ import { Printer } from 'lucide-react';
 import { useState } from 'react';
 import { IzinActionAdmin } from './izin-action-admin';
 
-
 type Props = {
     santriData: IzinPulang[];
     filters: {
@@ -73,14 +72,14 @@ export default function DataTableIzinAdmin({ santriData, filters }: Props) {
                         {santriData.length > 0 ? (
                             santriData.map((data) => (
                                 <TableRow key={data.id}>
-                                    <TableCell>{data.target_santri.name}</TableCell>
-                                    <TableCell>{data.target_santri.name}</TableCell>
+                                    <TableCell>{data.target_santri?.name}</TableCell>
+                                    <TableCell>{data.target_santri?.name}</TableCell>
                                     <TableCell>{data.message}</TableCell>
                                     <TableCell>{formatDate(data.tanggal_pulang)}</TableCell>
                                     <TableCell>{formatDate(data.tanggal_kembali)}</TableCell>
                                     <TableCell>
                                         <div
-                                            className={`w-full  rounded px-3 py-1.5 text-center text-xs font-bold ${
+                                            className={`w-full rounded px-3 py-1.5 text-center text-xs font-bold ${
                                                 data.status === 'accepted'
                                                     ? 'border border-green-500 bg-green-50 text-green-500'
                                                     : data.status === 'rejected'
@@ -101,9 +100,8 @@ export default function DataTableIzinAdmin({ santriData, filters }: Props) {
                                         </Button>
                                     </TableCell>
                                     <TableCell>
-                                       <IzinActionAdmin/>
+                                        <IzinActionAdmin />
                                     </TableCell>
-
                                 </TableRow>
                             ))
                         ) : (

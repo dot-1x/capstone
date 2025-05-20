@@ -70,7 +70,7 @@ export default function DataTablePelajaranSantriAdmin({ santriData, filters }: P
                                 <TableRow key={santri.id}>
                                     {/* <TableCell>{(santriData.current_page - 1) * santriData.per_page + index + 1}</TableCell> */}
                                     <TableCell>{santri.nama_pelajaran}</TableCell>
-                                    <TableCell>{santri.pengampu.name}</TableCell>
+                                    <TableCell>{santri.pengampu?.name}</TableCell>
                                     <TableCell>{santri.semester}</TableCell>
                                     <TableCell>{santri.semester}</TableCell>
                                     <TableCell>
