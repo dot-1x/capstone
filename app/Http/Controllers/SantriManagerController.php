@@ -33,7 +33,7 @@ class SantriManagerController extends Controller
                 'code' => !$result->isEmpty() ? 200 : 404,
                 'message' => !$result->isEmpty() ? 'successfully getting santri angkatan ' . $angkatan : 'data not found',
                 'data' => $result,
-                'retrieved' => $result->count(),
+                'received' => $result->count(),
             ], !$result->isEmpty() ? 200 : 404
         );
     }

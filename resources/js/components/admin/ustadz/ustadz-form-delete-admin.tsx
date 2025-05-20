@@ -2,6 +2,7 @@ import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { fetchApi } from '@/lib/utils';
 import { Ustadz } from '@/types/admin/ustadz';
+import { APIResponse } from '@/types/response';
 import { Link } from '@inertiajs/react';
 import { AlertCircle } from 'lucide-react';
 import { useState } from 'react';
@@ -19,7 +20,7 @@ export default function UstadzFormDeleteAdmin({ open, onOpenChange, id }: Ustadz
         <Dialog open={open} onOpenChange={onOpenChange}>
             <DialogContent
                 className="h-screen overflow-y-auto sm:max-w-2xl"
-                onOpenAutoFocus={(ev) => fetchApi<Ustadz>(route('api.detail.ustadz', id)).then((resp) => setData(resp))}
+                onOpenAutoFocus={(ev) => fetchApi<APIResponse<Ustadz>>(route('api.detail.ustadz', id)).then((resp) => setData(resp.data))}
             >
                 <DialogHeader className="text-center">
                     <DialogTitle className="mx-auto max-w-lg text-center text-xl font-bold">

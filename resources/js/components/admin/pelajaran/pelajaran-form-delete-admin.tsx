@@ -2,6 +2,7 @@ import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { fetchApi } from '@/lib/utils';
 import { Pelajaran } from '@/types/pelajaran';
+import { APIResponse } from '@/types/response';
 import { Link } from '@inertiajs/react';
 import { AlertCircle } from 'lucide-react';
 import { useState } from 'react';
@@ -19,7 +20,7 @@ export default function PelajaranFormDeleteAdmin({ open, onOpenChange, id }: Pel
         <Dialog open={open} onOpenChange={onOpenChange}>
             <DialogContent
                 className="sm:max-w-xl"
-                onOpenAutoFocus={(ev) => fetchApi<Pelajaran>(route('api.detail.pelajaran', id)).then((resp) => setPelajaran(resp))}
+                onOpenAutoFocus={(ev) => fetchApi<APIResponse<Pelajaran>>(route('api.detail.pelajaran', id)).then((resp) => setPelajaran(resp.data))}
             >
                 <DialogHeader className="text-center">
                     <DialogTitle className="text-center text-xl font-bold">

@@ -19,9 +19,9 @@ Route::prefix('/admin')
         ->only(['index', 'store', 'update', 'destroy']);
         Route::resource('ustadz', UstadzManagerController::class)
         ->only(['index', 'store', 'update', 'destroy']);
-        Route::get('/ustadz/{ustadz}/pelajaran', [UstadzManagerController::class, 'showPelajaran'])
+        Route::get('/ustadz/{ustadz}/pelajaran', [UstadzManagerController::class, 'APIshowPelajaran'])
         ->name('ustadz.pelajaran');
-        Route::get('/ustadz/{ustadz}/santri-didik', [UstadzManagerController::class, 'showSantriDidik'])
+        Route::get('/ustadz/{ustadz}/santri-didik', [UstadzManagerController::class, 'APIshowSantriDidik'])
         ->name('ustadz.santri');
         Route::resource('izin', IzinManagerController::class)
         ->only(['index', 'destroy']);

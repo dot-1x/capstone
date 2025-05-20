@@ -22,8 +22,6 @@ export interface APIPaginateResponse<T> {
 
 export interface APIResponse<T> {
     message: string;
-    code: number;
-    status: string;
-    retrieved: number;
+    received: number;
     data: T;
 }

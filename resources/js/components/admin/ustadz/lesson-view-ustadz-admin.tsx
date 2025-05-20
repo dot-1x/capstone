@@ -3,6 +3,7 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, Di
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { fetchApi } from '@/lib/utils';
 import { Ustadz } from '@/types/admin/ustadz';
+import { APIResponse } from '@/types/response';
 import { BookOpen } from 'lucide-react';
 import { useState } from 'react';
 
@@ -19,7 +20,7 @@ export default function LessonViewUstadzAdmin({ id }: { id: number }) {
             </DialogTrigger>
             <DialogContent
                 className="max-h-screen overflow-y-auto sm:max-w-[625px]"
-                onOpenAutoFocus={(ev) => fetchApi<Ustadz>(route('api.detail.ustadz', id)).then((resp) => setDataUstadz(resp))}
+                onOpenAutoFocus={(ev) => fetchApi<APIResponse<Ustadz>>(route('api.detail.ustadz', id)).then((resp) => setDataUstadz(resp.data))}
             >
                 <DialogHeader className="border-b pb-4">
                     <DialogTitle className="text-center">Daftar Mata Pelajaran yang Diampu</DialogTitle>

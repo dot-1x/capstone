@@ -18,7 +18,6 @@ class WalisantriController extends Controller
     {
         $wali = Auth::id();
         $santri = Santri::where('ortu_id', $wali)->get();
-        Logger($wali);
         return Inertia::render('walisantri/anak', [
             'prop' => $santri
         ]);
@@ -26,9 +25,13 @@ class WalisantriController extends Controller
     public function APIanak()
     {
         $wali = Auth::id();
-        return response()->json(
-            Santri::where('ortu_id', $wali)->get()
-        );
+        $santri = Santri::where('ortu_id', $wali)->get();
+        $count = $santri->count();
+        return response()->json([
+            'message' => $count > 0 ? 'successfulyy walisantri\'s anak' : 'data not found',
+            'received' => $count,
+            'data' => $santri
+        ], $count > 0 ? 200 : 404);
     }
     public function izin()
     {   

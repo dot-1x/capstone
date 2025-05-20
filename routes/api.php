@@ -36,19 +36,47 @@ Route::prefix('/api')
             ->group(
             function(){
                 Route::get('/santri/{santri}', function(Santri $santri) {
-                    return response()->json($santri->load('ortu', 'ustadz', 'nilai'));
+                    return response()->json([
+                        'message' => 'successfully received detail santri',
+                        'received' => 1,
+                        'data' => $santri->load('ortu', 'ustadz', 'nilai')
+                    ]);
                 })->name('santri');
                 Route::get('/walisantri/{walisantri}', function(WaliSantri $walisantri) {
-                    return response()->json($walisantri->load(['anak']));
+                    return response()->json(
+                        [
+                            'message' => 'successfully received detail walisantri',
+                            'received' => 1,
+                            'data' => $walisantri->load(['anak'])
+                        ]
+                    );
                 })->name('walisantri');
                 Route::get('/ustadz/{ustadz}', function(Ustadz $ustadz) {
-                    return response()->json($ustadz->load('anak', 'pelajaran'));
+                    return response()->json(
+                        [
+                            'message' => 'successfully reveived detail ustadz',
+                            'received' => 1,
+                            'data' => $ustadz->load('anak', 'pelajaran')
+                        ]
+                    );
                 })->name('ustadz');
                 Route::get('/izin/{izin}', function(Izin $izin) {
-                    return response()->json($izin);
+                    return response()->json(
+                        [
+                            'message' => 'successfully received detail izin',
+                            'received' => 1,
+                            'data' => $izin
+                        ]
+                    );
                 })->name('izin');
                 Route::get('/pelajaran/{pelajaran}', function(Pelajaran $pelajaran) {
-                    return response()->json($pelajaran->load(['pengampu', 'nilai']));
+                    return response()->json(
+                        [
+                            'message' => 'successfully received detail pelajaran',
+                            'received' => 1,
+                            'data' => $pelajaran->load(['pengampu', 'nilai'])
+                        ]
+                    );
                 })->name('pelajaran');
             }
         );

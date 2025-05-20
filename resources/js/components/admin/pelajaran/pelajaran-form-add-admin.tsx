@@ -4,7 +4,7 @@ import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { fetchApi } from '@/lib/utils';
 import { Santri } from '@/types/admin/santri';
-import { APIPaginateResponse } from '@/types/response';
+import { APIPaginateResponse, APIResponse } from '@/types/response';
 import { Ustadz } from '@/types/walisantri/anak';
 import { Plus } from 'lucide-react';
 import { useState } from 'react';
@@ -86,7 +86,7 @@ export default function PelajaranFormAddAdmin() {
                                     type="number"
                                     onChange={(ev) => {
                                         if (ev.target.value.length != 4) return;
-                                        fetchApi<{ data: Santri[] }>(route('api.santri.angkatan', ev.target.value)).then((resp) =>
+                                        fetchApi<APIResponse<Santri[]>>(route('api.santri.angkatan', ev.target.value)).then((resp) =>
                                             setDataSantri(resp.data),
                                         );
                                     }}

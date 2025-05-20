@@ -24,16 +24,26 @@ class UstadzManagerController extends Controller
         return response()->json(Ustadz::paginateWithSearch($request, ['name'], ['anak', 'pelajaran']));
     }
 
-    public function showPelajaran(Ustadz $ustadz)
+    public function APIshowPelajaran(Ustadz $ustadz)
     {
-        $pelajaran = Pelajaran::where('pengampu_id', $ustadz->id)->get();
-        return response()->json($pelajaran);
+        $pelajaran = Pelajaran::query()->where('pengampu_id', $ustadz->id)->get();
+        $count = $pelajaran->count();
+        return response()->json([
+            'message' => $count > 0 ? 'successfulyy received ustadz\'z Pelajaran' : 'data not found',
+            'received' => $count,
+            'data' => $pelajaran
+        ], $count > 0 ? 200 : 404);
     }
 
-    public function showSantriDidik(Ustadz $ustadz)
+    public function APIshowSantriDidik(Ustadz $ustadz)
     {
         $santri = Santri::where('ustadz_id', $ustadz->id)->get();
-        return response()->json($santri);
+        $count = $santri->count();
+        return response()->json([
+            'message' => $count > 0 ? 'successfulyy received ustadz\'z santri didik' : 'data not found',
+            'received' => $count,
+            'data' => $santri
+        ], $count > 0 ? 200 : 404);
     }
 
     public function store(UstadzStoreRequest $request)

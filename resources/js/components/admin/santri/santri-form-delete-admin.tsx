@@ -2,6 +2,7 @@ import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { fetchApi } from '@/lib/utils';
 import { Santri } from '@/types/admin/santri';
+import { APIResponse } from '@/types/response';
 import { Link } from '@inertiajs/react';
 import { AlertCircle } from 'lucide-react';
 import { useState } from 'react';
@@ -18,7 +19,7 @@ export default function SantriFormDeleteAdmin({ id, open, onOpenChange }: Santri
         <Dialog open={open} onOpenChange={onOpenChange}>
             <DialogContent
                 className="max-h-screen overflow-y-auto sm:max-w-2xl"
-                onOpenAutoFocus={(ev) => fetchApi<Santri>(route('api.detail.santri', id)).then((value) => setData(value))}
+                onOpenAutoFocus={(ev) => fetchApi<APIResponse<Santri>>(route('api.detail.santri', id)).then((resp) => setData(resp.data))}
             >
                 <DialogHeader className="text-center">
                     <DialogTitle className="mx-auto max-w-lg text-center text-xl font-bold">

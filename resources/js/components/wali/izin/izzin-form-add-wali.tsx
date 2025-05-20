@@ -7,6 +7,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { cn, fetchApi } from '@/lib/utils';
 import { SharedData } from '@/types';
 import { IzinCreateRequest } from '@/types/requests/izin.request';
+import { APIResponse } from '@/types/response';
 import { Santri } from '@/types/users';
 import { useForm, usePage } from '@inertiajs/react';
 import { format } from 'date-fns';
@@ -45,7 +46,7 @@ export default function IzinFormAddWali() {
             </DialogTrigger>
             <DialogContent
                 className="max-h-screen overflow-y-auto sm:max-w-[625px]"
-                onOpenAutoFocus={(_) => fetchApi<Santri[]>(route('api.walisantri.anak')).then((resp) => setSantris(resp))}
+                onOpenAutoFocus={(_) => fetchApi<APIResponse<Santri[]>>(route('api.walisantri.anak')).then((resp) => setSantris(resp.data))}
             >
                 <DialogHeader>
                     <DialogTitle>Tambah Izin Santri</DialogTitle>
