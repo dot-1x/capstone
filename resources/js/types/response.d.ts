@@ -19,3 +19,11 @@ export interface APIPaginateResponse<T> {
     to: number;
     total: number;
 }
+
+export interface APIResponse<T> {
+    message: string;
+    code: number;
+    status: string;
+    retrieved: number;
+    data: T;
+}

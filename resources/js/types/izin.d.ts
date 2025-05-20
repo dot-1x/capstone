@@ -1,15 +1,15 @@
 import { Santri, Ustadz, WaliSantri } from './users';
 
 export interface Izin {
+    id: number;
     message: string;
-    tanggal_pulang: Date;
-    tanggal_kembali: Date;
-    created_by: number;
-    createdBy?: WaliSantri;
+    tanggal_pulang: string;
+    tanggal_kembali: string;
+    created_by?: WaliSantri;
     target_santri_id: number;
-    targetSantri?: Santri;
+    target_santri?: Santri;
     opened_by: number;
-    openedBy?: Ustadz;
-    status: 'rejected' | 'accepted';
-    closed_at: Date;
+    opened_by?: Ustadz;
+    status: 'rejected' | 'accepted' | null;
+    closed_at: string;
 }
