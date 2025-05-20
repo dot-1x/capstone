@@ -1,10 +1,5 @@
 <?php
 
-use App\Models\Izin;
-use App\Models\Pelajaran;
-use App\Models\Santri;
-use App\Models\Ustadz;
-use App\Models\WaliSantri;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;

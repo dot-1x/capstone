@@ -1,34 +1,38 @@
 import { Button } from '@/components/ui/button';
 import { Calendar } from '@/components/ui/calendar';
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
-import { Input } from '@/components/ui/input';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
-import { cn } from '@/lib/utils';
+import { cn, fetchApi } from '@/lib/utils';
+import { SharedData } from '@/types';
+import { IzinCreateRequest } from '@/types/requests/izin.request';
+import { Santri } from '@/types/users';
+import { useForm, usePage } from '@inertiajs/react';
 import { format } from 'date-fns';
 import { CalendarIcon, Plus } from 'lucide-react';
 import { useState } from 'react';
 
 export default function IzinFormAddWali() {
+    const { auth } = usePage<SharedData>().props;
+    const { data, post, setData } = useForm<IzinCreateRequest>({
+        created_by: auth.user.id,
+        message: '',
+        target_santri_id: -1,
+        tanggal_kembali: new Date(),
+        tanggal_pulang: new Date(),
+    });
+    const [santris, setSantris] = useState<Santri[]>([]);
     const [open, setOpen] = useState(false);
     const [pulangOpen, setPulangOpen] = useState(false);
     const [kembaliOpen, setKembaliOpen] = useState(false);
-    const [namaSantri, setNamaSantri] = useState('');
-    const [namaPelapor, setNamaPelapor] = useState('');
-    const [alasan, setAlasan] = useState('');
     const [tanggalPulang, setTanggalPulang] = useState<Date | undefined>(undefined);
     const [tanggalKembali, setTanggalKembali] = useState<Date | undefined>(undefined);
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         // Handle form submission
-        console.log({
-            namaSantri,
-            namaPelapor,
-            alasan,
-            tanggalPulang,
-            tanggalKembali,
-        });
+        post(route('walisantri.izin.create', auth.user.id));
         setOpen(false);
     };
 
@@ -39,7 +43,10 @@ export default function IzinFormAddWali() {
                     <Plus className="mr-2 h-4 w-4" /> Tambah Laporan
                 </Button>
             </DialogTrigger>
-            <DialogContent className="max-h-screen overflow-y-auto sm:max-w-[625px]">
+            <DialogContent
+                className="max-h-screen overflow-y-auto sm:max-w-[625px]"
+                onOpenAutoFocus={(_) => fetchApi<Santri[]>(route('api.walisantri.anak')).then((resp) => setSantris(resp))}
+            >
                 <DialogHeader>
                     <DialogTitle>Tambah Izin Santri</DialogTitle>
                     <DialogDescription>
@@ -51,26 +58,18 @@ export default function IzinFormAddWali() {
                     <div className="space-y-4 py-4">
                         <div className="flex flex-col space-y-2">
                             <label htmlFor="nama-santri" className="text-sm font-medium">
-                                Nama Santri
+                                Pilih Anak Anda
                             </label>
-                            <Input
-                                id="nama-santri"
-                                placeholder="Masukkan nama santri"
-                                value={namaSantri}
-                                onChange={(e) => setNamaSantri(e.target.value)}
-                            />
-                        </div>
-
-                        <div className="flex flex-col space-y-2">
-                            <label htmlFor="nama-pelapor" className="text-sm font-medium">
-                                Pelapor ( Wali )
-                            </label>
-                            <Input
-                                id="nama-pelapor"
-                                placeholder="Masukkan nama pelapor"
-                                value={namaPelapor}
-                                onChange={(e) => setNamaPelapor(e.target.value)}
-                            />
+                            <Select onValueChange={(ev) => setData('target_santri_id', parseInt(ev))} required>
+                                <SelectTrigger>
+                                    <SelectValue placeholder="Pilih Anak Anda" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    {santris.map((v) => (
+                                        <SelectItem value={`${v.id}`}>{v.name}</SelectItem>
+                                    ))}
+                                </SelectContent>
+                            </Select>
                         </div>
 
                         <div className="flex flex-col space-y-2">
@@ -81,8 +80,8 @@ export default function IzinFormAddWali() {
                                 id="alasan"
                                 placeholder="Masukkan alasan yang jelas dan lengkap"
                                 rows={4}
-                                value={alasan}
-                                onChange={(e) => setAlasan(e.target.value)}
+                                onChange={(e) => setData('message', e.target.value)}
+                                required
                             />
                         </div>
 

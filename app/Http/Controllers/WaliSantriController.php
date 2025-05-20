@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Izin;
+use App\Models\Santri;
 use App\Models\WaliSantri;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Inertia\Inertia;
 
 class WalisantriController extends Controller
 {
@@ -12,6 +16,40 @@ class WalisantriController extends Controller
      */
     public function index()
     {
-        //
+        $wali = Auth::id();
+        $santri = Santri::where('ortu_id', $wali)->get();
+        Logger($wali);
+        return Inertia::render('walisantri/anak', [
+            'prop' => $santri
+        ]);
+    }
+    public function APIanak()
+    {
+        $wali = Auth::id();
+        return response()->json(
+            Santri::where('ortu_id', $wali)->get()
+        );
+    }
+    public function izin()
+    {   
+        $wali = Auth::id();
+        $izin = Izin::where('created_by', $wali)->with(['createdBy', 'targetSantri'])->get();
+        return Inertia::render('walisantri/izin', [
+            'prop' => $izin
+        ]);
+    }
+    public function create_izin(Request $request, WaliSantri $walisantri)
+    {
+        $validated = $request->validate(
+            [
+                'message' => 'required|string|max:500',
+                'target_santri_id' => 'required|int',
+                'created_by' => 'required|int',
+                'tanggal_pulang' => 'required|date',
+                'tanggal_kembali' => 'required|date'
+            ]
+        );
+        Izin::create($validated);
+        return redirect(route('walisantri.izin'));
     }
 }

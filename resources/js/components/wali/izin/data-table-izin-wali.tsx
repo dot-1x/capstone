@@ -4,15 +4,14 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import formatDate from '@/lib/format-date';
+import { Izin } from '@/types/izin';
 import { router, usePage } from '@inertiajs/react';
 import { Printer } from 'lucide-react';
 import { useState } from 'react';
 import { IzinActionWali } from './izin-action-walii';
-import { WaliIzinPulang } from '@/types/walisantri/izin';
-
 
 type Props = {
-    santriData: WaliIzinPulang[];
+    santriData: Izin[];
     filters: {
         search: string;
         page: number;
@@ -62,25 +61,20 @@ export default function DataTableIzinWali({ santriData, filters }: Props) {
                             <TableHead>Status</TableHead>
                             <TableHead></TableHead>
                             <TableHead></TableHead>
-                            {/* <TableHead>Alamat</TableHead> */}
-                            {/* <TableHead>Jenis Kelamin</TableHead>
-                            <TableHead>Nomor HP</TableHead>
-                            <TableHead>Role</TableHead>
-                            <TableHead>Nama Orang Tua</TableHead> */}
                         </TableRow>
                     </TableHeader>
                     <TableBody>
                         {santriData.length > 0 ? (
                             santriData.map((data) => (
                                 <TableRow key={data.id}>
-                                    <TableCell>Ucup</TableCell>
-                                    <TableCell>Slamet</TableCell>
+                                    <TableCell>{data.target_santri?.name}</TableCell>
+                                    <TableCell>{data.created_by?.name}</TableCell>
                                     <TableCell>{data.message}</TableCell>
                                     <TableCell>{formatDate(data.tanggal_pulang)}</TableCell>
                                     <TableCell>{formatDate(data.tanggal_kembali)}</TableCell>
                                     <TableCell>
                                         <div
-                                            className={`w-full  rounded px-3 py-1.5 text-center text-xs font-bold ${
+                                            className={`w-full rounded px-3 py-1.5 text-center text-xs font-bold ${
                                                 data.status === 'accepted'
                                                     ? 'border border-green-500 bg-green-50 text-green-500'
                                                     : data.status === 'rejected'
@@ -101,9 +95,8 @@ export default function DataTableIzinWali({ santriData, filters }: Props) {
                                         </Button>
                                     </TableCell>
                                     <TableCell>
-                                       <IzinActionWali/>
+                                        <IzinActionWali />
                                     </TableCell>
-
                                 </TableRow>
                             ))
                         ) : (

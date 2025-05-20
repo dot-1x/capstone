@@ -25,14 +25,15 @@ class SantriManagerController extends Controller
         return response()->json(Santri::paginateWithSearch($request, ['name'], ['ortu']));
     }
 
-    public function angkatan(Request $request, string $angkatan) {
+    public function angkatan(string $angkatan) {
         $query = Santri::query()->where('angkatan', $angkatan)->with('ortu');
         $result = $query->get();
         return response()->json(
             [
-                'code' => 404,
+                'code' => !$result->isEmpty() ? 200 : 404,
                 'message' => !$result->isEmpty() ? 'successfully getting santri angkatan ' . $angkatan : 'data not found',
                 'data' => $result,
+                'retrieved' => $result->count(),
             ], !$result->isEmpty() ? 200 : 404
         );
     }

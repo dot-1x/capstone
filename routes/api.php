@@ -4,6 +4,7 @@ use App\Http\Controllers\NilaiController;
 use App\Http\Controllers\PelajaranManagerController;
 use App\Http\Controllers\SantriManagerController;
 use App\Http\Controllers\UstadzManagerController;
+use App\Http\Controllers\WalisantriController;
 use App\Http\Controllers\WaliSantriManagerController;
 use App\Models\Izin;
 use App\Models\Pelajaran;
@@ -28,6 +29,8 @@ Route::prefix('/api')
         ->name('pelajaran');
         Route::get('/nilai/santri/{santri}', [NilaiController::class, 'santri'])
         ->name('nilai.santri');
+        Route::get('/walisantri/anak', [WalisantriController::class, 'APIanak'])
+        ->name('walisantri.anak');
         Route::prefix('/detail')
             ->name('detail.')
             ->group(
