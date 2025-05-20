@@ -33,18 +33,3 @@ interface TargetSantri {
     ortu_id: number;
     ustadz_id: number;
 }
-
-export interface LeaveRequest {
-    id: number;
-    message: string;
-    tanggal_pulang: string;
-    tanggal_kembali: string;
-    created_by: User;
-    target_santri_id: number;
-    opened_by: number | null;
-    status: string | null;
-    closed_at: string | null;
-    created_at: string;
-    updated_at: string;
-    target_santri: TargetSantri;
-}
