@@ -3,10 +3,10 @@
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { UstadzPelajaranList } from '@/types/ustadz/pelajaran';
 import { router, usePage } from '@inertiajs/react';
 import { useState } from 'react';
 import LessonViewUstadz from './lesson-view-ustadz';
-import { UstadzPelajaranList } from '@/types/ustadz/pelajaran';
 
 type Props = {
     santriData: UstadzPelajaranList;
@@ -51,16 +51,9 @@ export default function DataTablePelajaranUstadz({ santriData, filters }: Props)
                 <Table className="min-w-[900px]">
                     <TableHeader>
                         <TableRow className="bg-muted">
-                            {/* <TableHead>No</TableHead> */}
-                            {/* <TableHead>Nama Lengkap</TableHead> */}
                             <TableHead>Nama Mata Pelajaran</TableHead>
                             <TableHead>Jumlah Santri Didik</TableHead>
                             <TableHead></TableHead>
-                            {/* <TableHead>Alamat</TableHead> */}
-                            {/* <TableHead>Jenis Kelamin</TableHead>
-                            <TableHead>Nomor HP</TableHead>
-                            <TableHead>Role</TableHead>
-                            <TableHead>Nama Orang Tua</TableHead> */}
                         </TableRow>
                     </TableHeader>
                     <TableBody>
@@ -69,9 +62,9 @@ export default function DataTablePelajaranUstadz({ santriData, filters }: Props)
                                 <TableRow key={santri.id}>
                                     {/* <TableCell>{(santriData.current_page - 1) * santriData.per_page + index + 1}</TableCell> */}
                                     <TableCell>{santri.nama_pelajaran}</TableCell>
-                                    <TableCell>32</TableCell>
+                                    <TableCell>{santri.nilai.length}</TableCell>
                                     <TableCell>
-                                        <LessonViewUstadz />
+                                        <LessonViewUstadz pelajaran={santri} />
                                     </TableCell>
                                     {/* <TableCell>
                                         <SantriView />

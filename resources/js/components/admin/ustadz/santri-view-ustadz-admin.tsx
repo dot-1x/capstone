@@ -3,8 +3,8 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, Di
 import { Input } from '@/components/ui/input';
 import { fetchApi } from '@/lib/utils';
 import { Santri } from '@/types/admin/santri';
-import { Ustadz } from '@/types/admin/ustadz';
 import { APIResponse } from '@/types/response';
+import { Ustadz } from '@/types/users';
 import { Users2 } from 'lucide-react';
 import { useState } from 'react';
 
@@ -21,7 +21,12 @@ export default function SantriViewUstadzAdmin({ id }: { id: number }) {
             </DialogTrigger>
             <DialogContent
                 className="max-h-screen overflow-y-auto sm:max-w-[625px]"
-                onOpenAutoFocus={(_) => fetchApi<APIResponse<Ustadz>>(route('api.detail.ustadz', id)).then((resp) => setDataUstadz(resp.data))}
+                onOpenAutoFocus={(_) =>
+                    fetchApi<APIResponse<Ustadz>>(route('api.detail.ustadz', id)).then((resp) => {
+                        setDataUstadz(resp.data);
+                        setSantri(resp.data.anak || []);
+                    })
+                }
             >
                 <DialogHeader className="border-b pb-4">
                     <DialogTitle className="text-center">Daftar Santri yang Diasuh</DialogTitle>
@@ -45,8 +50,12 @@ export default function SantriViewUstadzAdmin({ id }: { id: number }) {
                                 minLength={4}
                                 maxLength={4}
                                 onChange={(ev) => {
-                                    if (ev.target.value.length != 4 || dataUstadz?.anak == undefined) return;
-                                    setSantri(dataUstadz.anak.filter((v) => v.angkatan === parseInt(ev.target.value)));
+                                    if (dataUstadz?.anak == undefined) return;
+                                    if (ev.target.value.length != 4) {
+                                        setSantri(dataUstadz.anak);
+                                    } else {
+                                        setSantri(dataUstadz.anak.filter((v) => v.angkatan === parseInt(ev.target.value) && v.angkatan));
+                                    }
                                 }}
                             />
                         </div>

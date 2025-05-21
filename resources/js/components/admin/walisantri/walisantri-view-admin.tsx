@@ -1,15 +1,9 @@
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { WaliSantri } from '@/types/users';
 import { Search } from 'lucide-react';
 
-export default function WalisantriViewAdmin() {
-    const waliSantriData = {
-        namaLengkap: 'Ahmad Ridwan Hakim',
-        nomorTelpon: '0812 3456 7890',
-        jumlahAnak: 2,
-        anakList: ['Laila Mardhiyah', 'Akbar Syahputra'],
-    };
-
+export default function WalisantriViewAdmin({ walisantri }: { walisantri: WaliSantri }) {
     return (
         <Dialog>
             <DialogTrigger asChild>
@@ -29,33 +23,31 @@ export default function WalisantriViewAdmin() {
                     <div className="grid grid-cols-2 gap-y-4">
                         <div>
                             <h3 className="text-sm text-gray-500">Nama Lengkap</h3>
-                            <p className="font-medium">{waliSantriData.namaLengkap}</p>
+                            <p className="font-medium">{walisantri.name}</p>
                         </div>
 
                         <div>
                             <h3 className="text-sm text-gray-500">Nomor Telpon</h3>
-                            <p className="font-medium">{waliSantriData.nomorTelpon}</p>
+                            <p className="font-medium">{walisantri.phone}</p>
                         </div>
 
                         <div className="col-span-2">
                             <h3 className="text-sm text-gray-500">Jumlah Anak</h3>
-                            <p className="font-medium">{waliSantriData.jumlahAnak}</p>
+                            <p className="font-medium">{walisantri.anak?.length}</p>
                         </div>
                     </div>
 
                     <div>
                         <h3 className="mb-2 text-sm text-gray-500">Santri yang Diwalikan</h3>
                         <div className="space-y-1">
-                            {waliSantriData.anakList.map((anak, index) => (
+                            {walisantri.anak?.map((anak, index) => (
                                 <p key={index} className="font-medium">
-                                    {index + 1}. {anak}
+                                    {index + 1}. {anak.name}
                                 </p>
                             ))}
                         </div>
                     </div>
                 </div>
-
-                
             </DialogContent>
         </Dialog>
     );

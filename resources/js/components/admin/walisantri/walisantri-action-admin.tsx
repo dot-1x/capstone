@@ -2,8 +2,6 @@
 
 import type React from 'react';
 
-import {  EllipsisVertical,  PenBox, Trash2 } from 'lucide-react';
-import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import {
     DropdownMenu,
@@ -13,22 +11,21 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import WalisantriFormEditAdmin from './walisantri-form-edit-admin';
+import { WaliSantri } from '@/types/users';
+import { EllipsisVertical, PenBox, Trash2 } from 'lucide-react';
+import { useState } from 'react';
 import WalisantriFormDeleteAdmin from './walisantri-form-delete-admin';
+import WalisantriFormEditAdmin from './walisantri-form-edit-admin';
 
-
-
-export const WalisantriActionAdmin: React.FC = () => {
-
+export const WalisantriActionAdmin: React.FC<{ walisantri: WaliSantri }> = (props) => {
     const [editDialogOpen, setEditDialogOpen] = useState(false);
     const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
- 
 
     return (
         <>
             <DropdownMenu modal={false}>
                 <DropdownMenuTrigger asChild>
-                    <Button variant="ghost" size={'icon'} className="h-8 w-8 p-0 border">
+                    <Button variant="ghost" size={'icon'} className="h-8 w-8 border p-0">
                         <span className="sr-only">Open menu</span>
                         <EllipsisVertical className="h-4 w-4" />
                     </Button>
@@ -46,8 +43,8 @@ export const WalisantriActionAdmin: React.FC = () => {
                 </DropdownMenuContent>
             </DropdownMenu>
 
-            <WalisantriFormEditAdmin open={editDialogOpen} onOpenChange={setEditDialogOpen} />
-            <WalisantriFormDeleteAdmin open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen} />
+            <WalisantriFormEditAdmin walisantri={props.walisantri} open={editDialogOpen} onOpenChange={setEditDialogOpen} />
+            <WalisantriFormDeleteAdmin id={props.walisantri.id} open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen} />
         </>
     );
 };

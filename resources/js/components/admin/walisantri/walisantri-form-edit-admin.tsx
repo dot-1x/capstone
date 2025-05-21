@@ -1,14 +1,15 @@
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
+import { WaliSantri } from '@/types/users';
 
 type SantriFormEditAdminProps = {
     open: boolean;
     onOpenChange: (open: boolean) => void;
+    walisantri: WaliSantri;
 };
 
-export default function WalisantriFormEditAdmin({ open, onOpenChange }: SantriFormEditAdminProps) {
-
+export default function WalisantriFormEditAdmin({ open, onOpenChange, walisantri }: SantriFormEditAdminProps) {
     return (
         <Dialog open={open} onOpenChange={onOpenChange}>
             <DialogContent className="max-h-screen overflow-y-auto sm:max-w-[625px]">
@@ -26,14 +27,14 @@ export default function WalisantriFormEditAdmin({ open, onOpenChange }: SantriFo
                             <label htmlFor="nama" className="font-medium">
                                 Nama Lengkap
                             </label>
-                            <Input id="nama" placeholder="Masukan nama lengkap" />
+                            <Input id="nama" placeholder="Masukan nama lengkap" value={walisantri.name} />
                         </div>
 
                         <div className="flex flex-col space-y-2">
                             <label htmlFor="no" className="font-medium">
                                 Nomor Telepon
                             </label>
-                            <Input id="no" placeholder="Masukan telepon" />
+                            <Input id="no" placeholder="Masukan telepon" value={walisantri.phone} />
                         </div>
                     </div>
                 </div>

@@ -1,33 +1,22 @@
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
+import { fetchApi } from '@/lib/utils';
+import { Nilai, Pelajaran } from '@/types/pelajaran';
+import { APIResponse } from '@/types/response';
 import { ArrowDownUp, BookOpenText, PenBox, Save, Search } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
 // Define TypeScript interfaces for our data
-interface Student {
-    nis: string;
-    name: string;
-    nilai: number;
-}
 
-export default function LessonViewUstadz() {
+export default function LessonViewUstadz({ pelajaran }: { pelajaran: Pelajaran }) {
     const [editingIndex, setEditingIndex] = useState<number | null>(null);
     const [editedValue, setEditedValue] = useState<string>('');
     const [searchQuery, setSearchQuery] = useState<string>('');
     const [sortByHighest, setSortByHighest] = useState<boolean>(false);
 
-    // Original student data
-    const originalStudentsData: Student[] = [
-        { nis: '2023001', name: 'Ava Davis', nilai: 98 },
-        { nis: '2023002', name: 'Emily Johnson', nilai: 74 },
-        { nis: '2023003', name: 'John Taylor', nilai: 80 },
-        { nis: '2023004', name: 'David Harris', nilai: 90 },
-        { nis: '2023005', name: 'Jane Martin', nilai: 50 },
-    ];
-
-    const [studentsData, setStudentsData] = useState<Student[]>(originalStudentsData);
-    const [displayedData, setDisplayedData] = useState<Student[]>(originalStudentsData);
+    const [studentsData, setStudentsData] = useState<Nilai[]>([]);
+    const [displayedData, setDisplayedData] = useState<Nilai[]>([]);
 
     // Apply filtering and sorting when dependencies change
     useEffect(() => {
@@ -35,7 +24,7 @@ export default function LessonViewUstadz() {
 
         // Apply search filter
         if (searchQuery) {
-            filteredData = filteredData.filter((student) => student.name.toLowerCase().includes(searchQuery.toLowerCase()));
+            filteredData = filteredData.filter((student) => student.santri?.name.toLowerCase().includes(searchQuery.toLowerCase()));
         }
 
         // Apply sorting if needed
@@ -44,8 +33,8 @@ export default function LessonViewUstadz() {
         } else {
             // Default to original order
             filteredData.sort((a, b) => {
-                const indexA = studentsData.findIndex((s) => s.nis === a.nis);
-                const indexB = studentsData.findIndex((s) => s.nis === b.nis);
+                const indexA = studentsData.findIndex((s) => s.santri?.nis === a.santri?.nis);
+                const indexB = studentsData.findIndex((s) => s.santri?.nis === b.santri?.nis);
                 return indexA - indexB;
             });
         }
@@ -61,7 +50,7 @@ export default function LessonViewUstadz() {
     const handleSaveValue = (index: number): void => {
         const studentToUpdate = displayedData[index];
         const updatedStudents = studentsData.map((student) =>
-            student.nis === studentToUpdate.nis ? { ...student, nilai: parseInt(editedValue, 10) } : student,
+            student.santri?.nis === studentToUpdate.santri?.nis ? { ...student, nilai: parseInt(editedValue, 10) } : student,
         );
 
         setStudentsData(updatedStudents);
@@ -79,7 +68,15 @@ export default function LessonViewUstadz() {
                     <BookOpenText className="mr-2 h-4 w-4" /> Daftar Nilai
                 </Button>
             </DialogTrigger>
-            <DialogContent className="max-h-screen overflow-y-auto sm:max-w-[625px]">
+            <DialogContent
+                className="max-h-screen overflow-y-auto sm:max-w-[625px]"
+                onOpenAutoFocus={(ev) =>
+                    fetchApi<APIResponse<Nilai[]>>(route('api.detail.pelajaran.nilai', pelajaran.id)).then((resp) => {
+                        setStudentsData(resp.data);
+                        setDisplayedData(resp.data);
+                    })
+                }
+            >
                 <DialogHeader className="border-b pb-4">
                     <DialogTitle className="text-center">Daftar Santri Yang Diasuh</DialogTitle>
                     <DialogDescription className="mx-auto max-w-sm text-center">
@@ -91,7 +88,7 @@ export default function LessonViewUstadz() {
                     <div className="flex items-center justify-between">
                         <div className="space-y-1">
                             <div className="text-sm font-medium">Nama Pelajaran</div>
-                            <div className="font-semibold">Tafsir Al-Qur'an</div>
+                            <div className="font-semibold">{pelajaran.nama_pelajaran}</div>
                         </div>
 
                         <div className="flex space-x-2">
@@ -125,9 +122,9 @@ export default function LessonViewUstadz() {
                             <tbody>
                                 {displayedData.length > 0 ? (
                                     displayedData.map((student, index) => (
-                                        <tr key={student.nis + '-' + index} className="border-t">
-                                            <td className="px-4 py-4">{student.nis}</td>
-                                            <td className="px-4 py-4">{student.name}</td>
+                                        <tr key={student.santri?.nis + '-' + index} className="border-t">
+                                            <td className="px-4 py-4">{student.santri?.nis}</td>
+                                            <td className="px-4 py-4">{student.santri?.name}</td>
                                             <td className="px-4 py-4">
                                                 {editingIndex === index ? (
                                                     <input
@@ -150,7 +147,16 @@ export default function LessonViewUstadz() {
                                                 <Button
                                                     variant="default"
                                                     size="sm"
-                                                    onClick={() => (editingIndex === index ? handleSaveValue(index) : handleEditValue(index))}
+                                                    onClick={() => {
+                                                        fetchApi(route('ustadz.nilai.update', student.id), {
+                                                            method: 'PATCH',
+                                                            data: { nilai: editedValue },
+                                                            headers: {
+                                                                'Content-Type': 'application/json',
+                                                            },
+                                                        });
+                                                        editingIndex === index ? handleSaveValue(index) : handleEditValue(index);
+                                                    }}
                                                     disabled={
                                                         editingIndex !== index || (editingIndex === index && editedValue === student.nilai.toString())
                                                     }

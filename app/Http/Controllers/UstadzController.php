@@ -26,7 +26,7 @@ class UstadzController extends Controller
         $ustadzId = Auth::id();
         $query = Pelajaran::query()->where('pengampu_id', $ustadzId);
         if ($semester) $query->where('semester', $semester);
-        $pelajaran = $query->get();
+        $pelajaran = $query->with('nilai')->get();
         return Inertia::render('ustadz/pelajaran', [
             'prop' => $pelajaran
         ]);

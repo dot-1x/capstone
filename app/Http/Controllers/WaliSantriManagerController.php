@@ -13,7 +13,7 @@ class WaliSantriManagerController extends Controller
     public function index(Request $request)
     {
         return Inertia::render('admin/walisantri', [
-            'prop' => WaliSantri::paginateWithSearch($request)
+            'prop' => WaliSantri::paginateWithSearch($request, ['name'], ['anak'])
         ]);
     }
 

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\NilaiController;
+use App\Http\Controllers\PelajaranController;
 use App\Http\Controllers\PelajaranManagerController;
 use App\Http\Controllers\SantriManagerController;
 use App\Http\Controllers\UstadzManagerController;
@@ -78,6 +79,8 @@ Route::prefix('/api')
                         ]
                     );
                 })->name('pelajaran');
+                Route::get('/pelajaran/{pelajaran}/nilai', [PelajaranController::class, 'APINilai'])
+                ->name('pelajaran.nilai');
             }
         );
     }

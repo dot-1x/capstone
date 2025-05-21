@@ -6,9 +6,8 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { AdminWaliSantriResponse } from '@/types/admin/walisantri';
 import { router, usePage } from '@inertiajs/react';
 import { useState } from 'react';
-import WalisantriViewAdmin from './walisantri-view-admin';
 import { WalisantriActionAdmin } from './walisantri-action-admin';
-
+import WalisantriViewAdmin from './walisantri-view-admin';
 
 type Props = {
     santriData: AdminWaliSantriResponse;
@@ -73,12 +72,12 @@ export default function DataTableWalisantriAdmin({ santriData, filters }: Props)
                                     <TableCell>{(santriData.current_page - 1) * santriData.per_page + index + 1}</TableCell>
                                     <TableCell>{santri.name}</TableCell>
                                     <TableCell>{santri.phone}</TableCell>
-                                    <TableCell>{2}</TableCell>
+                                    <TableCell>{santri.anak?.length}</TableCell>
                                     <TableCell>
-                                        <WalisantriViewAdmin />
+                                        <WalisantriViewAdmin walisantri={santri} />
                                     </TableCell>
                                     <TableCell>
-                                        <WalisantriActionAdmin />
+                                        <WalisantriActionAdmin walisantri={santri} />
                                     </TableCell>
                                     {/* <TableCell>
                                         <TranscriptViewAdmin />

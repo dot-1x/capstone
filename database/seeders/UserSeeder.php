@@ -22,6 +22,24 @@ class UserSeeder extends Seeder
             'phone' => '+62087654321',
             'username' => 'admin'
         ]);
+        User::factory()->create([
+            'name' => 'ustadz',
+            'email' => 'ustadz@localhost.com',
+            'password' => bcrypt('password'), // default password
+            'role' => 'ustadz',
+            'alamat' => 'address',
+            'phone' => '+6298765230',
+            'username' => 'ustadz'
+        ]);
+        User::factory()->create([
+            'name' => 'walisantri',
+            'email' => 'walisantri@localhost.com',
+            'password' => bcrypt('password'), // default password
+            'role' => 'walisantri',
+            'alamat' => 'address',
+            'phone' => '+1-2233-4523-42',
+            'username' => 'walisantri'
+        ]);
         // Create 5 ustadz
         $ustadz = User::factory()->count(5)->ustadz()->create();
 

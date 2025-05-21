@@ -18,12 +18,12 @@ class NilaiController extends Controller
         
     }
 
-    public function santri(Santri $santri)
+    public function APIsantri(Santri $santri)
     {
         return response()->json($santri->load('nilai'));
     }
 
-    public function pelajaran(Pelajaran $pelajaran)
+    public function APIpelajaran(Pelajaran $pelajaran)
     {
         return response()->json($pelajaran->load('nilai'));
     }
@@ -56,8 +56,15 @@ class NilaiController extends Controller
      */
     public function update(Request $request, Nilai $nilai)
     {
-        Gate::authorize('update');
-        
+        $validated = $request->validate(['nilai' => 'required|numeric|max:100|min:0']);
+        $nilai->update($validated);
+        return response()->json(
+            [
+                'message' => "successfully updated nilai " . $nilai->id,
+                'received' => 0,
+                'data' => null
+            ]
+        );
     }
 
     /**
