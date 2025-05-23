@@ -22,6 +22,7 @@ class Pelajaran extends Model
     {
         return $this->hasMany(Nilai::class, 'pelajaran_id');
     }
+
     public static function paginateWithSearch(
         Request $request,
         array $searchable = [],
