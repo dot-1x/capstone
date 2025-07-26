@@ -1,19 +1,19 @@
 import { Button } from '@/components/ui/button';
-import { Calendar } from '@/components/ui/calendar';
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { SearchableSelect } from '@/components/ui/searchable-select';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
-import { cn, fetchApi } from '@/lib/utils';
+import { fetchApi } from '@/lib/utils';
 import { SantriRequestType } from '@/types/admin/santri';
-import { WaliSantri } from '@/types/admin/walisantri';
 import { APIPaginateResponse } from '@/types/response';
+import { WaliSantri } from '@/types/users';
 import { Ustadz } from '@/types/walisantri/anak';
 import { useForm } from '@inertiajs/react';
-import { format } from 'date-fns';
-import { CalendarIcon, Plus } from 'lucide-react';
-import { FormEventHandler, useState } from 'react';
+import {  Plus } from 'lucide-react';
+import { FormEventHandler, useEffect, useRef, useState } from 'react';
+
+
 
 export default function SantriFormAddAdmin() {
     const { data, setData, post } = useForm<SantriRequestType>({
@@ -28,13 +28,21 @@ export default function SantriFormAddAdmin() {
         ustadz_id: -1,
         ortu_id: -1,
     });
+
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
         post(route('admin.santri.store'));
     };
-    const [date, setDate] = useState<Date>();
+
     const [dataWali, setDataWali] = useState<WaliSantri[]>([]);
     const [dataUstadz, setDataUstadz] = useState<Ustadz[]>([]);
+
+    // Load data on component mount
+    useEffect(() => {
+        fetchApi<APIPaginateResponse<Ustadz>>('/api/ustadz').then((resp) => setDataUstadz(resp.data));
+        fetchApi<APIPaginateResponse<WaliSantri>>('/api/walisantri').then((resp) => setDataWali(resp.data));
+    }, []);
+
     return (
         <Dialog>
             <DialogTrigger asChild>
@@ -42,7 +50,7 @@ export default function SantriFormAddAdmin() {
                     <Plus /> Tambah Santri
                 </Button>
             </DialogTrigger>
-            <DialogContent className="max-h-screen overflow-y-auto sm:max-w-[625px]">
+            <DialogContent className="min-h-screen overflow-y-auto sm:max-w-[625px]">
                 <form onSubmit={submit}>
                     <DialogHeader>
                         <DialogTitle>Tambah Data Santri Baru</DialogTitle>
@@ -109,20 +117,13 @@ export default function SantriFormAddAdmin() {
                                 <label htmlFor="tanggalLahir" className="font-medium">
                                     Tanggal Lahir
                                 </label>
-                                <Popover>
-                                    <PopoverTrigger asChild>
-                                        <Button
-                                            variant="outline"
-                                            className={cn('w-[240px] justify-start text-left font-normal', !date && 'text-muted-foreground')}
-                                        >
-                                            <CalendarIcon className="mr-2 h-4 w-4" />
-                                            {date ? format(date, 'PPP') : <span>Pick a date</span>}
-                                        </Button>
-                                    </PopoverTrigger>
-                                    <PopoverContent className="w-auto p-0" align="start">
-                                        <Calendar mode="single" selected={date} onSelect={setDate} autoFocus />
-                                    </PopoverContent>
-                                </Popover>
+                                <input
+                                    type="date"
+                                    id="tanggalLahir"
+                                    className="border-input placeholder:text-muted-foreground focus-visible:ring-ring flex h-9 w-full rounded-md border bg-transparent px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:ring-1 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+                                    onChange={(ev) => setData('tanggal_lahir', ev.target.value)}
+                                    required
+                                />
                             </div>
                         </div>
 
@@ -175,44 +176,25 @@ export default function SantriFormAddAdmin() {
                                 <label htmlFor="ustadz" className="font-medium">
                                     Ustadz Pembimbing
                                 </label>
-                                <Select onValueChange={(ev) => setData('ustadz_id', parseInt(ev))} required>
-                                    <SelectTrigger
-                                        onClick={(ev) => {
-                                            fetchApi<APIPaginateResponse<Ustadz>>('/api/ustadz').then((resp) => setDataUstadz(resp.data));
-                                        }}
-                                    >
-                                        <SelectValue placeholder="Pilih" />
-                                    </SelectTrigger>
-                                    <SelectContent>
-                                        {dataUstadz.map((v) => (
-                                            <SelectItem key={`${v.name}-${v.id}`} value={`${v.id}`}>
-                                                {v.name}
-                                            </SelectItem>
-                                        ))}
-                                    </SelectContent>
-                                </Select>
+                                <SearchableSelect
+                                    options={dataUstadz}
+                                    placeholder="Cari dan pilih ustadz..."
+                                    value={data.ustadz_id}
+                                    onChange={(value) => setData('ustadz_id', value)}
+                                    required
+                                />
                             </div>
 
                             <div className="flex flex-col space-y-2">
                                 <label htmlFor="wali" className="font-medium">
                                     Nama Orang Tua / Wali
                                 </label>
-                                <Select onValueChange={(ev) => setData('ortu_id', parseInt(ev))}>
-                                    <SelectTrigger
-                                        onClick={(ev) => {
-                                            fetchApi<APIPaginateResponse<WaliSantri>>('/api/walisantri').then((resp) => setDataWali(resp.data));
-                                        }}
-                                    >
-                                        <SelectValue placeholder="Masukan nama orang tua" />
-                                    </SelectTrigger>
-                                    <SelectContent>
-                                        {dataWali.map((v) => (
-                                            <SelectItem key={`${v.name}-${v.id}`} value={`${v.id}`}>
-                                                {v.name}
-                                            </SelectItem>
-                                        ))}
-                                    </SelectContent>
-                                </Select>
+                                <SearchableSelect
+                                    options={dataWali}
+                                    placeholder="Cari dan pilih wali..."
+                                    value={data.ortu_id}
+                                    onChange={(value) => setData('ortu_id', value)}
+                                />
                             </div>
                         </div>
                     </div>
