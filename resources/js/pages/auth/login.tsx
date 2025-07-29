@@ -90,7 +90,7 @@ export default function Login({ status, canResetPassword }: LoginProps) {
                                     value={data.email}
                                     onChange={(e) => setData('email', e.target.value)}
                                     placeholder=""
-                                    className="w-full rounded-lg border border-gray-300 px-4 py-5 transition-colors !text-black focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500"
+                                    className="w-full rounded-lg border border-gray-300 px-4 py-5 !text-black transition-colors focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500"
                                 />
                                 <InputError message={errors.email} />
                             </div>
@@ -108,7 +108,7 @@ export default function Login({ status, canResetPassword }: LoginProps) {
                                     value={data.password}
                                     onChange={(e) => setData('password', e.target.value)}
                                     placeholder=""
-                                    className="w-full rounded-lg border border-gray-300 px-4 py-5 transition-colors !text-black focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500"
+                                    className="w-full rounded-lg border border-gray-300 px-4 py-5 !text-black transition-colors focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500"
                                 />
                                 <InputError message={errors.password} />
                             </div>
@@ -130,7 +130,7 @@ export default function Login({ status, canResetPassword }: LoginProps) {
                                 {canResetPassword && (
                                     <TextLink
                                         href={route('password.request')}
-                                        className="text-sm text-primary hover:text-emerald-700"
+                                        className="text-sm text-emerald-700 hover:text-emerald-700"
                                         tabIndex={5}
                                     >
                                         Lupa kata sandi?

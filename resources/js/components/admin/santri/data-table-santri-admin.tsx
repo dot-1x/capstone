@@ -6,9 +6,9 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { AdminSantriPaginationResponse } from '@/types/admin/santri';
 import { router, usePage } from '@inertiajs/react';
 import { useState } from 'react';
-import { SantriActionAdmin } from './santri-action-admin';
 import SantriViewAdmin from './santri-view-admin';
 import TranscriptViewAdmin from './transcript-view-admin';
+import { SantriDetail } from './santri-detail';
 
 type Props = {
     santriData: AdminSantriPaginationResponse;
@@ -81,10 +81,7 @@ export default function DataTableSantriAdmin({ santriData, filters }: Props) {
                                         <TranscriptViewAdmin id={santri.id} />
                                     </TableCell>
                                     <TableCell>
-                                        <SantriViewAdmin id={santri.id} />
-                                    </TableCell>
-                                    <TableCell>
-                                        <SantriActionAdmin id={santri.id} />
+                                        <SantriDetail data={santri} />
                                     </TableCell>
                                     {/* <TableCell>{santri.alamat}</TableCell> */}
                                     {/* <TableCell>{santri.jenis_kelamin}</TableCell>
