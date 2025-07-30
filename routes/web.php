@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\NilaiController;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -7,11 +8,12 @@ use Inertia\Inertia;
 Route::get('/', function () {
     return Inertia::render('welcome');
 })->name('home');
-
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', function () {
         return Inertia::render('dashboard');
     })->name('dashboard');
+    Route::get('/transcript/{nis}', [NilaiController::class, 'generatePDF'])
+    ->name('nilai.transcript');
 });
 
 require __DIR__.'/settings.php';

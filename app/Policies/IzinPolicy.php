@@ -25,7 +25,7 @@ class IzinPolicy
 
     public function update(User $user, Izin $izin)
     {
-        return $user->role === 'ustadz' && $user->id === $izin->opened_by && $user->role === 'admin';
+        return $user->role === 'ustadz' || $user->role === 'admin';
         // return true;
     }
 

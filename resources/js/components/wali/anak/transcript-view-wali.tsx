@@ -91,9 +91,13 @@ export default function TranscriptViewAdmin({ id }: { id: number }) {
                 <DialogFooter>
                     <div className="flex w-full items-center justify-between">
                         <Button variant="outline">Kembali</Button>
-                        <Button variant="default">
-                            <Printer className="mr-2 h-4 w-4" />
-                            Cetak transkrip nilai
+                        <Button asChild>
+                            {santri && (
+                                <a href={route('nilai.transcript', santri?.nis)} target="_blank">
+                                    <Printer className="mr-2 h-4 w-4" />
+                                    Cetak transkrip nilai
+                                </a>
+                            )}
                         </Button>
                     </div>
                 </DialogFooter>
