@@ -1,6 +1,6 @@
 // resources/js/Pages/Admin/SantriPage.tsx
 
-import SantriViewAdmin from '@/components/admin/santri/santri-view-admin';
+import { SantriDetail } from '@/components/admin/santri/santri-detail';
 import TranscriptViewAdmin from '@/components/admin/santri/transcript-view-admin';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -77,7 +77,7 @@ export default function DataTableSantriUstadz({ santriData, filters }: Props) {
                                         <TranscriptViewAdmin id={santri.id} />
                                     </TableCell>
                                     <TableCell>
-                                        <SantriViewAdmin id={santri.id} />
+                                        <SantriDetail data={santri} />
                                     </TableCell>
                                     {/* <TableCell>{santri.alamat}</TableCell> */}
                                     {/* <TableCell>{santri.jenis_kelamin}</TableCell>

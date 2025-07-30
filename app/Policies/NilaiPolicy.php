@@ -5,15 +5,22 @@ namespace App\Policies;
 use App\Models\Nilai;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
+use Illuminate\Support\Facades\Log;
 
 class NilaiPolicy
 {
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, Nilai $nilai): bool
+    public function view(User $user, Nilai $nilai): Response
     {
-        return $nilai->pelajaran->ustadz_id === $user->id || $nilai->santri->ortu_id === $user->id;
+        if($nilai->pelajaran->ustadz_id === $user->id) 
+            return Response::allow();
+        if($nilai->santri->ortu_id === $user->id) 
+            return Response::allow();
+        if($user->role === 'admin') 
+            return Response::allow();
+        return Response::deny('You are not allowed to view this nilai.');
     }
 
     /**

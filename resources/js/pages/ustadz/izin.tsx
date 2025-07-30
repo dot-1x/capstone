@@ -3,7 +3,7 @@ import { Heading } from '@/components/ui/heading';
 import { Separator } from '@/components/ui/separator';
 import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
-import { IzinPulang } from '@/types/admin/izin';
+import { AdminIzinPulangResponse } from '@/types/admin/izin';
 import { Head } from '@inertiajs/react';
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -13,7 +13,7 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
 ];
 
-export default function Page({ prop }: { prop: IzinPulang[] }) {
+export default function Page({ prop }: { prop: AdminIzinPulangResponse }) {
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Data Permohonan Izin Santri" />

@@ -22,7 +22,7 @@ class UserSeeder extends Seeder
             'phone' => '+62087654321',
             'username' => 'admin'
         ]);
-        User::factory()->create([
+        $ustadz1 = User::factory()->create([
             'name' => 'ustadz',
             'email' => 'ustadz@localhost.com',
             'password' => bcrypt('password'), // default password
@@ -31,7 +31,7 @@ class UserSeeder extends Seeder
             'phone' => '+6298765230',
             'username' => 'ustadz'
         ]);
-        User::factory()->create([
+        $wali1 = User::factory()->create([
             'name' => 'walisantri',
             'email' => 'walisantri@localhost.com',
             'password' => bcrypt('password'), // default password
@@ -41,13 +41,14 @@ class UserSeeder extends Seeder
             'username' => 'walisantri'
         ]);
         // Create 5 ustadz
-        $ustadz = User::factory()->count(5)->ustadz()->create();
-
+        $ustadzFact = User::factory()->count(3)->ustadz()->create();
         // Create 10 wali
-        $walis = User::factory()->count(10)->walisantri()->create();
-
+        $walisFact = User::factory()->count(3)->walisantri()->create();
+        
+        $ustadz = $ustadzFact->push($ustadz1);
+        $walis = $walisFact->push($wali1);
         // Create 30 santri and link them
-        User::factory()->count(30)->santri()->make()->each(function ($santri) use ($ustadz, $walis) {
+        User::factory()->count(50)->santri()->make()->each(function ($santri) use ($ustadz, $walis) {
             $santri->ustadz_id = $ustadz->random()->id;
             $santri->ortu_id = $walis->random()->id;
             $santri->save();

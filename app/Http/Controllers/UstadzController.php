@@ -32,15 +32,15 @@ class UstadzController extends Controller
         ]);
     }
 
-    public function izin()
+    public function izin(Request $request)
     {
+        $page = $request->query('page', 1);
         $ustadzId = Auth::id();
         $izin = Izin::whereHas('targetSantri', function ($query) use ($ustadzId) {
                 $query->where('ustadz_id', $ustadzId);
             })
             ->with(['createdBy', 'targetSantri', 'openedBy'])
-            ->get();
-
+            ->paginate(10, ['*'], 'page', $page);
         return Inertia::render('ustadz/izin', [
             'prop' => $izin
         ]);

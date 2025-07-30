@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Izin;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Validation\Rule;
 use Inertia\Inertia;
 
@@ -33,6 +34,7 @@ class IzinManagerController extends Controller
 
     public function update(Request $request, Izin $izin)
     {
+        Gate::authorize('update', $izin);
         $validated = $request->validate([
             'status' => ['required', Rule::in(['accepted', 'rejected'])]
         ]);

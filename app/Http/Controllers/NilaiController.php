@@ -6,7 +6,9 @@ use App\Models\Nilai;
 use App\Models\Pelajaran;
 use App\Models\Santri;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Log;
 
 class NilaiController extends Controller
 {
@@ -20,6 +22,7 @@ class NilaiController extends Controller
 
     public function APIsantri(Santri $santri)
     {
+        Gate::authorize('viewNilai', $santri);
         $santri->load('nilai.pelajaran');
         return response()->json([
             'message' => 'successfully received santri with nilai',
@@ -45,7 +48,6 @@ class NilaiController extends Controller
      */
     public function show(Nilai $nilai)
     {
-        //
     }
 
     /**
