@@ -4,14 +4,13 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import formatDate from '@/lib/format-date';
-import { IzinPulang } from '@/types/admin/izin';
+import { AdminIzinPulangResponse } from '@/types/admin/izin';
 import { router, usePage } from '@inertiajs/react';
-import { Printer } from 'lucide-react';
 import { useState } from 'react';
 import { IzinActionAdmin } from './izin-action-admin';
 
 type Props = {
-    santriData: IzinPulang[];
+    santriData: AdminIzinPulangResponse;
     filters: {
         search: string;
         page: number;
@@ -26,7 +25,11 @@ export default function DataTableIzinAdmin({ santriData, filters }: Props) {
         e.preventDefault();
         router.get(url.split('?')[0], { search: searchInput, page: 1 }, { preserveState: true, replace: true });
     };
-
+    const handlePageChange = (pageUrl: string | null) => {
+        if (pageUrl) {
+            router.visit(pageUrl, { preserveState: true, replace: true });
+        }
+    };
     return (
         <div className="flex flex-col gap-6 pt-2">
             {/* Search Form */}
@@ -63,8 +66,8 @@ export default function DataTableIzinAdmin({ santriData, filters }: Props) {
                         </TableRow>
                     </TableHeader>
                     <TableBody>
-                        {santriData.length > 0 ? (
-                            santriData.map((data) => (
+                        {santriData.data.length > 0 ? (
+                            santriData.data.map((data) => (
                                 <TableRow key={data.id}>
                                     <TableCell>{data.target_santri?.name}</TableCell>
                                     <TableCell>{data.created_by?.name}</TableCell>
@@ -88,13 +91,13 @@ export default function DataTableIzinAdmin({ santriData, filters }: Props) {
                                                   : 'Menunggu Persetujuan'}
                                         </div>
                                     </TableCell>
-                                    <TableCell>
+                                    {/* <TableCell>
                                         <Button size={'sm'}>
                                             <Printer /> Cetak{' '}
                                         </Button>
-                                    </TableCell>
+                                    </TableCell> */}
                                     <TableCell>
-                                        <IzinActionAdmin />
+                                        <IzinActionAdmin status={data.status} id={data.id} />
                                     </TableCell>
                                 </TableRow>
                             ))
@@ -107,6 +110,20 @@ export default function DataTableIzinAdmin({ santriData, filters }: Props) {
                         )}
                     </TableBody>
                 </Table>
+            </div>
+            {/* Pagination */}
+            <div className="flex w-full flex-wrap items-center justify-center gap-2">
+                {santriData.links.map((link, index) => (
+                    <Button
+                        key={index}
+                        variant={link.active ? 'default' : 'outline'}
+                        size="sm"
+                        disabled={!link.url}
+                        dangerouslySetInnerHTML={{ __html: link.label }}
+                        onClick={() => handlePageChange(link.url)}
+                        className="min-w-8"
+                    />
+                ))}
             </div>
         </div>
     );

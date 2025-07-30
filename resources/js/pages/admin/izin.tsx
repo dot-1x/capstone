@@ -28,7 +28,7 @@ export default function Page({ prop }: { prop: AdminIzinPulangResponse }) {
                     <IzinFormAddAdmin />
                 </div>
                 <Separator />
-                <DataTableIzinAdmin santriData={prop.data} filters={{ search: '', page: 1 }} />
+                <DataTableIzinAdmin santriData={prop} filters={{ search: '', page: 1 }} />
             </div>
         </AppLayout>
     );

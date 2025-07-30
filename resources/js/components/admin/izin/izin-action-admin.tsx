@@ -1,7 +1,5 @@
 'use client';
 
-import type React from 'react';
-
 import { Button } from '@/components/ui/button';
 import {
     DropdownMenu,
@@ -11,16 +9,16 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import { fetchApi } from '@/lib/utils';
 import { SharedData } from '@/types';
 import { usePage } from '@inertiajs/react';
 import { Ban, Check, EllipsisVertical, Trash2 } from 'lucide-react';
 import { useState } from 'react';
 import IzinFormDeleteAdmin from './izin-form-delete-admin';
 
-export const IzinActionAdmin: React.FC = () => {
+export function IzinActionAdmin({ id, status }: { id: number; status: 'accepted' | 'rejected' | null }) {
     const { auth } = usePage<SharedData>().props;
     const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
-
     return (
         <>
             <DropdownMenu modal={false}>
@@ -33,11 +31,20 @@ export const IzinActionAdmin: React.FC = () => {
                 <DropdownMenuContent align="end">
                     <DropdownMenuLabel>Aksi</DropdownMenuLabel>
                     <DropdownMenuSeparator />
-
-                    <DropdownMenuItem>
+                    <DropdownMenuItem
+                        disabled={status !== null}
+                        onClick={(ev) => {
+                            fetchApi(route('admin.izin.update', id), { data: { status: 'accepted' }, method: 'patch' });
+                        }}
+                    >
                         <Check className="mr-1 h-4 w-4" /> Beri Izin
                     </DropdownMenuItem>
-                    <DropdownMenuItem>
+                    <DropdownMenuItem
+                        disabled={status !== null}
+                        onClick={(ev) => {
+                            fetchApi(route('admin.izin.update', id), { data: { status: 'rejected' }, method: 'patch' });
+                        }}
+                    >
                         <Ban className="mr-1 h-4 w-4" /> Tolak Izin
                     </DropdownMenuItem>
 
@@ -52,4 +59,4 @@ export const IzinActionAdmin: React.FC = () => {
             <IzinFormDeleteAdmin open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen} />
         </>
     );
-};
+}

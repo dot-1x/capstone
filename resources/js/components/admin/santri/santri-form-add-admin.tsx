@@ -10,10 +10,8 @@ import { APIPaginateResponse } from '@/types/response';
 import { WaliSantri } from '@/types/users';
 import { Ustadz } from '@/types/walisantri/anak';
 import { useForm } from '@inertiajs/react';
-import {  Plus } from 'lucide-react';
-import { FormEventHandler, useEffect, useRef, useState } from 'react';
-
-
+import { Plus } from 'lucide-react';
+import { FormEventHandler, useEffect, useState } from 'react';
 
 export default function SantriFormAddAdmin() {
     const { data, setData, post } = useForm<SantriRequestType>({
@@ -200,9 +198,7 @@ export default function SantriFormAddAdmin() {
                     </div>
 
                     <DialogFooter>
-                        <Button type="submit" onSubmit={(ev) => {}}>
-                            Save changes
-                        </Button>
+                        <Button type="submit">Save changes</Button>
                     </DialogFooter>
                 </form>
             </DialogContent>

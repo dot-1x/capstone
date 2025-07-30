@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Izin;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use Inertia\Inertia;
 
 class IzinManagerController extends Controller
@@ -32,8 +33,17 @@ class IzinManagerController extends Controller
 
     public function update(Request $request, Izin $izin)
     {
-
-        return redirect()->route('admin.izin.index');
+        $validated = $request->validate([
+            'status' => ['required', Rule::in(['accepted', 'rejected'])]
+        ]);
+        $izin->update($validated);
+        return response()->json(
+            [
+                'message' => "successfully updated izin " . $izin->id,
+                'received' => 1,
+                'data' => $izin
+            ]
+        );
     }
 
     public function destroy(Izin $izin)
