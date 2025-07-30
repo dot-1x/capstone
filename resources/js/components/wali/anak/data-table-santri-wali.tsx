@@ -6,7 +6,6 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { WaliSantriAnak } from '@/types/walisantri/anak';
 import { router, usePage } from '@inertiajs/react';
 import { useState } from 'react';
-import SantriViewWali from './santri-view-wali';
 import TranscriptViewWali from './transcript-view-wali';
 
 type Props = {
@@ -69,11 +68,11 @@ export default function DataTableSantriWali({ santriData, filters }: Props) {
                                     <TableCell>{santri.name}</TableCell>
                                     <TableCell>{santri.email}</TableCell>
                                     <TableCell>
-                                        <TranscriptViewWali />
+                                        <TranscriptViewWali id={santri.id} />
                                     </TableCell>
-                                    <TableCell>
+                                    {/* <TableCell>
                                         <SantriViewWali />
-                                    </TableCell>
+                                    </TableCell> */}
                                 </TableRow>
                             ))
                         ) : (

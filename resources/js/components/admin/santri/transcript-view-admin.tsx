@@ -10,6 +10,7 @@ import { useState } from 'react';
 export default function TranscriptViewAdmin({ id }: { id: number }) {
     const [semester, setSemester] = useState('Ganjil');
     const [santri, setDataSantri] = useState<Santri | null>(null);
+    const average = santri?.nilai?.reduce((sum, item) => sum + item.nilai, 0) / (santri?.nilai?.length || 1);
     return (
         <Dialog>
             <DialogTrigger asChild>
@@ -71,7 +72,7 @@ export default function TranscriptViewAdmin({ id }: { id: number }) {
                             <tbody>
                                 {santri?.nilai?.map((nilai, index) => (
                                     <tr key={index} className="border-t">
-                                        <td className="px-4 py-4">{nilai.pelajaran_id}</td>
+                                        <td className="px-4 py-4">{nilai.pelajaran.nama_pelajaran}</td>
                                         <td className="px-4 py-4">{nilai.semester}</td>
                                         <td className="px-4 py-4">{nilai.nilai}</td>
                                     </tr>
@@ -80,7 +81,7 @@ export default function TranscriptViewAdmin({ id }: { id: number }) {
                                     <td colSpan={2} className="px-4 py-4 font-medium">
                                         Rata rata
                                     </td>
-                                    <td className="px-4 py-4 text-right font-medium">{0}</td>
+                                    <td className="px-4 py-4 text-right font-medium">{average.toFixed(2)}</td>
                                 </tr>
                             </tbody>
                         </table>

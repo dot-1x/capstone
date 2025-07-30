@@ -20,7 +20,7 @@ class NilaiController extends Controller
 
     public function APIsantri(Santri $santri)
     {
-        $santri->load('nilai');
+        $santri->load('nilai.pelajaran');
         return response()->json([
             'message' => 'successfully received santri with nilai',
             'received' => 1,
