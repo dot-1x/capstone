@@ -87,7 +87,7 @@ class User extends Authenticatable
     public static function paginateWithSearch(
         Request $request,
         array $searchable = ['name'],
-        array $relations = []
+        array $relations = [],
     ): LengthAwarePaginator {
         $page = $request->query('page', 1);
         $limit = $request->query('limit', 10);
@@ -100,7 +100,6 @@ class User extends Authenticatable
                 }
             });
         }
-        
         $result = $query->paginate($limit, ['*'], 'page', $page);
         abort_if($result->isEmpty(), 404, 'No records found');
         return $result;

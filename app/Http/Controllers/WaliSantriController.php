@@ -14,12 +14,16 @@ class WalisantriController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         $wali = Auth::id();
-        $santri = Santri::where('ortu_id', $wali)->get();
+        $santri = Santri::where('ortu_id', $wali);
+        $search = $request->query('search');
+        if ($search) {
+            $santri = $santri->where('name', 'like', "%{$search}%");
+        }
         return Inertia::render('walisantri/anak', [
-            'prop' => $santri
+            'prop' => $santri->paginate(10, ['*'], 'page', $request->query('page', 1))
         ]);
     }
     public function APIanak()
@@ -33,10 +37,11 @@ class WalisantriController extends Controller
             'data' => $santri
         ], $count > 0 ? 200 : 404);
     }
-    public function izin()
+    public function izin(Request $request)
     {   
         $wali = Auth::id();
-        $izin = Izin::where('created_by', $wali)->with(['createdBy', 'targetSantri'])->get();
+        $izin = Izin::where('created_by', $wali)->with(['createdBy', 'targetSantri'])
+            ->paginate(10, ['*'], 'page', $request->query('page', 1));
         return Inertia::render('walisantri/izin', [
             'prop' => $izin
         ]);

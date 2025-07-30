@@ -5,6 +5,7 @@ import IzinFormAddWali from '@/components/wali/izin/izzin-form-add-wali';
 import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
 import { Izin } from '@/types/izin';
+import { APIPaginateResponse } from '@/types/response';
 import { Head } from '@inertiajs/react';
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -14,7 +15,7 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
 ];
 
-export default function Page({ prop }: { prop: Izin[] }) {
+export default function Page({ prop }: { prop: APIPaginateResponse<Izin> }) {
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Data Permohonan Izin Santri" />

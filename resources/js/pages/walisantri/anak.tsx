@@ -3,7 +3,8 @@ import { Separator } from '@/components/ui/separator';
 import DataTableSantriWali from '@/components/wali/anak/data-table-santri-wali';
 import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
-import { WaliSantriAnak } from '@/types/walisantri/anak';
+import { APIPaginateResponse } from '@/types/response';
+import { Santri } from '@/types/users';
 import { Head } from '@inertiajs/react';
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -13,7 +14,7 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
 ];
 
-export default function Page({ prop }: { prop: WaliSantriAnak[] }) {
+export default function Page({ prop }: { prop: APIPaginateResponse<Santri> }) {
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Data Anak" />

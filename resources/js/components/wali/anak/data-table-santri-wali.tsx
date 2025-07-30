@@ -3,13 +3,14 @@
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { WaliSantriAnak } from '@/types/walisantri/anak';
+import { APIPaginateResponse } from '@/types/response';
+import { Santri } from '@/types/users';
 import { router, usePage } from '@inertiajs/react';
 import { useState } from 'react';
 import TranscriptViewWali from './transcript-view-wali';
 
 type Props = {
-    santriData: WaliSantriAnak[];
+    santriData: APIPaginateResponse<Santri>;
     filters: {
         search: string;
         page: number;
@@ -25,11 +26,11 @@ export default function DataTableSantriWali({ santriData, filters }: Props) {
         router.get(url.split('?')[0], { search: searchInput, page: 1 }, { preserveState: true, replace: true });
     };
 
-    // const handlePageChange = (pageUrl: string | null) => {
-    //     if (pageUrl) {
-    //         router.visit(pageUrl, { preserveState: true, replace: true });
-    //     }
-    // };
+    const handlePageChange = (pageUrl: string | null) => {
+        if (pageUrl) {
+            router.visit(pageUrl, { preserveState: true, replace: true });
+        }
+    };
 
     return (
         <div className="flex flex-col gap-6 pt-2">
@@ -60,8 +61,8 @@ export default function DataTableSantriWali({ santriData, filters }: Props) {
                         </TableRow>
                     </TableHeader>
                     <TableBody>
-                        {santriData.length > 0 ? (
-                            santriData.map((santri) => (
+                        {santriData.data.length > 0 ? (
+                            santriData.data.map((santri) => (
                                 <TableRow key={santri.id}>
                                     {/* <TableCell>{(santriData.current_page - 1) * santriData.per_page + index + 1}</TableCell> */}
                                     <TableCell>{santri.nis}</TableCell>
@@ -87,7 +88,7 @@ export default function DataTableSantriWali({ santriData, filters }: Props) {
             </div>
 
             {/* Pagination */}
-            {/* <div className="flex w-full flex-wrap items-center justify-center gap-2">
+            <div className="flex w-full flex-wrap items-center justify-center gap-2">
                 {santriData.links.map((link, index) => (
                     <Button
                         key={index}
@@ -99,7 +100,7 @@ export default function DataTableSantriWali({ santriData, filters }: Props) {
                         className="min-w-8"
                     />
                 ))}
-            </div> */}
+            </div>
         </div>
     );
 }
