@@ -1,26 +1,15 @@
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { fetchApi } from '@/lib/utils';
+import { APIResponse } from '@/types/response';
+import { Santri } from '@/types/users';
 import { FileTextIcon, Printer } from 'lucide-react';
 import { useState } from 'react';
 
 export default function TranscriptViewAdmin({ id }: { id: number }) {
     const [semester, setSemester] = useState('Ganjil');
-
-    const studentData = {
-        name: 'Fathimah Zahra',
-        year: '2024',
-        grades: [
-            { subject: "Tafsir Al-Qur'an", semester: 'Ganjil', score: 82 },
-            { subject: "Kitab Ta'limul Muta'allim", semester: 'Ganjil', score: 82 },
-            { subject: 'Hadis dan Mustholah', semester: 'Ganjil', score: 82 },
-            { subject: 'Ilmu Nahwu (Jurumiyah)', semester: 'Ganjil', score: 82 },
-        ],
-    };
-
-    // Calculate average
-    const average = studentData.grades.reduce((sum, item) => sum + item.score, 0) / studentData.grades.length;
-
+    const [santri, setDataSantri] = useState<Santri | null>(null);
     return (
         <Dialog>
             <DialogTrigger asChild>
@@ -28,7 +17,14 @@ export default function TranscriptViewAdmin({ id }: { id: number }) {
                     <FileTextIcon /> Lihat
                 </Button>
             </DialogTrigger>
-            <DialogContent className="max-h-screen overflow-y-auto sm:max-w-[625px]">
+            <DialogContent
+                className="max-h-screen overflow-y-auto sm:max-w-[625px]"
+                onOpenAutoFocus={(_) => {
+                    fetchApi<APIResponse<Santri>>(route('api.nilai.santri', id)).then((resp) => {
+                        setDataSantri(resp.data);
+                    });
+                }}
+            >
                 <DialogHeader className="border-b pb-4">
                     <DialogTitle className="text-center">Transkip Nilai Santri</DialogTitle>
                     <DialogDescription className="mx-auto max-w-sm text-center">
@@ -41,12 +37,12 @@ export default function TranscriptViewAdmin({ id }: { id: number }) {
                         <div className="space-y-4">
                             <div className="space-y-1">
                                 <div className="text-sm">Nama Santri</div>
-                                <div className="font-semibold">{studentData.name}</div>
+                                <div className="font-semibold">{santri?.name}</div>
                             </div>
 
                             <div className="space-y-1">
                                 <div className="text-sm">Angkatan</div>
-                                <div className="font-semibold">{studentData.year}</div>
+                                <div className="font-semibold">{santri?.angkatan}</div>
                             </div>
                         </div>
 
@@ -73,18 +69,18 @@ export default function TranscriptViewAdmin({ id }: { id: number }) {
                                 </tr>
                             </thead>
                             <tbody>
-                                {studentData.grades.map((grade, index) => (
+                                {santri?.nilai?.map((nilai, index) => (
                                     <tr key={index} className="border-t">
-                                        <td className="px-4 py-4">{grade.subject}</td>
-                                        <td className="px-4 py-4">{grade.semester}</td>
-                                        <td className="px-4 py-4 text-right">{grade.score}</td>
+                                        <td className="px-4 py-4">{nilai.pelajaran_id}</td>
+                                        <td className="px-4 py-4">{nilai.semester}</td>
+                                        <td className="px-4 py-4">{nilai.nilai}</td>
                                     </tr>
                                 ))}
                                 <tr className="bg-muted border-t">
                                     <td colSpan={2} className="px-4 py-4 font-medium">
                                         Rata rata
                                     </td>
-                                    <td className="px-4 py-4 text-right font-medium">{average}</td>
+                                    <td className="px-4 py-4 text-right font-medium">{0}</td>
                                 </tr>
                             </tbody>
                         </table>

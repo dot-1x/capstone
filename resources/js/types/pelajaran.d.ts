@@ -23,3 +23,11 @@ export type Pelajaran = {
     nilai: Nilai[];
     pengampu?: Ustadz;
 };
+
+export type APINilai = {
+    santri: {
+        nama: string;
+        angkatan: number;
+    };
+    nilai: Nilai[];
+};

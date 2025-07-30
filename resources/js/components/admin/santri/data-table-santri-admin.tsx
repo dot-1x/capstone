@@ -6,9 +6,8 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { AdminSantriPaginationResponse } from '@/types/admin/santri';
 import { router, usePage } from '@inertiajs/react';
 import { useState } from 'react';
-import SantriViewAdmin from './santri-view-admin';
-import TranscriptViewAdmin from './transcript-view-admin';
 import { SantriDetail } from './santri-detail';
+import TranscriptViewAdmin from './transcript-view-admin';
 
 type Props = {
     santriData: AdminSantriPaginationResponse;
@@ -61,11 +60,6 @@ export default function DataTableSantriAdmin({ santriData, filters }: Props) {
                             <TableHead>Transkip Nilai</TableHead>
                             <TableHead></TableHead>
                             <TableHead></TableHead>
-                            {/* <TableHead>Alamat</TableHead> */}
-                            {/* <TableHead>Jenis Kelamin</TableHead>
-                            <TableHead>Nomor HP</TableHead>
-                            <TableHead>Role</TableHead>
-                            <TableHead>Nama Orang Tua</TableHead> */}
                         </TableRow>
                     </TableHeader>
                     <TableBody>
@@ -75,7 +69,7 @@ export default function DataTableSantriAdmin({ santriData, filters }: Props) {
                                     <TableCell>{(santriData.current_page - 1) * santriData.per_page + index + 1}</TableCell>
                                     <TableCell>{santri.nis}</TableCell>
                                     <TableCell>{santri.name}</TableCell>
-                                    <TableCell>{santri.ortu.name}</TableCell>
+                                    <TableCell>{santri.ortu?.name}</TableCell>
                                     <TableCell>{santri.jenis_kelamin}</TableCell>
                                     <TableCell>
                                         <TranscriptViewAdmin id={santri.id} />
@@ -83,11 +77,6 @@ export default function DataTableSantriAdmin({ santriData, filters }: Props) {
                                     <TableCell>
                                         <SantriDetail data={santri} />
                                     </TableCell>
-                                    {/* <TableCell>{santri.alamat}</TableCell> */}
-                                    {/* <TableCell>{santri.jenis_kelamin}</TableCell>
-                                    <TableCell>{santri.phone}</TableCell>
-                                    <TableCell>{santri.santri_role}</TableCell>
-                                    <TableCell>{santri.ortu?.name || '-'}</TableCell> */}
                                 </TableRow>
                             ))
                         ) : (

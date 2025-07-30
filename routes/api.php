@@ -28,7 +28,7 @@ Route::prefix('/api')
         ->name('santri.angkatan');
         Route::get('/pelajaran', [PelajaranManagerController::class, 'api'])
         ->name('pelajaran');
-        Route::get('/nilai/santri/{santri}', [NilaiController::class, 'santri'])
+        Route::get('/nilai/santri/{santri}', [NilaiController::class, 'APIsantri'])
         ->name('nilai.santri');
         Route::get('/walisantri/anak', [WalisantriController::class, 'APIanak'])
         ->name('walisantri.anak');

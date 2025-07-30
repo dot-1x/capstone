@@ -13,7 +13,7 @@ class NilaiPolicy
      */
     public function view(User $user, Nilai $nilai): bool
     {
-        return true;
+        return $nilai->pelajaran->ustadz_id === $user->id || $nilai->santri->ortu_id === $user->id;
     }
 
     /**
