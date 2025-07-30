@@ -34,7 +34,9 @@ export function IzinActionAdmin({ id, status }: { id: number; status: 'accepted'
                     <DropdownMenuItem
                         disabled={status !== null}
                         onClick={(ev) => {
-                            fetchApi(route('admin.izin.update', id), { data: { status: 'accepted' }, method: 'patch' });
+                            fetchApi(route('admin.izin.update', id), { data: { status: 'accepted' }, method: 'patch' }).then((v) =>
+                                window.location.reload(),
+                            );
                         }}
                     >
                         <Check className="mr-1 h-4 w-4" /> Beri Izin
@@ -42,7 +44,9 @@ export function IzinActionAdmin({ id, status }: { id: number; status: 'accepted'
                     <DropdownMenuItem
                         disabled={status !== null}
                         onClick={(ev) => {
-                            fetchApi(route('admin.izin.update', id), { data: { status: 'rejected' }, method: 'patch' });
+                            fetchApi(route('admin.izin.update', id), { data: { status: 'rejected' }, method: 'patch' }).then((v) =>
+                                window.location.reload(),
+                            );
                         }}
                     >
                         <Ban className="mr-1 h-4 w-4" /> Tolak Izin
