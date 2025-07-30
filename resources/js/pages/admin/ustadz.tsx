@@ -15,7 +15,6 @@ const breadcrumbs: BreadcrumbItem[] = [
 ];
 
 export default function Page({ prop }: { prop: AdminUstadzResponse }) {
-    console.log(prop);
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Data Ustadz" />

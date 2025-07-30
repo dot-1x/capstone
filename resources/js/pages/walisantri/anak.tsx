@@ -14,7 +14,6 @@ const breadcrumbs: BreadcrumbItem[] = [
 ];
 
 export default function Page({ prop }: { prop: WaliSantriAnak[] }) {
-    console.log(prop);
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Data Anak" />

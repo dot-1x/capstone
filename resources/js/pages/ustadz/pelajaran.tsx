@@ -13,9 +13,7 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
 ];
 
-
 export default function Page({ prop }: { prop: UstadzPelajaranList }) {
-    console.log(prop);
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Data Pelajaran" />

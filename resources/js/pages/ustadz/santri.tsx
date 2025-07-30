@@ -13,9 +13,7 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
 ];
 
-
 export default function Page({ prop }: { prop: UstadzSantri }) {
-    console.log(prop);
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Data Santri yang Diasuh" />
@@ -25,7 +23,6 @@ export default function Page({ prop }: { prop: UstadzSantri }) {
                         title="Data Santri yang Diasuh"
                         description="Menampilkan daftar santri yang berada dalam bimbingan atau pengawasan ustadz. "
                     />
-
                 </div>
                 <Separator />
                 <DataTableSantriUstadz santriData={prop} filters={{ search: '', page: 1 }} />

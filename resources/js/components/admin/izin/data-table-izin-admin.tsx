@@ -27,12 +27,6 @@ export default function DataTableIzinAdmin({ santriData, filters }: Props) {
         router.get(url.split('?')[0], { search: searchInput, page: 1 }, { preserveState: true, replace: true });
     };
 
-    // const handlePageChange = (pageUrl: string | null) => {
-    //     if (pageUrl) {
-    //         router.visit(pageUrl, { preserveState: true, replace: true });
-    //     }
-    // };
-
     return (
         <div className="flex flex-col gap-6 pt-2">
             {/* Search Form */}
@@ -73,7 +67,7 @@ export default function DataTableIzinAdmin({ santriData, filters }: Props) {
                             santriData.map((data) => (
                                 <TableRow key={data.id}>
                                     <TableCell>{data.target_santri?.name}</TableCell>
-                                    <TableCell>{data.target_santri?.name}</TableCell>
+                                    <TableCell>{data.created_by?.name}</TableCell>
                                     <TableCell>{data.message}</TableCell>
                                     <TableCell>{formatDate(data.tanggal_pulang)}</TableCell>
                                     <TableCell>{formatDate(data.tanggal_kembali)}</TableCell>
@@ -114,21 +108,6 @@ export default function DataTableIzinAdmin({ santriData, filters }: Props) {
                     </TableBody>
                 </Table>
             </div>
-
-            {/* Pagination */}
-            {/* <div className="flex w-full flex-wrap items-center justify-center gap-2">
-                {santriData.links.map((link, index) => (
-                    <Button
-                        key={index}
-                        variant={link.active ? 'default' : 'outline'}
-                        size="sm"
-                        disabled={!link.url}
-                        dangerouslySetInnerHTML={{ __html: link.label }}
-                        onClick={() => handlePageChange(link.url)}
-                        className="min-w-8"
-                    />
-                ))}
-            </div> */}
         </div>
     );
 }

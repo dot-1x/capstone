@@ -22,13 +22,6 @@ export default function IzinFormAddAdmin() {
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         // Handle form submission
-        console.log({
-            namaSantri,
-            namaPelapor,
-            alasan,
-            tanggalPulang,
-            tanggalKembali,
-        });
         setOpen(false);
     };
 
